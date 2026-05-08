@@ -1,9 +1,13 @@
 aid: aider
 url: https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/apis.yml
 name: Aider
-x-type: company
+x-type: opensource
 description: >-
-  Aider is an open-source AI pair programmer that runs in your terminal, edits code in your local Git repo, and works with leading LLMs. Notable for its ability to make architectural-level edits across multiple files.
+  Aider is an open-source AI pair programmer that runs in your terminal, edits code in
+  your local Git repo, and works with leading LLMs (Claude, OpenAI, DeepSeek, Gemini,
+  Ollama, etc.). Notable for architectural-level edits across multiple files, codebase
+  mapping, Git integration, and 100+ language support. Distributed via PyPI; ~44K
+  GitHub stars, ~6.8M installs.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - AI
@@ -11,13 +15,42 @@ tags:
   - CLI
   - Pair Programming
   - Open Source
+  - Python
+  - Apache 2.0
 created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
-apis: []
+apis:
+  - aid: aider:cli
+    name: Aider CLI
+    description: >-
+      Open-source terminal AI pair programmer. Federates to user-supplied LLM providers
+      (Anthropic, OpenAI, DeepSeek, Google Gemini, OpenRouter, local models via Ollama).
+      Includes codebase mapping, Git auto-commit, linting/testing integration, and
+      `--watch-files` IDE integration. Configuration via env vars or `.aider.conf.yml`.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://aider.chat/
+    baseURL: https://aider.chat
+    tags:
+      - CLI
+      - Open Source
+      - Pair Programming
+    properties:
+      - type: GitHub
+        url: https://github.com/Aider-AI/aider
+      - type: Documentation
+        url: https://aider.chat/docs/
+      - type: PyPI
+        url: https://pypi.org/project/aider-chat/
+      - type: License
+        url: 'Apache 2.0'
 common:
   - type: Website
     url: https://aider.chat/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: Documentation
+    url: https://aider.chat/docs/
   - type: Plans
     url: plans/aider-plans-pricing.yml
   - type: RateLimits
