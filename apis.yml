@@ -1,7 +1,7 @@
 aid: aider
 url: https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/apis.yml
 name: Aider
-x-type: opensource
+kind: opensource
 description: >-
   Aider is an open-source AI pair programmer that runs in your terminal, edits code in
   your local Git repo, and works with leading LLMs (Claude, OpenAI, DeepSeek, Gemini,
