@@ -1,62 +1,120 @@
 aid: aider
-url: https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/apis.yml
 name: Aider
-kind: opensource
 description: >-
-  Aider is an open-source AI pair programmer that runs in your terminal, edits code in
-  your local Git repo, and works with leading LLMs (Claude, OpenAI, DeepSeek, Gemini,
-  Ollama, etc.). Notable for architectural-level edits across multiple files, codebase
-  mapping, Git integration, and 100+ language support. Distributed via PyPI; ~44K
-  GitHub stars, ~6.8M installs.
+  Aider is an open-source, terminal-based AI pair programmer that edits code
+  directly inside a developer's local Git repository. Written in Python and
+  distributed via PyPI under the Apache 2.0 license, Aider is a BYO-LLM tool:
+  the user supplies API keys for hosted models (Anthropic Claude, OpenAI,
+  DeepSeek, Google Gemini, OpenRouter, Mistral, xAI) or points it at local
+  models running through Ollama, LM Studio, or any OpenAI-compatible endpoint.
+  Distinguishing capabilities include a repository-wide codebase map that lets
+  the model reason about files it has not been shown, multi-file architectural
+  edits with diff-based patching, automatic Git commits with conventional
+  commit messages, a lint/test/repair loop, image and URL context, voice-to-code,
+  and an IDE bridge via `--watch-files` that picks up `AI!` / `AI?` comments
+  written from any editor. Aider supports 100+ programming languages via
+  tree-sitter, publishes a public LLM coding leaderboard, and has accumulated
+  ~45K GitHub stars. There is no hosted SaaS product and no Aider-operated
+  REST API — all model inference is delegated to the user's chosen provider,
+  and any pricing, rate limits, and FinOps surface live with that provider.
+type: Index
+position: Provider
+access: Open Source
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - AI
+  - AI Pair Programming
   - Developer Tools
   - CLI
-  - Pair Programming
+  - Command Line
+  - Coding Assistant
+  - Code Generation
   - Open Source
   - Python
   - Apache 2.0
+  - LLM
+  - Git
+  - BYO LLM
+url: https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/apis.yml
 created: '2026-05-08'
-modified: '2026-05-08'
-specificationVersion: '0.19'
+modified: '2026-05-25'
+specificationVersion: '0.20'
 apis:
   - aid: aider:cli
     name: Aider CLI
     description: >-
-      Open-source terminal AI pair programmer. Federates to user-supplied LLM providers
-      (Anthropic, OpenAI, DeepSeek, Google Gemini, OpenRouter, local models via Ollama).
-      Includes codebase mapping, Git auto-commit, linting/testing integration, and
-      `--watch-files` IDE integration. Configuration via env vars or `.aider.conf.yml`.
+      Open-source terminal AI pair programmer. Federates to user-supplied LLM
+      providers (Anthropic, OpenAI, DeepSeek, Google Gemini, OpenRouter,
+      Mistral, xAI, or any OpenAI-compatible endpoint including local models
+      via Ollama and LM Studio). Includes a repository-wide codebase map,
+      multi-file diff-based edits, Git auto-commit, lint/test/repair loop,
+      image and URL context, voice-to-code, and an IDE bridge via
+      `--watch-files`. Configuration via environment variables, command-line
+      flags, or `.aider.conf.yml`.
     image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     humanURL: https://aider.chat/
     baseURL: https://aider.chat
     tags:
       - CLI
       - Open Source
-      - Pair Programming
+      - AI Pair Programming
+      - BYO LLM
     properties:
-      - type: GitHub
-        url: https://github.com/Aider-AI/aider
       - type: Documentation
         url: https://aider.chat/docs/
+      - type: GitHub
+        url: https://github.com/Aider-AI/aider
       - type: PyPI
         url: https://pypi.org/project/aider-chat/
+      - type: Installation
+        url: https://aider.chat/docs/install.html
+      - type: UsageGuide
+        url: https://aider.chat/docs/usage.html
+      - type: Configuration
+        url: https://aider.chat/docs/config.html
+      - type: SupportedModels
+        url: https://aider.chat/docs/llms.html
+      - type: Leaderboard
+        url: https://aider.chat/docs/leaderboards/
+      - type: ChangeLog
+        url: https://aider.chat/HISTORY.html
       - type: License
-        url: 'Apache 2.0'
+        url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
 common:
   - type: Website
     url: https://aider.chat/
-  - type: GitHub
-    url: https://github.com/Aider-AI/aider
   - type: Documentation
     url: https://aider.chat/docs/
-  - type: Plans
-    url: plans/aider-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/aider-rate-limits.yml
-  - type: FinOps
-    url: finops/aider-finops.yml
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: GitHubOrg
+    url: https://github.com/Aider-AI
+  - type: Issues
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Discussions
+    url: https://github.com/Aider-AI/aider/discussions
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: Blog
+    url: https://aider.chat/blog/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: Discord
+    url: https://discord.gg/Tv2uQnR88V
+  - type: Twitter
+    url: https://twitter.com/paulgauthier
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
