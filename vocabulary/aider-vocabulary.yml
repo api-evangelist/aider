@@ -1,0 +1,434 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Aider"
+  description: >-
+    Unified vocabulary mapping Aider's operational dimension (the CLI command
+    surface modeled as OpenAPI) and capability dimension (the Naftiko
+    aider-cli capability that exposes the same surface over REST and MCP).
+    Aider has no hosted REST API; this vocabulary describes its CLI surface
+    in API terms so it can be reasoned about alongside conventional API
+    providers.
+  created: "2026-05-30"
+  modified: "2026-05-30"
+
+# ───────── OPERATIONAL DIMENSION (from OpenAPI) ─────────
+operational:
+  apis:
+    - name: "Aider CLI"
+      namespace: "aider-cli"
+      version: "0.86.1"
+      baseUrl: "cli://aider"
+      status: "active"
+      paths: 39
+      operations: 40
+    - name: "Aider Python Module"
+      namespace: "aider-python"
+      version: "0.86.1"
+      baseUrl: "python -m aider"
+      status: "active"
+
+  resources:
+    - name: "files"
+      apis: ["aider-cli"]
+      actions: ["add", "drop", "addReadOnly", "list"]
+      domain: "Files"
+    - name: "edits"
+      apis: ["aider-cli"]
+      actions: ["requestCodeEdit", "architectMode"]
+      domain: "Editing"
+    - name: "questions"
+      apis: ["aider-cli"]
+      actions: ["askQuestion", "getHelp"]
+      domain: "Modes"
+    - name: "chat-mode"
+      apis: ["aider-cli"]
+      actions: ["switchChatMode"]
+      domain: "Modes"
+    - name: "git"
+      apis: ["aider-cli"]
+      actions: ["showDiff", "undoLastCommit", "commitChanges", "runGitCommand"]
+      domain: "Git"
+    - name: "models"
+      apis: ["aider-cli"]
+      actions: ["switchMainModel", "switchWeakModel", "switchEditorModel", "listAvailableModels"]
+      domain: "Models"
+    - name: "chat-history"
+      apis: ["aider-cli"]
+      actions: ["clearChatHistory", "resetSession"]
+      domain: "Chat"
+    - name: "settings"
+      apis: ["aider-cli"]
+      actions: ["showSettings", "setReasoningEffort", "setThinkingTokens", "reportTokenUsage"]
+      domain: "Settings"
+    - name: "map"
+      apis: ["aider-cli"]
+      actions: ["showRepositoryMap", "refreshRepositoryMap"]
+      domain: "Map"
+    - name: "shell"
+      apis: ["aider-cli"]
+      actions: ["runShellCommand", "runTestCommand", "runLint"]
+      domain: "Quality"
+    - name: "voice"
+      apis: ["aider-cli"]
+      actions: ["recordVoiceInput"]
+      domain: "Voice"
+    - name: "web"
+      apis: ["aider-cli"]
+      actions: ["scrapeWebPage"]
+      domain: "Web"
+    - name: "clipboard"
+      apis: ["aider-cli"]
+      actions: ["pasteFromClipboard", "copyLastMessage", "copyChatContext"]
+      domain: "IO"
+    - name: "scripts"
+      apis: ["aider-cli"]
+      actions: ["loadCommandScript", "saveCommandScript"]
+      domain: "Session"
+    - name: "session"
+      apis: ["aider-cli"]
+      actions: ["openEditorPrompt", "openGitHubIssue", "exitSession"]
+      domain: "Session"
+    - name: "launch-config"
+      apis: ["aider-cli"]
+      actions: ["getLaunchConfig", "updateLaunchConfig"]
+      domain: "Launch"
+
+  actions:
+    - name: "add"
+      verb: "add"
+      method: "POST"
+      pattern: "write"
+    - name: "drop"
+      verb: "drop"
+      method: "POST"
+      pattern: "destructive"
+    - name: "list"
+      verb: "list"
+      method: "GET"
+      pattern: "read"
+    - name: "request-edit"
+      verb: "edit"
+      method: "POST"
+      pattern: "write"
+    - name: "architect"
+      verb: "architect"
+      method: "POST"
+      pattern: "write"
+    - name: "ask"
+      verb: "ask"
+      method: "POST"
+      pattern: "query"
+    - name: "switch"
+      verb: "switch"
+      method: "POST"
+      pattern: "write"
+    - name: "show"
+      verb: "show"
+      method: "GET"
+      pattern: "read"
+    - name: "undo"
+      verb: "undo"
+      method: "POST"
+      pattern: "destructive"
+    - name: "commit"
+      verb: "commit"
+      method: "POST"
+      pattern: "write"
+    - name: "run"
+      verb: "run"
+      method: "POST"
+      pattern: "write"
+    - name: "lint"
+      verb: "lint"
+      method: "POST"
+      pattern: "write"
+    - name: "test"
+      verb: "test"
+      method: "POST"
+      pattern: "read"
+    - name: "voice"
+      verb: "record"
+      method: "POST"
+      pattern: "write"
+    - name: "scrape"
+      verb: "scrape"
+      method: "POST"
+      pattern: "query"
+    - name: "paste"
+      verb: "paste"
+      method: "POST"
+      pattern: "write"
+    - name: "copy"
+      verb: "copy"
+      method: "POST"
+      pattern: "read"
+    - name: "load"
+      verb: "load"
+      method: "POST"
+      pattern: "write"
+    - name: "save"
+      verb: "save"
+      method: "POST"
+      pattern: "write"
+    - name: "clear"
+      verb: "clear"
+      method: "POST"
+      pattern: "destructive"
+    - name: "reset"
+      verb: "reset"
+      method: "POST"
+      pattern: "destructive"
+    - name: "set"
+      verb: "set"
+      method: "POST"
+      pattern: "write"
+    - name: "exit"
+      verb: "exit"
+      method: "POST"
+      pattern: "destructive"
+    - name: "refresh"
+      verb: "refresh"
+      method: "POST"
+      pattern: "write"
+    - name: "get"
+      verb: "get"
+      method: "GET"
+      pattern: "read"
+    - name: "update"
+      verb: "update"
+      method: "PUT"
+      pattern: "write"
+
+  schemas:
+    core:
+      - name: "EditRequest"
+        properties: ["prompt", "edit_format", "auto_commit"]
+      - name: "EditResult"
+        properties: ["files_changed", "commit_sha", "commit_message", "tokens_in", "tokens_out"]
+      - name: "AddFilesRequest"
+        properties: ["files", "read_only"]
+      - name: "FileListing"
+        properties: ["in_chat", "known"]
+      - name: "ChatModeRequest"
+        properties: ["mode"]
+    models:
+      - name: "ModelSelection"
+        properties: ["model"]
+      - name: "ModelCatalog"
+        properties: ["models"]
+      - name: "SettingsSnapshot"
+        properties: ["main_model", "weak_model", "editor_model", "edit_format", "auto_commits", "auto_lint", "auto_test", "chat_mode", "watch_files", "stream"]
+      - name: "LaunchConfig"
+        properties: ["model", "weak_model", "editor_model", "edit_format", "chat_mode", "reasoning_effort", "thinking_tokens", "auto_commits", "dirty_commits", "auto_lint", "auto_test", "test_cmd", "lint_cmd", "watch_files", "stream", "dark_mode", "code_theme", "gitignore", "chat_history_file", "api_keys", "env_var_prefix", "config_file_path"]
+    git:
+      - name: "DiffResult"
+        properties: ["unified_diff", "files_changed"]
+      - name: "CommitRequest"
+        properties: ["message"]
+      - name: "CommitResult"
+        properties: ["commit_sha", "commit_message"]
+    quality:
+      - name: "ShellRequest"
+        properties: ["command", "add_output_to_chat"]
+      - name: "ShellResult"
+        properties: ["exit_code", "stdout", "stderr"]
+      - name: "LintRequest"
+        properties: ["files"]
+    introspection:
+      - name: "RepositoryMap"
+        properties: ["token_budget", "symbols"]
+      - name: "TokenUsage"
+        properties: ["chat_history_tokens", "repo_map_tokens", "in_chat_files_tokens", "budget_remaining_tokens"]
+    io:
+      - name: "VoiceTranscript"
+        properties: ["text", "duration_ms"]
+      - name: "WebFetchRequest"
+        properties: ["url"]
+      - name: "WebFetchResult"
+        properties: ["url", "markdown"]
+      - name: "FilePathRequest"
+        properties: ["path"]
+    qa:
+      - name: "AskRequest"
+        properties: ["prompt"]
+      - name: "AskResponse"
+        properties: ["answer", "files_referenced"]
+
+  parameters:
+    pagination: []
+    identifiers:
+      - name: "model"
+        usage: "ModelSelection.model"
+      - name: "commit_sha"
+        usage: "EditResult.commit_sha / CommitResult.commit_sha"
+    filters:
+      - name: "query"
+        usage: "listAvailableModels / getHelp"
+    configuration:
+      - name: "edit_format"
+        usage: "EditRequest.edit_format / SettingsSnapshot.edit_format"
+        enum: ["diff", "whole", "udiff", "editor-diff"]
+      - name: "mode"
+        usage: "ChatModeRequest.mode"
+        enum: ["code", "architect", "ask", "help", "context"]
+      - name: "reasoning_effort"
+        usage: "LaunchConfig.reasoning_effort"
+        enum: ["low", "medium", "high"]
+      - name: "thinking_tokens"
+        usage: "ThinkingTokensRequest.tokens"
+
+  enums:
+    chatMode: ["code", "architect", "ask", "help", "context"]
+    editFormat: ["diff", "whole", "udiff", "editor-diff"]
+    reasoningEffort: ["low", "medium", "high"]
+    edits:
+      patterns: ["read", "write", "destructive", "query"]
+
+  authentication:
+    scheme: "LLMProviderKey"
+    description: >-
+      Aider does not authenticate against its own API. The user supplies the
+      relevant LLM provider key (ANTHROPIC_API_KEY, OPENAI_API_KEY,
+      DEEPSEEK_API_KEY, GEMINI_API_KEY, etc.) in the environment, and aider
+      forwards it to the chosen upstream LLM provider.
+    providers:
+      - "Anthropic"
+      - "OpenAI"
+      - "DeepSeek"
+      - "Google Gemini"
+      - "OpenRouter"
+      - "Mistral"
+      - "xAI"
+      - "GROQ"
+      - "Cohere"
+      - "GitHub Copilot"
+      - "Azure OpenAI"
+      - "Amazon Bedrock"
+      - "Vertex AI"
+      - "Ollama"
+      - "LM Studio"
+
+# ───────── CAPABILITY DIMENSION (from Naftiko capabilities/) ─────────
+capability:
+  workflows:
+    - name: "Aider CLI — Full Command Surface"
+      file: "capabilities/aider-cli.yaml"
+      description: "Self-contained capability exposing all 40 Aider CLI operations as both REST resources and MCP tools."
+      apisCombined: ["aider-cli"]
+      consumesNamespace: "aider-cli"
+      restNamespace: "aider-cli-rest"
+      mcpNamespace: "aider-cli-mcp"
+      toolCount: 40
+      restPort: 8080
+      mcpPort: 9090
+      personas: ["pair-programmer", "agent-runtime"]
+      domains: ["Files", "Editing", "Git", "Models", "Chat", "Modes", "Quality", "IO", "Voice", "Web", "Map", "Settings", "Session", "Launch"]
+
+  personas:
+    - id: "pair-programmer"
+      name: "Pair Programmer"
+      description: "Developer using aider in the terminal as an AI pair-programming assistant against a local Git working tree."
+      workflows: ["Aider CLI — Full Command Surface"]
+    - id: "agent-runtime"
+      name: "Agent Runtime"
+      description: "An MCP-aware agent runtime (Claude Code, Cursor, custom) offloading editing work to aider via the MCP exposer."
+      workflows: ["Aider CLI — Full Command Surface"]
+    - id: "benchmark-operator"
+      name: "Benchmark Operator"
+      description: "Researcher running aider's polyglot, refactor, or SWE-Bench harnesses to score a new model."
+      workflows: []
+
+  domains:
+    - name: "Files"
+      description: "Adding, dropping, and listing files in the chat session."
+      resources: ["files"]
+    - name: "Editing"
+      description: "Code-edit requests, both single-model and architect/editor split."
+      resources: ["edits"]
+    - name: "Modes"
+      description: "Chat mode switching across code, architect, ask, help, context."
+      resources: ["chat-mode", "questions"]
+    - name: "Git"
+      description: "Diff, undo, commit, and arbitrary git invocation."
+      resources: ["git"]
+    - name: "Models"
+      description: "Main, weak, and editor model selection plus model catalog."
+      resources: ["models"]
+    - name: "Chat"
+      description: "Chat history and session lifecycle."
+      resources: ["chat-history"]
+    - name: "Settings"
+      description: "Reasoning effort, thinking-token budget, settings snapshot, token usage."
+      resources: ["settings"]
+    - name: "Map"
+      description: "Repository-map inspection and refresh."
+      resources: ["map"]
+    - name: "Quality"
+      description: "Linter and test invocation as part of the repair loop."
+      resources: ["shell"]
+    - name: "IO"
+      description: "Clipboard, editor-bridged prompts, and shell."
+      resources: ["clipboard", "shell"]
+    - name: "Voice"
+      description: "Voice-to-code transcription."
+      resources: ["voice"]
+    - name: "Web"
+      description: "Webpage scraping into chat context."
+      resources: ["web"]
+    - name: "Session"
+      description: "Script load/save, issue reporting, exit."
+      resources: ["scripts", "session"]
+    - name: "Launch"
+      description: "Composite launch configuration from YAML, env, and flags."
+      resources: ["launch-config"]
+
+  namespaces:
+    - kind: "consumes"
+      name: "aider-cli"
+      baseUri: "cli://aider"
+    - kind: "rest"
+      name: "aider-cli-rest"
+      port: 8080
+    - kind: "mcp"
+      name: "aider-cli-mcp"
+      port: 9090
+      transport: "http"
+
+  binds:
+    - namespace: "env"
+      keys:
+        - "ANTHROPIC_API_KEY"
+        - "OPENAI_API_KEY"
+      usedBy: ["Aider CLI — Full Command Surface"]
+
+# ───────── CROSS-REFERENCE ─────────
+crossReference:
+  - resource: "edits"
+    operations: ["requestCodeEdit", "architectMode"]
+    workflows: ["Aider CLI — Full Command Surface"]
+    personas: ["pair-programmer", "agent-runtime"]
+  - resource: "files"
+    operations: ["addFiles", "dropFiles", "addReadOnlyFiles", "listFiles"]
+    workflows: ["Aider CLI — Full Command Surface"]
+    personas: ["pair-programmer", "agent-runtime"]
+  - resource: "git"
+    operations: ["showDiff", "undoLastCommit", "commitChanges", "runGitCommand"]
+    workflows: ["Aider CLI — Full Command Surface"]
+    personas: ["pair-programmer"]
+  - resource: "models"
+    operations: ["switchMainModel", "switchWeakModel", "switchEditorModel", "listAvailableModels"]
+    workflows: ["Aider CLI — Full Command Surface"]
+    personas: ["pair-programmer", "benchmark-operator"]
+  - resource: "shell"
+    operations: ["runShellCommand", "runTestCommand", "runLint"]
+    workflows: ["Aider CLI — Full Command Surface"]
+    personas: ["pair-programmer", "agent-runtime"]
+  - resource: "map"
+    operations: ["showRepositoryMap", "refreshRepositoryMap"]
+    workflows: ["Aider CLI — Full Command Surface"]
+    personas: ["pair-programmer"]
+  - resource: "launch-config"
+    operations: ["getLaunchConfig", "updateLaunchConfig"]
+    workflows: ["Aider CLI — Full Command Surface"]
+    personas: ["pair-programmer", "agent-runtime"]

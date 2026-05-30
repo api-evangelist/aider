@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-schema/aider-cli-chat-mode-request-schema.json",
+  "title": "ChatModeRequest",
+  "description": "ChatModeRequest schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "type": "string",
+      "description": "Chat mode to switch to.",
+      "enum": [
+        "code",
+        "architect",
+        "ask",
+        "help",
+        "context"
+      ],
+      "example": "architect"
+    }
+  },
+  "required": [
+    "mode"
+  ]
+}

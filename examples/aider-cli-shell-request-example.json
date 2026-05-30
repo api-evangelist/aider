@@ -1,0 +1,4 @@
+{
+  "command": "pytest -x tests/",
+  "add_output_to_chat": true
+}

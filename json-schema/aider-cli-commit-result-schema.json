@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-schema/aider-cli-commit-result-schema.json",
+  "title": "CommitResult",
+  "description": "CommitResult schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "commit_sha": {
+      "type": "string",
+      "example": "f1e2d3c4b5a6"
+    },
+    "commit_message": {
+      "type": "string",
+      "example": "chore: format imports"
+    }
+  }
+}

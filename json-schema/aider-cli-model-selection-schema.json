@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-schema/aider-cli-model-selection-schema.json",
+  "title": "ModelSelection",
+  "description": "ModelSelection schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "LiteLLM-style model identifier or one of aider's built-in aliases.",
+      "example": "anthropic/claude-opus-4"
+    }
+  },
+  "required": [
+    "model"
+  ]
+}

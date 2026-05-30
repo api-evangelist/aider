@@ -1,0 +1,12 @@
+{
+  "main_model": "anthropic/claude-opus-4",
+  "weak_model": "anthropic/claude-haiku-4",
+  "editor_model": "anthropic/claude-sonnet-4",
+  "edit_format": "diff",
+  "auto_commits": true,
+  "auto_lint": true,
+  "auto_test": false,
+  "chat_mode": "code",
+  "watch_files": false,
+  "stream": true
+}

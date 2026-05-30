@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-structure/aider-cli-launch-config-structure.json",
+  "name": "LaunchConfig",
+  "description": "Composite view of `.aider.conf.yml`, `.env`, and the active CLI flag set. Aider does not expose this over HTTP; it is reconstructed from the local environment.",
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string",
+      "example": "anthropic/claude-opus-4"
+    },
+    "weak_model": {
+      "type": "string",
+      "example": "anthropic/claude-haiku-4"
+    },
+    "editor_model": {
+      "type": "string",
+      "example": "anthropic/claude-sonnet-4"
+    },
+    "edit_format": {
+      "type": "string",
+      "enum": [
+        "diff",
+        "whole",
+        "udiff",
+        "editor-diff"
+      ],
+      "example": "diff"
+    },
+    "chat_mode": {
+      "type": "string",
+      "enum": [
+        "code",
+        "architect",
+        "ask",
+        "help",
+        "context"
+      ],
+      "example": "code"
+    },
+    "reasoning_effort": {
+      "type": "string",
+      "example": "medium"
+    },
+    "thinking_tokens": {
+      "type": "string",
+      "example": "16k"
+    },
+    "auto_commits": {
+      "type": "boolean",
+      "example": true
+    },
+    "dirty_commits": {
+      "type": "boolean",
+      "example": false
+    },
+    "auto_lint": {
+      "type": "boolean",
+      "example": true
+    },
+    "auto_test": {
+      "type": "boolean",
+      "example": false
+    },
+    "test_cmd": {
+      "type": "string",
+      "example": "pytest -x"
+    },
+    "lint_cmd": {
+      "type": "string",
+      "example": "ruff check --fix"
+    },
+    "watch_files": {
+      "type": "boolean",
+      "example": false
+    },
+    "stream": {
+      "type": "boolean",
+      "example": true
+    },
+    "dark_mode": {
+      "type": "boolean",
+      "example": true
+    },
+    "code_theme": {
+      "type": "string",
+      "example": "monokai"
+    },
+    "gitignore": {
+      "type": "boolean",
+      "example": true
+    },
+    "chat_history_file": {
+      "type": "string",
+      "example": ".aider.chat.history.md"
+    },
+    "api_keys": {
+      "type": "object",
+      "description": "Provider-keyed API key map. Keys come from the environment, not from this document.",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": {
+        "ANTHROPIC_API_KEY": "<redacted>",
+        "OPENAI_API_KEY": "<redacted>"
+      }
+    },
+    "env_var_prefix": {
+      "type": "string",
+      "description": "All flags can be set via `AIDER_<UPPERCASE_FLAG>` environment variables.",
+      "example": "AIDER_"
+    },
+    "config_file_path": {
+      "type": "string",
+      "description": "Resolution order for the YAML config file.",
+      "example": "./.aider.conf.yml | ~/.aider.conf.yml"
+    }
+  }
+}

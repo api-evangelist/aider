@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-schema/aider-cli-file-listing-schema.json",
+  "title": "FileListing",
+  "description": "FileListing schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "in_chat": {
+      "type": "array",
+      "description": "Files currently included in the chat session.",
+      "items": {
+        "type": "string",
+        "example": "src/main.py"
+      },
+      "example": [
+        "src/main.py",
+        "tests/test_main.py"
+      ]
+    },
+    "known": {
+      "type": "array",
+      "description": "All files visible to the repository map.",
+      "items": {
+        "type": "string",
+        "example": "src/util.py"
+      },
+      "example": [
+        "src/util.py",
+        "src/io.py"
+      ]
+    }
+  }
+}

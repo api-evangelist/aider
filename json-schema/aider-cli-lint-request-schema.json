@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-schema/aider-cli-lint-request-schema.json",
+  "title": "LintRequest",
+  "description": "LintRequest schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "files": {
+      "type": "array",
+      "description": "Files to lint. Omit to lint all dirty files in the repo.",
+      "items": {
+        "type": "string",
+        "example": "src/main.py"
+      },
+      "example": [
+        "src/main.py"
+      ]
+    }
+  }
+}

@@ -1,0 +1,340 @@
+# Spectral ruleset for the Aider CLI OpenAPI surface.
+# Enforces the conventions used in openapi/aider-cli-openapi.yml so that
+# downstream catalogs and tooling can be confident the spec stays clean.
+extends:
+  - spectral:oas
+
+rules:
+
+  # ── INFO / METADATA ─────────────────────────────────────────────────────
+  info-title-prefix-aider:
+    description: Spec title must start with "Aider".
+    message: 'info.title must start with "Aider".'
+    severity: error
+    given: $.info.title
+    then:
+      function: pattern
+      functionOptions:
+        match: '^Aider'
+
+  info-description-required:
+    description: Spec must include a long description explaining the CLI surface.
+    severity: error
+    given: $.info
+    then:
+      field: description
+      function: truthy
+
+  info-description-min-length:
+    description: Spec description must be at least 200 characters.
+    severity: warn
+    given: $.info.description
+    then:
+      function: length
+      functionOptions:
+        min: 200
+
+  info-license-required:
+    description: License is required and must be Apache 2.0 for Aider.
+    severity: error
+    given: $.info.license
+    then:
+      - field: name
+        function: pattern
+        functionOptions: { match: '^Apache 2\\.0$' }
+      - field: url
+        function: truthy
+
+  info-contact-required:
+    description: Contact block must be present so consumers know how to reach maintainers.
+    severity: warn
+    given: $.info.contact
+    then:
+      field: name
+      function: truthy
+
+  info-generated-from-marker:
+    description: 'x-generated-from extension should be set so this synthetic CLI-as-API spec is identifiable.'
+    severity: info
+    given: $.info
+    then:
+      field: x-generated-from
+      function: truthy
+
+  # ── OPENAPI VERSION ─────────────────────────────────────────────────────
+  openapi-version-3-0:
+    description: OpenAPI version must be 3.0.x.
+    severity: error
+    given: $.openapi
+    then:
+      function: pattern
+      functionOptions: { match: '^3\\.0\\.' }
+
+  # ── SERVERS ─────────────────────────────────────────────────────────────
+  servers-required:
+    description: Servers array must be defined even though Aider has no network endpoint (use cli:// scheme).
+    severity: error
+    given: $
+    then:
+      field: servers
+      function: truthy
+
+  servers-cli-scheme:
+    description: 'At least one server should use the cli:// scheme to flag the CLI nature of the surface.'
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: '^(cli://|file:///)'
+
+  # ── TAGS ────────────────────────────────────────────────────────────────
+  tags-global-array:
+    description: Global tags array must be defined.
+    severity: error
+    given: $
+    then:
+      field: tags
+      function: truthy
+
+  tag-description-required:
+    description: Every global tag must have a description.
+    severity: warn
+    given: $.tags[*]
+    then:
+      field: description
+      function: truthy
+
+  tag-title-case-aider:
+    description: Tag descriptions should be Title Case and start with "Aider".
+    severity: warn
+    given: $.tags[*].description
+    then:
+      function: pattern
+      functionOptions:
+        match: '^Aider '
+
+  # ── PATHS — NAMING CONVENTIONS ─────────────────────────────────────────
+  path-kebab-case:
+    description: Paths must use lowercase kebab-case segments.
+    severity: error
+    given: $.paths.*~
+    then:
+      function: pattern
+      functionOptions:
+        match: '^/[a-z0-9-/{}]+$'
+
+  path-commands-or-launch-prefix:
+    description: Top-level path segment must be /commands or /launch (CLI surface convention).
+    severity: error
+    given: $.paths.*~
+    then:
+      function: pattern
+      functionOptions:
+        match: '^/(commands|launch)/'
+
+  path-no-trailing-slash:
+    description: Paths must not end with a trailing slash.
+    severity: error
+    given: $.paths.*~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: '.+/$'
+
+  # ── OPERATIONS ──────────────────────────────────────────────────────────
+  operation-operationid-required:
+    description: Every operation must have an operationId.
+    severity: error
+    given: '$.paths.*[get,post,put,patch,delete]'
+    then:
+      field: operationId
+      function: truthy
+
+  operation-operationid-camel-case:
+    description: operationId must be camelCase.
+    severity: error
+    given: '$.paths.*[get,post,put,patch,delete].operationId'
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-zA-Z0-9]+$'
+
+  operation-summary-required:
+    description: Every operation must have a summary.
+    severity: error
+    given: '$.paths.*[get,post,put,patch,delete]'
+    then:
+      field: summary
+      function: truthy
+
+  operation-summary-aider-prefix:
+    description: Operation summary must start with "Aider ".
+    severity: error
+    given: '$.paths.*[get,post,put,patch,delete].summary'
+    then:
+      function: pattern
+      functionOptions:
+        match: '^Aider '
+
+  operation-summary-title-case:
+    description: Operation summary should be Title Case (every word capitalized except small words).
+    severity: warn
+    given: '$.paths.*[get,post,put,patch,delete].summary'
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: '\\b(Add|Drop|Get|Set|List|Run|Show|Switch|Undo|Commit|Lint|Test|Map|Help|Voice|Web|Paste|Copy|Open|Load|Save|Report|Exit|Update|Record|Scrape|Reset|Clear|Refresh|Request|Enter|Ask|Inspect)\\s+[a-z]'
+
+  operation-description-required:
+    description: Every operation must have a description.
+    severity: warn
+    given: '$.paths.*[get,post,put,patch,delete]'
+    then:
+      field: description
+      function: truthy
+
+  operation-tags-required:
+    description: Every operation must have at least one tag.
+    severity: error
+    given: '$.paths.*[get,post,put,patch,delete]'
+    then:
+      field: tags
+      function: truthy
+
+  operation-microcks-extension:
+    description: Every operation should declare x-microcks-operation so Microcks can mock it.
+    severity: info
+    given: '$.paths.*[get,post,put,patch,delete]'
+    then:
+      field: x-microcks-operation
+      function: truthy
+
+  # ── PARAMETERS ──────────────────────────────────────────────────────────
+  parameter-description-required:
+    description: Every parameter must have a description.
+    severity: warn
+    given: '$.paths.*[get,post,put,patch,delete].parameters[*]'
+    then:
+      field: description
+      function: truthy
+
+  parameter-schema-required:
+    description: Every parameter must have a schema with a type.
+    severity: error
+    given: '$.paths.*[get,post,put,patch,delete].parameters[*]'
+    then:
+      field: schema
+      function: truthy
+
+  # ── REQUEST BODIES ──────────────────────────────────────────────────────
+  request-body-json-only:
+    description: Request bodies must use application/json content type.
+    severity: error
+    given: '$.paths.*[post,put,patch].requestBody.content'
+    then:
+      function: enumeration
+      functionOptions:
+        values: [application/json]
+      field: '@key'
+
+  # ── RESPONSES ───────────────────────────────────────────────────────────
+  response-success-required:
+    description: Every operation must define a 200 success response.
+    severity: error
+    given: '$.paths.*[get,post,put,patch,delete].responses'
+    then:
+      field: '200'
+      function: truthy
+
+  response-description-required:
+    description: Every response must have a description.
+    severity: warn
+    given: '$.paths.*[get,post,put,patch,delete].responses[*]'
+    then:
+      field: description
+      function: truthy
+
+  response-json-content:
+    description: Responses must return application/json.
+    severity: warn
+    given: '$.paths.*[get,post,put,patch,delete].responses.*.content'
+    then:
+      field: application/json
+      function: truthy
+
+  # ── SCHEMAS — PROPERTY NAMING ──────────────────────────────────────────
+  schema-property-snake-case:
+    description: Schema properties must use snake_case.
+    severity: warn
+    given: '$.components.schemas[*].properties.*~'
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-z0-9_]*$'
+
+  schema-property-type-required:
+    description: Every schema property must have a type.
+    severity: warn
+    given: '$.components.schemas[*].properties[*]'
+    then:
+      function: truthy
+      field: type
+
+  schema-property-description-required:
+    description: Every schema property should have a description.
+    severity: info
+    given: '$.components.schemas[*].properties[*]'
+    then:
+      field: description
+      function: truthy
+
+  # ── SECURITY ────────────────────────────────────────────────────────────
+  security-schemes-defined:
+    description: components.securitySchemes must be defined for the LLM provider key placeholder.
+    severity: warn
+    given: $.components.securitySchemes
+    then:
+      function: truthy
+
+  security-llm-provider-key-defined:
+    description: An LLMProviderKey security scheme must be present to document the BYO-LLM model.
+    severity: warn
+    given: $.components.securitySchemes
+    then:
+      field: LLMProviderKey
+      function: truthy
+
+  # ── HTTP METHOD CONVENTIONS ────────────────────────────────────────────
+  get-no-request-body:
+    description: GET operations must not declare a request body.
+    severity: error
+    given: '$.paths.*.get'
+    then:
+      field: requestBody
+      function: falsy
+
+  delete-no-request-body:
+    description: DELETE operations must not declare a request body.
+    severity: error
+    given: '$.paths.*.delete'
+    then:
+      field: requestBody
+      function: falsy
+
+  # ── GENERAL QUALITY ────────────────────────────────────────────────────
+  example-encouraged-on-properties:
+    description: Schema properties should include an example value.
+    severity: info
+    given: '$.components.schemas[*].properties[*]'
+    then:
+      field: example
+      function: truthy
+
+  cli-launch-config-singleton:
+    description: There must be exactly one launch configuration resource (/launch/config).
+    severity: warn
+    given: '$.paths'
+    then:
+      field: /launch/config
+      function: truthy

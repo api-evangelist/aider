@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-structure/aider-cli-ask-response-structure.json",
+  "name": "AskResponse",
+  "description": "AskResponse schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "answer": {
+      "type": "string",
+      "description": "Markdown answer from the LLM. No files are modified.",
+      "example": "The retry policy in `src/http/retry.py` wraps the rate limiter from `src/http/limiter.py` ..."
+    },
+    "files_referenced": {
+      "type": "array",
+      "description": "Files the LLM cited in its answer.",
+      "items": {
+        "type": "string",
+        "example": "src/http/retry.py"
+      },
+      "example": [
+        "src/http/retry.py",
+        "src/http/limiter.py"
+      ]
+    }
+  }
+}

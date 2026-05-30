@@ -1,0 +1,10 @@
+{
+  "in_chat": [
+    "src/main.py",
+    "tests/test_main.py"
+  ],
+  "known": [
+    "src/util.py",
+    "src/io.py"
+  ]
+}

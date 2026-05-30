@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-schema/aider-cli-web-fetch-request-schema.json",
+  "title": "WebFetchRequest",
+  "description": "WebFetchRequest schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "HTTP(S) URL to fetch and convert to markdown.",
+      "example": "https://example.com/docs/getting-started"
+    }
+  },
+  "required": [
+    "url"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-structure/aider-cli-voice-transcript-structure.json",
+  "name": "VoiceTranscript",
+  "description": "VoiceTranscript schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "Transcribed text queued as the next prompt.",
+      "example": "refactor the cache layer to use lru eviction"
+    },
+    "duration_ms": {
+      "type": "int32",
+      "description": "Length of the recorded clip.",
+      "example": 4200
+    }
+  }
+}

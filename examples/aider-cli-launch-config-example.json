@@ -1,0 +1,27 @@
+{
+  "model": "anthropic/claude-opus-4",
+  "weak_model": "anthropic/claude-haiku-4",
+  "editor_model": "anthropic/claude-sonnet-4",
+  "edit_format": "diff",
+  "chat_mode": "code",
+  "reasoning_effort": "medium",
+  "thinking_tokens": "16k",
+  "auto_commits": true,
+  "dirty_commits": false,
+  "auto_lint": true,
+  "auto_test": false,
+  "test_cmd": "pytest -x",
+  "lint_cmd": "ruff check --fix",
+  "watch_files": false,
+  "stream": true,
+  "dark_mode": true,
+  "code_theme": "monokai",
+  "gitignore": true,
+  "chat_history_file": ".aider.chat.history.md",
+  "api_keys": {
+    "ANTHROPIC_API_KEY": "<redacted>",
+    "OPENAI_API_KEY": "<redacted>"
+  },
+  "env_var_prefix": "AIDER_",
+  "config_file_path": "./.aider.conf.yml | ~/.aider.conf.yml"
+}

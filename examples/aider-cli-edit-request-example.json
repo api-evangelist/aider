@@ -1,0 +1,5 @@
+{
+  "prompt": "Refactor the cache layer to use an LRU eviction policy and add unit tests.",
+  "edit_format": "diff",
+  "auto_commit": true
+}

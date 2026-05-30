@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-structure/aider-cli-model-catalog-structure.json",
+  "name": "ModelCatalog",
+  "description": "ModelCatalog schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "models": {
+      "type": "array",
+      "description": "Model identifiers matching the search query.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "anthropic/claude-opus-4"
+          },
+          "provider": {
+            "type": "string",
+            "example": "anthropic"
+          },
+          "context_window": {
+            "type": "int32",
+            "example": 200000
+          },
+          "supports_edit_format": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "diff"
+            },
+            "example": [
+              "diff",
+              "udiff"
+            ]
+          }
+        }
+      },
+      "example": [
+        {
+          "id": "anthropic/claude-opus-4",
+          "provider": "anthropic",
+          "context_window": 200000,
+          "supports_edit_format": [
+            "diff",
+            "udiff"
+          ]
+        }
+      ]
+    }
+  }
+}

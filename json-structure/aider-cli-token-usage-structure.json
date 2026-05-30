@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-structure/aider-cli-token-usage-structure.json",
+  "name": "TokenUsage",
+  "description": "TokenUsage schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "chat_history_tokens": {
+      "type": "int32",
+      "example": 18412
+    },
+    "repo_map_tokens": {
+      "type": "int32",
+      "example": 4096
+    },
+    "in_chat_files_tokens": {
+      "type": "int32",
+      "example": 6234
+    },
+    "budget_remaining_tokens": {
+      "type": "int32",
+      "example": 171258
+    }
+  }
+}

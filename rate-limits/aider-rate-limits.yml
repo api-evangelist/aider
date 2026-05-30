@@ -1,0 +1,99 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Aider
+providerId: aider
+created: '2026-05-30'
+modified: '2026-05-30'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Open Source
+  - AI Pair Programming
+  - BYO LLM
+description: >-
+  Aider does not impose application-level rate limits. It is a local CLI that
+  runs entirely in the developer's terminal against the local Git working
+  tree; no Aider-operated network endpoint exists. All request-rate and quota
+  enforcement happens upstream at the LLM provider the user has bound to
+  aider via API key (Anthropic, OpenAI, DeepSeek, Google Gemini, OpenRouter,
+  Mistral, xAI, GROQ, Cohere, GitHub Copilot, Azure OpenAI, Amazon Bedrock,
+  Vertex AI, Ollama, LM Studio, or any OpenAI-compatible endpoint). Aider
+  surfaces upstream 429 / rate-limit errors back to the terminal user but
+  does not retry, queue, or smooth requests on the user's behalf beyond
+  default LiteLLM behavior. Token-budget management — chat history size,
+  repo-map token budget, in-chat-files token budget — is exposed via
+  `/tokens` and the `--max-chat-history-tokens` / `--map-tokens` flags but
+  is a context-window control, not a rate limit.
+sources:
+  - https://aider.chat/docs/llms.html
+  - https://aider.chat/docs/troubleshooting/token-limits.html
+  - https://aider.chat/docs/config/options.html
+headers: {}
+responseCodes:
+  upstreamThrottled: 429
+  upstreamServerError: 500
+limits:
+  - name: 'Application-level rate limit (aider itself)'
+    scope: 'process'
+    metric: 'requests_per_second'
+    limit: 'none — aider does not impose its own request-rate limit'
+    notes: >-
+      Aider is single-process and single-user; concurrency is bound by the
+      user's keyboard and the LLM round-trip latency. There is no app-level
+      throttling, queueing, or batching layer.
+  - name: 'Upstream LLM provider rate limit (pass-through)'
+    scope: 'upstream provider (per API key / per account / per project)'
+    metric: 'varies'
+    limit: 'see upstream provider documentation — Anthropic, OpenAI, Gemini, etc.'
+    notes: >-
+      Whatever requests-per-minute, tokens-per-minute, and concurrent-requests
+      limits the chosen provider enforces apply directly. Aider surfaces the
+      provider's 429 / error response to the user with no additional retry
+      logic beyond what LiteLLM provides.
+  - name: 'Repository map token budget'
+    scope: 'session'
+    metric: 'tokens'
+    limit: 1024
+    notes: >-
+      Default token budget for the tree-sitter repository map sent on each
+      turn. Controlled by `--map-tokens` (default 1024, often raised to 4096
+      or 8192). This is a context-window control, not a rate limit.
+  - name: 'Chat history token budget'
+    scope: 'session'
+    metric: 'tokens'
+    limit: 'model-dependent'
+    notes: >-
+      Aider automatically summarizes older chat history via the weak model
+      when the budget is exceeded. Controlled by `--max-chat-history-tokens`.
+policies:
+  - name: 'BYO LLM pass-through'
+    description: >-
+      All inference happens at the upstream LLM provider the user has bound
+      via API key. Aider neither aggregates requests across users nor adds
+      a control plane in front of the provider. Whatever the provider's
+      published rate limits are, they apply directly to the developer's key.
+  - name: 'Provider errors surfaced verbatim'
+    description: >-
+      A 429 Too Many Requests from the upstream provider is surfaced to the
+      terminal user with the provider's error message. Aider does not retry
+      transparently; the user can re-issue the prompt manually or use
+      `--retry-on-rate-limit` flags where supported by LiteLLM for the
+      chosen provider.
+  - name: 'Local-model exemption'
+    description: >-
+      When aider is bound to a local Ollama, LM Studio, or OpenAI-compatible
+      endpoint there is effectively no rate limit — throughput is bounded by
+      the user's hardware, not by an external billing system.
+  - name: 'Token-budget management is not throttling'
+    description: >-
+      `/tokens`, `--max-chat-history-tokens`, and `--map-tokens` manage the
+      size of the prompt aider sends, not the rate at which prompts are sent.
+      They exist to keep prompts within the model's context window and to
+      control upstream token spend, not to throttle the user.
+  - name: 'No hosted service'
+    description: >-
+      Because aider has no SaaS endpoint, there is no per-account quota,
+      per-key request rate, IP-based throttling, or burst allowance that
+      Aider itself controls. The only "Aider rate limit" surface is the
+      upstream provider's.

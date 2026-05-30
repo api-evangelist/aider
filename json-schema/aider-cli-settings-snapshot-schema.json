@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-schema/aider-cli-settings-snapshot-schema.json",
+  "title": "SettingsSnapshot",
+  "description": "SettingsSnapshot schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "main_model": {
+      "type": "string",
+      "example": "anthropic/claude-opus-4"
+    },
+    "weak_model": {
+      "type": "string",
+      "example": "anthropic/claude-haiku-4"
+    },
+    "editor_model": {
+      "type": "string",
+      "example": "anthropic/claude-sonnet-4"
+    },
+    "edit_format": {
+      "type": "string",
+      "example": "diff"
+    },
+    "auto_commits": {
+      "type": "boolean",
+      "example": true
+    },
+    "auto_lint": {
+      "type": "boolean",
+      "example": true
+    },
+    "auto_test": {
+      "type": "boolean",
+      "example": false
+    },
+    "chat_mode": {
+      "type": "string",
+      "example": "code"
+    },
+    "watch_files": {
+      "type": "boolean",
+      "example": false
+    },
+    "stream": {
+      "type": "boolean",
+      "example": true
+    }
+  }
+}

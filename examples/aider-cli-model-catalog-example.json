@@ -1,0 +1,13 @@
+{
+  "models": [
+    {
+      "id": "anthropic/claude-opus-4",
+      "provider": "anthropic",
+      "context_window": 200000,
+      "supports_edit_format": [
+        "diff",
+        "udiff"
+      ]
+    }
+  ]
+}

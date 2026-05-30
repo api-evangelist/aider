@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-structure/aider-cli-diff-result-structure.json",
+  "name": "DiffResult",
+  "description": "DiffResult schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "unified_diff": {
+      "type": "string",
+      "description": "Unified diff of all files changed since the last user message.",
+      "example": "--- a/src/main.py\n+++ b/src/main.py\n@@ -1,3 +1,3 @@\n-print('hi')\n+print('hello')\n"
+    },
+    "files_changed": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "example": "src/main.py"
+      },
+      "example": [
+        "src/main.py"
+      ]
+    }
+  }
+}

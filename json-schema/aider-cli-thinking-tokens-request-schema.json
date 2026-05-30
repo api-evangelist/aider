@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-schema/aider-cli-thinking-tokens-request-schema.json",
+  "title": "ThinkingTokensRequest",
+  "description": "ThinkingTokensRequest schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "tokens": {
+      "type": "string",
+      "description": "Thinking token budget. Accepts integer (e.g. 8096), shorthand (8k, 10.5k, 0.5M).",
+      "example": "32k"
+    }
+  },
+  "required": [
+    "tokens"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-schema/aider-cli-shell-request-schema.json",
+  "title": "ShellRequest",
+  "description": "ShellRequest schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "command": {
+      "type": "string",
+      "description": "Shell command line to execute in the repo root.",
+      "example": "pytest -x tests/"
+    },
+    "add_output_to_chat": {
+      "type": "boolean",
+      "description": "Whether the command's stdout/stderr is appended to chat context.",
+      "default": true,
+      "example": true
+    }
+  },
+  "required": [
+    "command"
+  ]
+}

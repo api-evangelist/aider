@@ -1,0 +1,1337 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Aider CLI — Full Command Surface"
+  description: >-
+    Aider — Command Surface. 39 operations across files, editing, git, models,
+    chat, modes, quality, IO, voice, web, map, settings, and session lifecycle.
+    Lead operation: Aider Request Code Edit (the default `/code` flow that
+    drives a multi-file diff-based edit against the user's local Git working
+    tree). Self-contained Naftiko capability covering one Aider business surface.
+  tags:
+    - Aider
+    - CLI
+    - AI Pair Programming
+    - BYO LLM
+  created: "2026-05-30"
+  modified: "2026-05-30"
+
+binds:
+  - namespace: env
+    keys:
+      ANTHROPIC_API_KEY: ANTHROPIC_API_KEY
+      OPENAI_API_KEY: OPENAI_API_KEY
+
+capability:
+
+  # ── 1. Consumes — the upstream HTTP API this capability speaks to ─────
+  # Note: Aider does not expose an HTTP API. This consumes block models
+  # the documented CLI surface as if it were callable via REST so the
+  # capability can be reasoned about by Naftiko-aware runtimes. The actual
+  # invocation is `aider <flags>` plus in-chat slash commands.
+  consumes:
+    - type: http
+      namespace: "aider-cli"
+      baseUri: "cli://aider"
+      description: "Aider CLI command surface. Self-contained, no shared references."
+      authentication:
+        type: bearer
+        token: "{{env.ANTHROPIC_API_KEY}}"
+      resources:
+        - name: "commands"
+          path: "/commands"
+          operations:
+            - name: "addFiles"
+              method: POST
+              description: "Aider Add Files to Chat"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "AddFilesRequest payload with file paths and read_only flag."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "dropFiles"
+              method: POST
+              description: "Aider Drop Files From Chat"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: false
+                  description: "DropFilesRequest payload listing files to remove."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "addReadOnlyFiles"
+              method: POST
+              description: "Aider Add Read-Only Files"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "AddFilesRequest payload (treated as read-only)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "listFiles"
+              method: GET
+              description: "Aider List Files in Session"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "requestCodeEdit"
+              method: POST
+              description: "Aider Request Code Edit"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "EditRequest payload with prompt and edit_format."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "architectMode"
+              method: POST
+              description: "Aider Enter Architect Mode"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "EditRequest payload routed through the architect/editor split."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "askQuestion"
+              method: POST
+              description: "Aider Ask Question About Code"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "AskRequest payload — no files are modified."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "switchChatMode"
+              method: POST
+              description: "Aider Switch Chat Mode"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "ChatModeRequest payload (mode: code|architect|ask|help|context)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "showDiff"
+              method: GET
+              description: "Aider Show Diff Since Last Message"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "undoLastCommit"
+              method: POST
+              description: "Aider Undo Last Aider Commit"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "commitChanges"
+              method: POST
+              description: "Aider Commit Changes Outside Chat"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: false
+                  description: "CommitRequest payload with optional message override."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "runGitCommand"
+              method: POST
+              description: "Aider Run Git Command"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "ShellRequest payload to run a git subcommand."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "switchMainModel"
+              method: POST
+              description: "Aider Switch Main Model"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "ModelSelection payload — LiteLLM model id."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "switchWeakModel"
+              method: POST
+              description: "Aider Switch Weak Model"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "ModelSelection payload for the weak/summarization model."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "switchEditorModel"
+              method: POST
+              description: "Aider Switch Editor Model"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "ModelSelection payload for the architect-mode editor model."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "listAvailableModels"
+              method: GET
+              description: "Aider List Available Models"
+              inputParameters:
+                - name: query
+                  in: query
+                  type: string
+                  required: false
+                  description: "Substring filter applied to model identifiers."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "clearChatHistory"
+              method: POST
+              description: "Aider Clear Chat History"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "resetSession"
+              method: POST
+              description: "Aider Reset Session"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "reportTokenUsage"
+              method: GET
+              description: "Aider Report Token Usage"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "setReasoningEffort"
+              method: POST
+              description: "Aider Set Reasoning Effort"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "ReasoningEffortRequest payload (low|medium|high or numeric)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "setThinkingTokens"
+              method: POST
+              description: "Aider Set Thinking Token Budget"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "ThinkingTokensRequest payload (8k, 32k, 0.5M, etc)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "showSettings"
+              method: GET
+              description: "Aider Show Current Settings"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "showRepositoryMap"
+              method: GET
+              description: "Aider Show Repository Map"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "refreshRepositoryMap"
+              method: POST
+              description: "Aider Refresh Repository Map"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "runShellCommand"
+              method: POST
+              description: "Aider Run Shell Command"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "ShellRequest payload to run an arbitrary shell command."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "runTestCommand"
+              method: POST
+              description: "Aider Run Test Command"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "ShellRequest payload — test output is added to chat on non-zero exit."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "runLint"
+              method: POST
+              description: "Aider Run Lint and Fix"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: false
+                  description: "LintRequest payload — omit to lint all dirty files."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "recordVoiceInput"
+              method: POST
+              description: "Aider Record Voice Input"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "scrapeWebPage"
+              method: POST
+              description: "Aider Scrape Web Page"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "WebFetchRequest payload with the URL to fetch and convert to markdown."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "pasteFromClipboard"
+              method: POST
+              description: "Aider Paste Clipboard Content"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "copyLastMessage"
+              method: POST
+              description: "Aider Copy Last Assistant Message"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "copyChatContext"
+              method: POST
+              description: "Aider Copy Chat Context as Markdown"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "openEditorPrompt"
+              method: POST
+              description: "Aider Open Editor for Prompt"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "loadCommandScript"
+              method: POST
+              description: "Aider Load Command Script"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "FilePathRequest payload with the script file to load."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "saveCommandScript"
+              method: POST
+              description: "Aider Save Command Script"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "FilePathRequest payload with the destination script file."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "getHelp"
+              method: GET
+              description: "Aider Ask Help Question"
+              inputParameters:
+                - name: query
+                  in: query
+                  type: string
+                  required: false
+                  description: "The help question to ask."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "openGitHubIssue"
+              method: POST
+              description: "Aider Report a Problem"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "exitSession"
+              method: POST
+              description: "Aider Exit Session"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "getLaunchConfig"
+              method: GET
+              description: "Aider Get Launch Configuration"
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: "updateLaunchConfig"
+              method: PUT
+              description: "Aider Update Launch Configuration"
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+                  description: "LaunchConfig payload — composite of YAML + env + flags."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  # ── 2. REST exposer — Spectral-compliant /v1 surface, 1:1 with consumes ──
+  exposes:
+    - type: rest
+      namespace: "aider-cli-rest"
+      port: 8080
+      description: "REST adapter for the Aider CLI command surface. One Spectral-compliant resource per consumed operation, prefixed with /v1."
+      resources:
+        - path: "/v1/files"
+          name: "files"
+          description: "REST surface for chat file management."
+          operations:
+            - method: POST
+              name: "addFiles"
+              description: "Aider Add Files to Chat"
+              call: "aider-cli.addFiles"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: "dropFiles"
+              description: "Aider Drop Files From Chat"
+              call: "aider-cli.dropFiles"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: "listFiles"
+              description: "Aider List Files in Session"
+              call: "aider-cli.listFiles"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/files/read-only"
+          name: "read-only-files"
+          description: "REST surface for read-only file references."
+          operations:
+            - method: POST
+              name: "addReadOnlyFiles"
+              description: "Aider Add Read-Only Files"
+              call: "aider-cli.addReadOnlyFiles"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/edits"
+          name: "edits"
+          description: "REST surface for code edits."
+          operations:
+            - method: POST
+              name: "requestCodeEdit"
+              description: "Aider Request Code Edit"
+              call: "aider-cli.requestCodeEdit"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: "architectMode"
+              description: "Aider Enter Architect Mode"
+              call: "aider-cli.architectMode"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/questions"
+          name: "questions"
+          description: "REST surface for asking about the codebase."
+          operations:
+            - method: POST
+              name: "askQuestion"
+              description: "Aider Ask Question About Code"
+              call: "aider-cli.askQuestion"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/chat-mode"
+          name: "chat-mode"
+          description: "REST surface for chat-mode switching."
+          operations:
+            - method: PUT
+              name: "switchChatMode"
+              description: "Aider Switch Chat Mode"
+              call: "aider-cli.switchChatMode"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/git/diff"
+          name: "git-diff"
+          description: "REST surface for showing diffs."
+          operations:
+            - method: GET
+              name: "showDiff"
+              description: "Aider Show Diff Since Last Message"
+              call: "aider-cli.showDiff"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/git/undo"
+          name: "git-undo"
+          description: "REST surface for undoing aider commits."
+          operations:
+            - method: POST
+              name: "undoLastCommit"
+              description: "Aider Undo Last Aider Commit"
+              call: "aider-cli.undoLastCommit"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/git/commit"
+          name: "git-commit"
+          description: "REST surface for explicit commits."
+          operations:
+            - method: POST
+              name: "commitChanges"
+              description: "Aider Commit Changes Outside Chat"
+              call: "aider-cli.commitChanges"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/git/exec"
+          name: "git-exec"
+          description: "REST surface for arbitrary git invocations."
+          operations:
+            - method: POST
+              name: "runGitCommand"
+              description: "Aider Run Git Command"
+              call: "aider-cli.runGitCommand"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/models/main"
+          name: "main-model"
+          description: "REST surface for the main model selection."
+          operations:
+            - method: PUT
+              name: "switchMainModel"
+              description: "Aider Switch Main Model"
+              call: "aider-cli.switchMainModel"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/models/weak"
+          name: "weak-model"
+          description: "REST surface for the weak model selection."
+          operations:
+            - method: PUT
+              name: "switchWeakModel"
+              description: "Aider Switch Weak Model"
+              call: "aider-cli.switchWeakModel"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/models/editor"
+          name: "editor-model"
+          description: "REST surface for the editor model selection."
+          operations:
+            - method: PUT
+              name: "switchEditorModel"
+              description: "Aider Switch Editor Model"
+              call: "aider-cli.switchEditorModel"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/models"
+          name: "models"
+          description: "REST surface for listing available models."
+          operations:
+            - method: GET
+              name: "listAvailableModels"
+              description: "Aider List Available Models"
+              call: "aider-cli.listAvailableModels"
+              with:
+                query: "rest.query"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/chat/history"
+          name: "chat-history"
+          description: "REST surface for clearing chat history."
+          operations:
+            - method: DELETE
+              name: "clearChatHistory"
+              description: "Aider Clear Chat History"
+              call: "aider-cli.clearChatHistory"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/session/reset"
+          name: "session-reset"
+          description: "REST surface for resetting the session."
+          operations:
+            - method: POST
+              name: "resetSession"
+              description: "Aider Reset Session"
+              call: "aider-cli.resetSession"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tokens"
+          name: "tokens"
+          description: "REST surface for token usage reporting."
+          operations:
+            - method: GET
+              name: "reportTokenUsage"
+              description: "Aider Report Token Usage"
+              call: "aider-cli.reportTokenUsage"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/settings/reasoning-effort"
+          name: "reasoning-effort"
+          description: "REST surface for setting reasoning effort."
+          operations:
+            - method: PUT
+              name: "setReasoningEffort"
+              description: "Aider Set Reasoning Effort"
+              call: "aider-cli.setReasoningEffort"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/settings/think-tokens"
+          name: "think-tokens"
+          description: "REST surface for setting thinking token budget."
+          operations:
+            - method: PUT
+              name: "setThinkingTokens"
+              description: "Aider Set Thinking Token Budget"
+              call: "aider-cli.setThinkingTokens"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/settings"
+          name: "settings"
+          description: "REST surface for current settings."
+          operations:
+            - method: GET
+              name: "showSettings"
+              description: "Aider Show Current Settings"
+              call: "aider-cli.showSettings"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/map"
+          name: "map"
+          description: "REST surface for the repository map."
+          operations:
+            - method: GET
+              name: "showRepositoryMap"
+              description: "Aider Show Repository Map"
+              call: "aider-cli.showRepositoryMap"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: "refreshRepositoryMap"
+              description: "Aider Refresh Repository Map"
+              call: "aider-cli.refreshRepositoryMap"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/shell"
+          name: "shell"
+          description: "REST surface for shell command execution."
+          operations:
+            - method: POST
+              name: "runShellCommand"
+              description: "Aider Run Shell Command"
+              call: "aider-cli.runShellCommand"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/tests"
+          name: "tests"
+          description: "REST surface for running the test suite."
+          operations:
+            - method: POST
+              name: "runTestCommand"
+              description: "Aider Run Test Command"
+              call: "aider-cli.runTestCommand"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/lint"
+          name: "lint"
+          description: "REST surface for running the linter."
+          operations:
+            - method: POST
+              name: "runLint"
+              description: "Aider Run Lint and Fix"
+              call: "aider-cli.runLint"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/voice"
+          name: "voice"
+          description: "REST surface for voice transcription."
+          operations:
+            - method: POST
+              name: "recordVoiceInput"
+              description: "Aider Record Voice Input"
+              call: "aider-cli.recordVoiceInput"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/web"
+          name: "web"
+          description: "REST surface for web scraping."
+          operations:
+            - method: POST
+              name: "scrapeWebPage"
+              description: "Aider Scrape Web Page"
+              call: "aider-cli.scrapeWebPage"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/clipboard/paste"
+          name: "clipboard-paste"
+          description: "REST surface for clipboard paste."
+          operations:
+            - method: POST
+              name: "pasteFromClipboard"
+              description: "Aider Paste Clipboard Content"
+              call: "aider-cli.pasteFromClipboard"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/clipboard/copy"
+          name: "clipboard-copy"
+          description: "REST surface for copying the last message."
+          operations:
+            - method: POST
+              name: "copyLastMessage"
+              description: "Aider Copy Last Assistant Message"
+              call: "aider-cli.copyLastMessage"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/clipboard/copy-context"
+          name: "clipboard-copy-context"
+          description: "REST surface for copying full chat context."
+          operations:
+            - method: POST
+              name: "copyChatContext"
+              description: "Aider Copy Chat Context as Markdown"
+              call: "aider-cli.copyChatContext"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/editor/prompt"
+          name: "editor-prompt"
+          description: "REST surface for editor-driven prompts."
+          operations:
+            - method: POST
+              name: "openEditorPrompt"
+              description: "Aider Open Editor for Prompt"
+              call: "aider-cli.openEditorPrompt"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/scripts/load"
+          name: "scripts-load"
+          description: "REST surface for loading a script."
+          operations:
+            - method: POST
+              name: "loadCommandScript"
+              description: "Aider Load Command Script"
+              call: "aider-cli.loadCommandScript"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/scripts/save"
+          name: "scripts-save"
+          description: "REST surface for saving a script."
+          operations:
+            - method: POST
+              name: "saveCommandScript"
+              description: "Aider Save Command Script"
+              call: "aider-cli.saveCommandScript"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/help"
+          name: "help"
+          description: "REST surface for help questions."
+          operations:
+            - method: GET
+              name: "getHelp"
+              description: "Aider Ask Help Question"
+              call: "aider-cli.getHelp"
+              with:
+                query: "rest.query"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/issues"
+          name: "issues"
+          description: "REST surface for opening GitHub issues."
+          operations:
+            - method: POST
+              name: "openGitHubIssue"
+              description: "Aider Report a Problem"
+              call: "aider-cli.openGitHubIssue"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/session/exit"
+          name: "session-exit"
+          description: "REST surface for session exit."
+          operations:
+            - method: POST
+              name: "exitSession"
+              description: "Aider Exit Session"
+              call: "aider-cli.exitSession"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/launch/config"
+          name: "launch-config"
+          description: "REST surface for launch configuration."
+          operations:
+            - method: GET
+              name: "getLaunchConfig"
+              description: "Aider Get Launch Configuration"
+              call: "aider-cli.getLaunchConfig"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PUT
+              name: "updateLaunchConfig"
+              description: "Aider Update Launch Configuration"
+              call: "aider-cli.updateLaunchConfig"
+              with:
+                body: "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+  # ── 3. MCP exposer — verb-noun tools, 1:1 with consumes ──
+    - type: mcp
+      namespace: "aider-cli-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for the Aider CLI command surface. One tool per consumed operation, routed inline through this capability's consumes block."
+      tools:
+        - name: "add-files"
+          description: "Aider Add Files to Chat"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.addFiles"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "drop-files"
+          description: "Aider Drop Files From Chat"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.dropFiles"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "add-read-only-files"
+          description: "Aider Add Read-Only Files"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.addReadOnlyFiles"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-files"
+          description: "Aider List Files in Session"
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "aider-cli.listFiles"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "request-code-edit"
+          description: "Aider Request Code Edit"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.requestCodeEdit"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "architect-mode"
+          description: "Aider Enter Architect Mode"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.architectMode"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "ask-question"
+          description: "Aider Ask Question About Code"
+          hints: { readOnly: true, destructive: false, idempotent: false }
+          call: "aider-cli.askQuestion"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "switch-chat-mode"
+          description: "Aider Switch Chat Mode"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.switchChatMode"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "show-diff"
+          description: "Aider Show Diff Since Last Message"
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "aider-cli.showDiff"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "undo-last-commit"
+          description: "Aider Undo Last Aider Commit"
+          hints: { readOnly: false, destructive: true, idempotent: false }
+          call: "aider-cli.undoLastCommit"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "commit-changes"
+          description: "Aider Commit Changes Outside Chat"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.commitChanges"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "run-git-command"
+          description: "Aider Run Git Command"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.runGitCommand"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "switch-main-model"
+          description: "Aider Switch Main Model"
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "aider-cli.switchMainModel"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "switch-weak-model"
+          description: "Aider Switch Weak Model"
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "aider-cli.switchWeakModel"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "switch-editor-model"
+          description: "Aider Switch Editor Model"
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "aider-cli.switchEditorModel"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-available-models"
+          description: "Aider List Available Models"
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "aider-cli.listAvailableModels"
+          with: { query: "tools.query" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "clear-chat-history"
+          description: "Aider Clear Chat History"
+          hints: { readOnly: false, destructive: true, idempotent: true }
+          call: "aider-cli.clearChatHistory"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "reset-session"
+          description: "Aider Reset Session"
+          hints: { readOnly: false, destructive: true, idempotent: true }
+          call: "aider-cli.resetSession"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "report-token-usage"
+          description: "Aider Report Token Usage"
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "aider-cli.reportTokenUsage"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "set-reasoning-effort"
+          description: "Aider Set Reasoning Effort"
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "aider-cli.setReasoningEffort"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "set-thinking-tokens"
+          description: "Aider Set Thinking Token Budget"
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "aider-cli.setThinkingTokens"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "show-settings"
+          description: "Aider Show Current Settings"
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "aider-cli.showSettings"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "show-repository-map"
+          description: "Aider Show Repository Map"
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "aider-cli.showRepositoryMap"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "refresh-repository-map"
+          description: "Aider Refresh Repository Map"
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "aider-cli.refreshRepositoryMap"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "run-shell-command"
+          description: "Aider Run Shell Command"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.runShellCommand"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "run-test-command"
+          description: "Aider Run Test Command"
+          hints: { readOnly: true, destructive: false, idempotent: false }
+          call: "aider-cli.runTestCommand"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "run-lint"
+          description: "Aider Run Lint and Fix"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.runLint"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "record-voice-input"
+          description: "Aider Record Voice Input"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.recordVoiceInput"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "scrape-web-page"
+          description: "Aider Scrape Web Page"
+          hints: { readOnly: true, destructive: false, idempotent: false }
+          call: "aider-cli.scrapeWebPage"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "paste-from-clipboard"
+          description: "Aider Paste Clipboard Content"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.pasteFromClipboard"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "copy-last-message"
+          description: "Aider Copy Last Assistant Message"
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "aider-cli.copyLastMessage"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "copy-chat-context"
+          description: "Aider Copy Chat Context as Markdown"
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "aider-cli.copyChatContext"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "open-editor-prompt"
+          description: "Aider Open Editor for Prompt"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.openEditorPrompt"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "load-command-script"
+          description: "Aider Load Command Script"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.loadCommandScript"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "save-command-script"
+          description: "Aider Save Command Script"
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "aider-cli.saveCommandScript"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-help"
+          description: "Aider Ask Help Question"
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "aider-cli.getHelp"
+          with: { query: "tools.query" }
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "open-github-issue"
+          description: "Aider Report a Problem"
+          hints: { readOnly: false, destructive: false, idempotent: false }
+          call: "aider-cli.openGitHubIssue"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "exit-session"
+          description: "Aider Exit Session"
+          hints: { readOnly: false, destructive: true, idempotent: true }
+          call: "aider-cli.exitSession"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-launch-config"
+          description: "Aider Get Launch Configuration"
+          hints: { readOnly: true, destructive: false, idempotent: true }
+          call: "aider-cli.getLaunchConfig"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "update-launch-config"
+          description: "Aider Update Launch Configuration"
+          hints: { readOnly: false, destructive: false, idempotent: true }
+          call: "aider-cli.updateLaunchConfig"
+          with: { body: "tools.body" }
+          outputParameters:
+            - type: object
+              mapping: "$."

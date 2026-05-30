@@ -1,0 +1,295 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "aider": "https://aider.chat/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "AddFilesRequest": "aider:AddFilesRequest",
+    "AskRequest": "aider:AskRequest",
+    "AskResponse": "aider:AskResponse",
+    "ChatModeRequest": "aider:ChatModeRequest",
+    "CommitRequest": "aider:CommitRequest",
+    "CommitResult": "aider:CommitResult",
+    "DiffResult": "aider:DiffResult",
+    "DropFilesRequest": "aider:DropFilesRequest",
+    "EditRequest": "aider:EditRequest",
+    "EditResult": "aider:EditResult",
+    "FileListing": "aider:FileListing",
+    "FilePathRequest": "aider:FilePathRequest",
+    "LaunchConfig": "aider:LaunchConfig",
+    "LintRequest": "aider:LintRequest",
+    "ModelCatalog": "aider:ModelCatalog",
+    "ModelSelection": "aider:ModelSelection",
+    "ReasoningEffortRequest": "aider:ReasoningEffortRequest",
+    "RepositoryMap": "aider:RepositoryMap",
+    "SettingsSnapshot": "aider:SettingsSnapshot",
+    "ShellRequest": "aider:ShellRequest",
+    "ShellResult": "aider:ShellResult",
+    "ThinkingTokensRequest": "aider:ThinkingTokensRequest",
+    "TokenUsage": "aider:TokenUsage",
+    "VoiceTranscript": "aider:VoiceTranscript",
+    "WebFetchRequest": "aider:WebFetchRequest",
+    "WebFetchResult": "aider:WebFetchResult",
+    "addOutputToChat": {
+      "@id": "aider:add_output_to_chat",
+      "@type": "xsd:boolean"
+    },
+    "answer": {
+      "@id": "aider:answer",
+      "@type": "xsd:string"
+    },
+    "apiKeys": {
+      "@id": "aider:api_keys",
+      "@type": "@id"
+    },
+    "autoCommit": {
+      "@id": "aider:auto_commit",
+      "@type": "xsd:boolean"
+    },
+    "autoCommits": {
+      "@id": "aider:auto_commits",
+      "@type": "xsd:boolean"
+    },
+    "autoLint": {
+      "@id": "aider:auto_lint",
+      "@type": "xsd:boolean"
+    },
+    "autoTest": {
+      "@id": "aider:auto_test",
+      "@type": "xsd:boolean"
+    },
+    "budgetRemainingTokens": {
+      "@id": "aider:budget_remaining_tokens",
+      "@type": "xsd:integer"
+    },
+    "chatHistoryFile": {
+      "@id": "aider:chat_history_file",
+      "@type": "xsd:string"
+    },
+    "chatHistoryTokens": {
+      "@id": "aider:chat_history_tokens",
+      "@type": "xsd:integer"
+    },
+    "chatMode": {
+      "@id": "aider:chat_mode",
+      "@type": "xsd:string"
+    },
+    "codeTheme": {
+      "@id": "aider:code_theme",
+      "@type": "xsd:string"
+    },
+    "command": {
+      "@id": "aider:command",
+      "@type": "xsd:string"
+    },
+    "commitMessage": {
+      "@id": "aider:commit_message",
+      "@type": "xsd:string"
+    },
+    "commitSha": {
+      "@id": "aider:commit_sha",
+      "@type": "xsd:string"
+    },
+    "configFilePath": {
+      "@id": "aider:config_file_path",
+      "@type": "xsd:string"
+    },
+    "contextWindow": {
+      "@id": "aider:context_window",
+      "@type": "xsd:integer"
+    },
+    "darkMode": {
+      "@id": "aider:dark_mode",
+      "@type": "xsd:boolean"
+    },
+    "dirtyCommits": {
+      "@id": "aider:dirty_commits",
+      "@type": "xsd:boolean"
+    },
+    "durationMs": {
+      "@id": "aider:duration_ms",
+      "@type": "xsd:integer"
+    },
+    "editFormat": {
+      "@id": "aider:edit_format",
+      "@type": "xsd:string"
+    },
+    "editorModel": {
+      "@id": "aider:editor_model",
+      "@type": "xsd:string"
+    },
+    "effort": {
+      "@id": "aider:effort",
+      "@type": "xsd:string"
+    },
+    "envVarPrefix": {
+      "@id": "aider:env_var_prefix",
+      "@type": "xsd:string"
+    },
+    "exitCode": {
+      "@id": "aider:exit_code",
+      "@type": "xsd:integer"
+    },
+    "file": {
+      "@id": "aider:file",
+      "@type": "xsd:string"
+    },
+    "files": {
+      "@id": "aider:files",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "filesChanged": {
+      "@id": "aider:files_changed",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "filesReferenced": {
+      "@id": "aider:files_referenced",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "gitignore": {
+      "@id": "aider:gitignore",
+      "@type": "xsd:boolean"
+    },
+    "id": {
+      "@id": "aider:id",
+      "@type": "xsd:string"
+    },
+    "inChat": {
+      "@id": "aider:in_chat",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "inChatFilesTokens": {
+      "@id": "aider:in_chat_files_tokens",
+      "@type": "xsd:integer"
+    },
+    "known": {
+      "@id": "aider:known",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "lintCmd": {
+      "@id": "aider:lint_cmd",
+      "@type": "xsd:string"
+    },
+    "mainModel": {
+      "@id": "aider:main_model",
+      "@type": "xsd:string"
+    },
+    "markdown": {
+      "@id": "aider:markdown",
+      "@type": "xsd:string"
+    },
+    "message": {
+      "@id": "aider:message",
+      "@type": "xsd:string"
+    },
+    "mode": {
+      "@id": "aider:mode",
+      "@type": "xsd:string"
+    },
+    "model": {
+      "@id": "aider:model",
+      "@type": "xsd:string"
+    },
+    "models": {
+      "@id": "aider:models",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "path": {
+      "@id": "aider:path",
+      "@type": "xsd:string"
+    },
+    "prompt": {
+      "@id": "aider:prompt",
+      "@type": "xsd:string"
+    },
+    "provider": {
+      "@id": "aider:provider",
+      "@type": "xsd:string"
+    },
+    "readOnly": {
+      "@id": "aider:read_only",
+      "@type": "xsd:boolean"
+    },
+    "reasoningEffort": {
+      "@id": "aider:reasoning_effort",
+      "@type": "xsd:string"
+    },
+    "repoMapTokens": {
+      "@id": "aider:repo_map_tokens",
+      "@type": "xsd:integer"
+    },
+    "stderr": {
+      "@id": "aider:stderr",
+      "@type": "xsd:string"
+    },
+    "stdout": {
+      "@id": "aider:stdout",
+      "@type": "xsd:string"
+    },
+    "stream": {
+      "@id": "aider:stream",
+      "@type": "xsd:boolean"
+    },
+    "supportsEditFormat": {
+      "@id": "aider:supports_edit_format",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "symbols": {
+      "@id": "aider:symbols",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "testCmd": {
+      "@id": "aider:test_cmd",
+      "@type": "xsd:string"
+    },
+    "text": {
+      "@id": "aider:text",
+      "@type": "xsd:string"
+    },
+    "thinkingTokens": {
+      "@id": "aider:thinking_tokens",
+      "@type": "xsd:string"
+    },
+    "tokenBudget": {
+      "@id": "aider:token_budget",
+      "@type": "xsd:integer"
+    },
+    "tokens": {
+      "@id": "aider:tokens",
+      "@type": "xsd:string"
+    },
+    "tokensIn": {
+      "@id": "aider:tokens_in",
+      "@type": "xsd:integer"
+    },
+    "tokensOut": {
+      "@id": "aider:tokens_out",
+      "@type": "xsd:integer"
+    },
+    "unifiedDiff": {
+      "@id": "aider:unified_diff",
+      "@type": "xsd:string"
+    },
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "watchFiles": {
+      "@id": "aider:watch_files",
+      "@type": "xsd:boolean"
+    },
+    "weakModel": {
+      "@id": "aider:weak_model",
+      "@type": "xsd:string"
+    }
+  }
+}

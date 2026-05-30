@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-schema/aider-cli-commit-request-schema.json",
+  "title": "CommitRequest",
+  "description": "CommitRequest schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Optional commit message override. Omit to let the weak model generate one.",
+      "example": "chore: format imports"
+    }
+  }
+}

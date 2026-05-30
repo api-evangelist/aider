@@ -1,0 +1,12 @@
+{
+  "token_budget": 4096,
+  "symbols": [
+    {
+      "file": "src/main.py",
+      "symbols": [
+        "class Cache",
+        "def get(self, key)"
+      ]
+    }
+  ]
+}

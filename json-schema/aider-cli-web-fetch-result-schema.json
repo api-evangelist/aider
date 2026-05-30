@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-schema/aider-cli-web-fetch-result-schema.json",
+  "title": "WebFetchResult",
+  "description": "WebFetchResult schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://example.com/docs/getting-started"
+    },
+    "markdown": {
+      "type": "string",
+      "description": "Markdown rendering of the page added to chat context.",
+      "example": "# Getting Started ..."
+    }
+  }
+}

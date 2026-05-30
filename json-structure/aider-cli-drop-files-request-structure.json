@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-structure/aider-cli-drop-files-request-structure.json",
+  "name": "DropFilesRequest",
+  "description": "DropFilesRequest schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "files": {
+      "type": "array",
+      "description": "List of file paths to remove from chat context. Omit to drop all files.",
+      "items": {
+        "type": "string",
+        "example": "src/legacy.py"
+      },
+      "example": [
+        "src/legacy.py"
+      ]
+    }
+  }
+}

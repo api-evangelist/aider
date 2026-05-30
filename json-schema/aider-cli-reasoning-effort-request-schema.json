@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/json-schema/aider-cli-reasoning-effort-request-schema.json",
+  "title": "ReasoningEffortRequest",
+  "description": "ReasoningEffortRequest schema from Aider CLI",
+  "type": "object",
+  "properties": {
+    "effort": {
+      "type": "string",
+      "description": "Reasoning effort level. Accepts low|medium|high or a numeric/string budget.",
+      "example": "high"
+    }
+  },
+  "required": [
+    "effort"
+  ]
+}
