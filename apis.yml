@@ -1,28 +1,20 @@
 aid: aider
 name: Aider
 description: >-
-  Aider is an open-source, terminal-based AI pair programmer that edits code
-  directly inside a developer's local Git repository. Written in Python and
-  distributed via PyPI under the Apache 2.0 license, Aider is a BYO-LLM tool:
-  the user supplies API keys for hosted models (Anthropic Claude, OpenAI,
-  DeepSeek, Google Gemini, OpenRouter, Mistral, xAI, GROQ, Cohere, GitHub
-  Copilot, Azure OpenAI, Amazon Bedrock, Vertex AI) or points it at local
-  models running through Ollama, LM Studio, or any OpenAI-compatible endpoint.
-  Distinguishing capabilities include a repository-wide codebase map that lets
-  the model reason about files it has not been shown, multi-file architectural
-  edits with diff-based patching, automatic Git commits with conventional
-  commit messages, a lint/test/repair loop, image and URL context, voice-to-code,
-  and an IDE bridge via `--watch-files` that picks up `AI!` / `AI?` comments
-  written from any editor. Aider supports 100+ programming languages via
-  tree-sitter, publishes a public LLM coding leaderboard (the polyglot
-  benchmark across C++, Go, Java, JavaScript, Python, Rust), and has
-  accumulated 45K+ GitHub stars with 4.5K+ forks. The product surface is a
-  rich CLI (40+ in-chat slash commands across four chat modes: code,
-  architect, ask, help) plus a Python module entrypoint (`python -m aider`);
-  there is no hosted SaaS, no Aider-operated REST API, and no app-level
-  rate-limiting or billing — all model inference is delegated to the user's
-  chosen provider, and any pricing, rate limits, and FinOps surface live with
-  that provider.
+  Aider is an open-source, terminal-based AI pair programmer that edits code directly inside a developer's local Git
+  repository. Written in Python and distributed via PyPI under the Apache 2.0 license, Aider is a BYO-LLM tool: the user
+  supplies API keys for hosted models (Anthropic Claude, OpenAI, DeepSeek, Google Gemini, OpenRouter, Mistral, xAI,
+  GROQ, Cohere, GitHub Copilot, Azure OpenAI, Amazon Bedrock, Vertex AI) or points it at local models running through
+  Ollama, LM Studio, or any OpenAI-compatible endpoint. Distinguishing capabilities include a repository-wide codebase
+  map that lets the model reason about files it has not been shown, multi-file architectural edits with diff-based
+  patching, automatic Git commits with conventional commit messages, a lint/test/repair loop, image and URL context,
+  voice-to-code, and an IDE bridge via `--watch-files` that picks up `AI!` / `AI?` comments written from any editor.
+  Aider supports 100+ programming languages via tree-sitter, publishes a public LLM coding leaderboard (the polyglot
+  benchmark across C++, Go, Java, JavaScript, Python, Rust), and has accumulated 45K+ GitHub stars with 4.5K+ forks. The
+  product surface is a rich CLI (40+ in-chat slash commands across four chat modes: code, architect, ask, help) plus a
+  Python module entrypoint (`python -m aider`); there is no hosted SaaS, no Aider-operated REST API, and no app-level
+  rate-limiting or billing — all model inference is delegated to the user's chosen provider, and any pricing, rate
+  limits, and FinOps surface live with that provider.
 type: Index
 position: Provider
 access: Open Source
@@ -55,24 +47,19 @@ apis:
   - aid: aider:cli
     name: Aider CLI
     description: >-
-      Open-source terminal AI pair programmer distributed as the `aider-chat`
-      PyPI package (entrypoint `aider`). Federates to user-supplied LLM
-      providers (Anthropic, OpenAI, DeepSeek, Google Gemini, OpenRouter,
-      Mistral, xAI, GROQ, Cohere, GitHub Copilot, Azure, Bedrock, Vertex,
-      or any OpenAI-compatible endpoint including local models via Ollama
-      and LM Studio). Provides four chat modes (code, architect, ask, help),
-      40+ in-chat slash commands, a repository-wide codebase map built with
-      tree-sitter, multi-file diff-based edits in several edit formats
-      (diff, whole, udiff, editor-diff), Git auto-commit with conventional
-      commit messages, lint/test/repair loop, image and URL context,
-      voice-to-code via the `/voice` command, and an IDE bridge via
-      `--watch-files` that picks up `AI!` / `AI?` comments written from
-      any editor. Configuration via command-line flags, environment
-      variables (`AIDER_*`), `.env`, or `.aider.conf.yml`.
+      Open-source terminal AI pair programmer distributed as the `aider-chat` PyPI package (entrypoint `aider`).
+      Federates to user-supplied LLM providers (Anthropic, OpenAI, DeepSeek, Google Gemini, OpenRouter, Mistral, xAI,
+      GROQ, Cohere, GitHub Copilot, Azure, Bedrock, Vertex, or any OpenAI-compatible endpoint including local models via
+      Ollama and LM Studio). Provides four chat modes (code, architect, ask, help), 40+ in-chat slash commands, a
+      repository-wide codebase map built with tree-sitter, multi-file diff-based edits in several edit formats (diff,
+      whole, udiff, editor-diff), Git auto-commit with conventional commit messages, lint/test/repair loop, image and
+      URL context, voice-to-code via the `/voice` command, and an IDE bridge via `--watch-files` that picks up `AI!` /
+      `AI?` comments written from any editor. Configuration via command-line flags, environment variables (`AIDER_*`),
+      `.env`, or `.aider.conf.yml`.
     image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     humanURL: https://aider.chat/
     baseURL: https://aider.chat
-    version: '0.86.1'
+    version: 0.86.1
     tags:
       - CLI
       - Open Source
@@ -132,18 +119,14 @@ apis:
         url: https://aider.chat/docs/usage/conventions.html
       - type: OpenAPI
         url: openapi/aider-cli-openapi.yml
-      - type: NaftikoCapability
-        url: capabilities/aider-cli.yaml
   - aid: aider:python-module
     name: Aider Python Module
     description: >-
-      Aider exposes a Python module entrypoint (`python -m aider`) and an
-      importable package (`aider.main.main`) so Aider can be embedded in
-      Python scripts, CI workflows, and other agents. The same flags and
-      configuration that drive the CLI apply to module invocation. There
-      is no documented stable Python SDK contract beyond `main()` — the
-      internal `Coder`, `Model`, `IO`, and `Commands` classes are public
-      but versioned with the CLI and may change between releases.
+      Aider exposes a Python module entrypoint (`python -m aider`) and an importable package (`aider.main.main`) so
+      Aider can be embedded in Python scripts, CI workflows, and other agents. The same flags and configuration that
+      drive the CLI apply to module invocation. There is no documented stable Python SDK contract beyond `main()` — the
+      internal `Coder`, `Model`, `IO`, and `Commands` classes are public but versioned with the CLI and may change
+      between releases.
     image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     humanURL: https://github.com/Aider-AI/aider/blob/main/aider/main.py
     baseURL: https://github.com/Aider-AI/aider
@@ -238,93 +221,74 @@ common:
 features:
   - name: Repository Map
     description: >-
-      Aider builds a tree-sitter-powered map of the entire repository so the
-      LLM can reason about files that haven't been explicitly added to the
-      chat. The map is automatically refreshed and can be inspected via
-      `/map` or rebuilt via `/map-refresh`.
+      Aider builds a tree-sitter-powered map of the entire repository so the LLM can reason about files that haven't
+      been explicitly added to the chat. The map is automatically refreshed and can be inspected via `/map` or rebuilt
+      via `/map-refresh`.
   - name: Architect / Editor Split
     description: >-
-      Architect mode pairs a reasoning-strong model (planning) with a separate
-      editor model (file edits). This separates the cost of thinking from the
-      cost of writing diffs and lets weaker editor models execute plans from
-      stronger architects.
+      Architect mode pairs a reasoning-strong model (planning) with a separate editor model (file edits). This separates
+      the cost of thinking from the cost of writing diffs and lets weaker editor models execute plans from stronger
+      architects.
   - name: Watch Files Mode
     description: >-
-      `--watch-files` lets aider sit in a terminal alongside any editor; it
-      reacts to `AI!` and `AI?` comments authored from VS Code, Cursor,
-      JetBrains, Vim, or any other editor.
+      `--watch-files` lets aider sit in a terminal alongside any editor; it reacts to `AI!` and `AI?` comments authored
+      from VS Code, Cursor, JetBrains, Vim, or any other editor.
   - name: Voice to Code
     description: >-
-      `/voice` records microphone input, transcribes it (Whisper-style),
-      and feeds it into the chat as a prompt. Optional PortAudio install
-      required on Mac/Linux.
+      `/voice` records microphone input, transcribes it (Whisper-style), and feeds it into the chat as a prompt.
+      Optional PortAudio install required on Mac/Linux.
   - name: Auto Git Commits
     description: >-
-      Every AI-applied change is automatically committed with a conventional
-      commit message. `/undo` rolls back the last commit; `/diff` shows what
-      changed since the last message.
+      Every AI-applied change is automatically committed with a conventional commit message. `/undo` rolls back the last
+      commit; `/diff` shows what changed since the last message.
   - name: Lint and Test Repair Loop
     description: >-
-      `--auto-lint` and `--auto-test` re-run linters and tests after every
-      edit; failures are fed back into the LLM so it can self-repair until
-      the suite passes.
+      `--auto-lint` and `--auto-test` re-run linters and tests after every edit; failures are fed back into the LLM so
+      it can self-repair until the suite passes.
   - name: Polyglot Benchmark
     description: >-
-      Aider publishes a public leaderboard scoring frontier LLMs against
-      225 Exercism exercises across C++, Go, Java, JavaScript, Python, and
-      Rust — separating edit-format accuracy from raw correctness.
+      Aider publishes a public leaderboard scoring frontier LLMs against 225 Exercism exercises across C++, Go, Java,
+      JavaScript, Python, and Rust — separating edit-format accuracy from raw correctness.
   - name: BYO LLM
     description: >-
-      No vendor lock-in. The user supplies the API key for any of 15+
-      supported providers (or points at a local Ollama / LM Studio
-      endpoint). Pricing, rate limits, and billing live entirely with the
-      upstream provider.
+      No vendor lock-in. The user supplies the API key for any of 15+ supported providers (or points at a local Ollama /
+      LM Studio endpoint). Pricing, rate limits, and billing live entirely with the upstream provider.
   - name: Multiple Edit Formats
     description: >-
-      Aider supports `diff`, `whole`, `udiff`, and `editor-diff` edit
-      formats so the LLM can apply changes in whatever shape it executes
-      most reliably. Edit format is auto-selected per model and can be
-      overridden via `--edit-format`.
+      Aider supports `diff`, `whole`, `udiff`, and `editor-diff` edit formats so the LLM can apply changes in whatever
+      shape it executes most reliably. Edit format is auto-selected per model and can be overridden via `--edit-format`.
 useCases:
   - name: Multi-File Refactor
     description: >-
-      Use architect mode with a reasoning model to plan a cross-cutting
-      refactor, then have aider apply the edits across dozens of files in
-      one pass, with each edit auto-committed.
+      Use architect mode with a reasoning model to plan a cross-cutting refactor, then have aider apply the edits across
+      dozens of files in one pass, with each edit auto-committed.
   - name: Test-Driven Bug Fixing
     description: >-
-      `/test` runs the suite, the failure goes back to the model, the model
-      proposes a fix, `/test` re-runs until green. The whole loop happens
-      without leaving the terminal.
+      `/test` runs the suite, the failure goes back to the model, the model proposes a fix, `/test` re-runs until green.
+      The whole loop happens without leaving the terminal.
   - name: Editor-Bridged Pair Programming
     description: >-
-      Run `aider --watch-files` in one pane and any editor in another;
-      drop `# AI! make this idempotent` into the source file and aider
-      picks it up, edits, and commits.
+      Run `aider --watch-files` in one pane and any editor in another; drop `# AI! make this idempotent` into the source
+      file and aider picks it up, edits, and commits.
   - name: Local Model Coding
     description: >-
-      Point aider at an OpenAI-compatible Ollama or LM Studio endpoint to
-      get a fully offline coding workflow with no data ever leaving the
-      developer's machine.
+      Point aider at an OpenAI-compatible Ollama or LM Studio endpoint to get a fully offline coding workflow with no
+      data ever leaving the developer's machine.
   - name: Benchmark Authoring
     description: >-
-      Use the polyglot, refactor, and SWE-Bench harnesses (in the Aider-AI
-      GitHub org) to benchmark a new model or new prompt strategy against
-      a reproducible, published scoreboard.
+      Use the polyglot, refactor, and SWE-Bench harnesses (in the Aider-AI GitHub org) to benchmark a new model or new
+      prompt strategy against a reproducible, published scoreboard.
 integrations:
   - name: Anthropic Claude
     description: >-
-      First-class support for Claude Sonnet, Opus, and Haiku via Anthropic
-      direct API or Bedrock / Vertex. `--model claude-...` or
-      `ANTHROPIC_API_KEY` in the environment.
+      First-class support for Claude Sonnet, Opus, and Haiku via Anthropic direct API or Bedrock / Vertex. `--model
+      claude-...` or `ANTHROPIC_API_KEY` in the environment.
   - name: OpenAI
     description: >-
-      Support for GPT-4.1, o3, o4-mini, GPT-5 family, and Responses API
-      models (o1-pro, o3-pro). `--model gpt-...` or `OPENAI_API_KEY`.
+      Support for GPT-4.1, o3, o4-mini, GPT-5 family, and Responses API models (o1-pro, o3-pro). `--model gpt-...` or
+      `OPENAI_API_KEY`.
   - name: Google Gemini
-    description: >-
-      Gemini 2.5 Pro and Flash via direct API or Vertex. Free tier
-      available through `gemini-2.5-pro-exp`.
+    description: Gemini 2.5 Pro and Flash via direct API or Vertex. Free tier available through `gemini-2.5-pro-exp`.
   - name: DeepSeek
     description: DeepSeek R1 (reasoner) and V3 via the DeepSeek API or third-party providers.
   - name: OpenRouter
@@ -351,37 +315,31 @@ integrations:
     description: Cohere Command-family models for chat and code completion.
   - name: Git
     description: >-
-      Aider requires a Git repo by default; every applied edit is committed
-      automatically. Configurable via `--git` / `--auto-commits` /
-      `--dirty-commits`.
+      Aider requires a Git repo by default; every applied edit is committed automatically. Configurable via `--git` /
+      `--auto-commits` / `--dirty-commits`.
   - name: NeoVim (aider.nvim)
     description: Community NeoVim plugin pairs aider with an in-editor experience.
   - name: VS Code Terminal
     description: >-
-      No official extension; runs natively in VS Code's integrated terminal.
-      `--watch-files` makes the IDE pairing work via AI! / AI? comments.
+      No official extension; runs natively in VS Code's integrated terminal. `--watch-files` makes the IDE pairing work
+      via AI! / AI? comments.
 solutions:
   - name: Offline Coding Assistant
     description: >-
-      Run aider against a local Ollama or LM Studio server to get
-      AI-assisted refactoring, test repair, and architectural edits with
-      no data ever leaving the developer's machine.
+      Run aider against a local Ollama or LM Studio server to get AI-assisted refactoring, test repair, and
+      architectural edits with no data ever leaving the developer's machine.
   - name: Cross-Model Benchmarking
     description: >-
-      Use Aider's polyglot benchmark harness to score any new LLM against
-      a reproducible 225-task suite across six languages, with per-language
-      and edit-format-accuracy breakdowns.
+      Use Aider's polyglot benchmark harness to score any new LLM against a reproducible 225-task suite across six
+      languages, with per-language and edit-format-accuracy breakdowns.
   - name: Editor-Native AI Workflow
     description: >-
-      Pair `--watch-files` with VS Code, JetBrains, NeoVim, or any editor
-      to drive aider from inline `AI!` / `AI?` comments — no extension
-      required.
+      Pair `--watch-files` with VS Code, JetBrains, NeoVim, or any editor to drive aider from inline `AI!` / `AI?`
+      comments — no extension required.
   - name: MCP-Wrapped Aider
     description: >-
-      Community MCP servers (`disler/aider-mcp-server`,
-      `sengokudaikon/aider-mcp-server`) expose aider AS an MCP tool,
-      letting Claude Code, Cursor, or any MCP client offload editing
-      work to aider.
+      Community MCP servers (`disler/aider-mcp-server`, `sengokudaikon/aider-mcp-server`) expose aider AS an MCP tool,
+      letting Claude Code, Cursor, or any MCP client offload editing work to aider.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
