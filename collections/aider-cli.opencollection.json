@@ -1,0 +1,670 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Add Files to Chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/add",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add files to the chat so aider can edit them or review them in detail. Maps to the `/add` in-chat command."
+        },
+        {
+          "info": {
+            "name": "Aider Drop Files From Chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/drop",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove files from the chat session to free up context space. Maps to the `/drop` in-chat command."
+        },
+        {
+          "info": {
+            "name": "Aider Add Read-Only Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/read-only",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add files for reference only or convert added files to read-only. Maps to the `/read-only` in-chat command."
+        },
+        {
+          "info": {
+            "name": "Aider List Files in Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/ls"
+          },
+          "docs": "List all known files and indicate which are in the chat session. Maps to the `/ls` in-chat command."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Editing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Request Code Edit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/code",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Ask for changes to your code. Maps to the `/code` in-chat command (also the default mode behavior)."
+        },
+        {
+          "info": {
+            "name": "Aider Enter Architect Mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/architect",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enter architect/editor mode using 2 different models — a reasoning model proposes, an editor model executes file edits. Maps to `/architect`."
+        },
+        {
+          "info": {
+            "name": "Aider Show Diff Since Last Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/diff"
+          },
+          "docs": "Display the diff of changes since the last message. Maps to `/diff`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Modes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Ask Question About Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/ask",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Ask questions about the code base without editing any files. Maps to the `/ask` in-chat command."
+        },
+        {
+          "info": {
+            "name": "Aider Switch Chat Mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/chat-mode",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Switch to a new chat mode (code, architect, ask, help, context). Maps to `/chat-mode`."
+        },
+        {
+          "info": {
+            "name": "Aider Ask Help Question",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/help",
+            "params": [
+              {
+                "name": "query",
+                "value": "how do I switch models?",
+                "type": "query",
+                "description": "The help question to ask."
+              }
+            ]
+          },
+          "docs": "Ask questions about aider. Maps to `/help` and the `help` chat mode."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Git",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Undo Last Aider Commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/undo"
+          },
+          "docs": "Undo the last git commit if it was done by aider. Maps to `/undo`."
+        },
+        {
+          "info": {
+            "name": "Aider Commit Changes Outside Chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/commit",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Commit edits to the repo made outside the chat. Maps to `/commit`."
+        },
+        {
+          "info": {
+            "name": "Aider Run Git Command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/git",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run a git command (output excluded from chat). Maps to `/git`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Switch Main Model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/model",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Switch the Main Model to a new LLM. Maps to `/model`."
+        },
+        {
+          "info": {
+            "name": "Aider Switch Weak Model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/weak-model",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Switch the Weak Model used for commit messages and summarization. Maps to `/weak-model`."
+        },
+        {
+          "info": {
+            "name": "Aider Switch Editor Model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/editor-model",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Switch the Editor Model used by architect mode to apply file edits. Maps to `/editor-model`."
+        },
+        {
+          "info": {
+            "name": "Aider List Available Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/models",
+            "params": [
+              {
+                "name": "query",
+                "value": "claude",
+                "type": "query",
+                "description": "Substring filter applied to model identifiers."
+              }
+            ]
+          },
+          "docs": "Search the list of available models. Maps to `/models`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Clear Chat History",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/clear"
+          },
+          "docs": "Clear the chat history. Maps to `/clear`."
+        },
+        {
+          "info": {
+            "name": "Aider Reset Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/reset"
+          },
+          "docs": "Drop all files and clear the chat history. Maps to `/reset`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Report Token Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/tokens"
+          },
+          "docs": "Report the number of tokens used by the current chat context. Maps to `/tokens`."
+        },
+        {
+          "info": {
+            "name": "Aider Set Reasoning Effort",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/reasoning-effort",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the reasoning effort level (low/medium/high or numeric). Maps to `/reasoning-effort`."
+        },
+        {
+          "info": {
+            "name": "Aider Set Thinking Token Budget",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/think-tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the thinking token budget (e.g., 8096, 8k, 10.5k, 0.5M). Maps to `/think-tokens`."
+        },
+        {
+          "info": {
+            "name": "Aider Show Current Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/settings"
+          },
+          "docs": "Print out the current settings. Maps to `/settings`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Map",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Show Repository Map",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/map"
+          },
+          "docs": "Print out the current repository map. Maps to `/map`."
+        },
+        {
+          "info": {
+            "name": "Aider Refresh Repository Map",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/map-refresh"
+          },
+          "docs": "Force a refresh of the repository map. Maps to `/map-refresh`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "IO",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Run Shell Command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/run",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run a shell command and optionally add output to chat. Maps to `/run`."
+        },
+        {
+          "info": {
+            "name": "Aider Paste Clipboard Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/paste"
+          },
+          "docs": "Paste image/text from clipboard into the chat. Maps to `/paste`."
+        },
+        {
+          "info": {
+            "name": "Aider Copy Last Assistant Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/copy"
+          },
+          "docs": "Copy the last assistant message to the clipboard. Maps to `/copy`."
+        },
+        {
+          "info": {
+            "name": "Aider Copy Chat Context as Markdown",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/copy-context"
+          },
+          "docs": "Copy current chat context as markdown for pasting into web UIs. Maps to `/copy-context`."
+        },
+        {
+          "info": {
+            "name": "Aider Open Editor for Prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/editor"
+          },
+          "docs": "Open an editor to write a prompt. Maps to `/editor` (alias `/edit`)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Quality",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Run Test Command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/test",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run a shell command and add output to chat on non-zero exit code. Maps to `/test`."
+        },
+        {
+          "info": {
+            "name": "Aider Run Lint and Fix",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/lint",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Lint and fix in-chat files or all dirty files if none specified. Maps to `/lint`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Voice",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Record Voice Input",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/voice"
+          },
+          "docs": "Record and transcribe voice input. Maps to `/voice`. Requires optional PortAudio on Mac/Linux."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Web",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Scrape Web Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/web",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Scrape a webpage, convert to markdown and send in a message. Maps to `/web`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Session",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Load Command Script",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/load",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Load and execute commands from a file. Maps to `/load`."
+        },
+        {
+          "info": {
+            "name": "Aider Save Command Script",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/save",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Save commands to a file that can reconstruct the chat session. Maps to `/save`."
+        },
+        {
+          "info": {
+            "name": "Aider Report a Problem",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/report"
+          },
+          "docs": "Report a problem by opening a GitHub Issue. Maps to `/report`."
+        },
+        {
+          "info": {
+            "name": "Aider Exit Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/exit"
+          },
+          "docs": "Exit the application. Maps to `/exit` and `/quit`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Launch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Get Launch Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/launch/config"
+          },
+          "docs": "Inspect the active launch configuration assembled from `.aider.conf.yml`, environment variables, and command-line flags. Modeled here as a configuration resource; no real HTTP endpoint exists."
+        },
+        {
+          "info": {
+            "name": "Aider Update Launch Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "cli://aider/launch/config",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the launch configuration by writing `.aider.conf.yml` or `.env`. Modeled as an idempotent PUT."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
