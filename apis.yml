@@ -18,7 +18,7 @@ description: >-
 type: Index
 position: Provider
 access: Open Source
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 x-type: opensource
 tags:
   - AI
@@ -56,7 +56,7 @@ apis:
       URL context, voice-to-code via the `/voice` command, and an IDE bridge via `--watch-files` that picks up `AI!` /
       `AI?` comments written from any editor. Configuration via command-line flags, environment variables (`AIDER_*`),
       `.env`, or `.aider.conf.yml`.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://aider.chat/
     baseURL: https://aider.chat
     version: 0.86.1
@@ -127,7 +127,7 @@ apis:
       drive the CLI apply to module invocation. There is no documented stable Python SDK contract beyond `main()` — the
       internal `Coder`, `Model`, `IO`, and `Commands` classes are public but versioned with the CLI and may change
       between releases.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://github.com/Aider-AI/aider/blob/main/aider/main.py
     baseURL: https://github.com/Aider-AI/aider
     tags:
