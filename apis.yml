@@ -155,7 +155,7 @@ common:
     url: https://github.com/Aider-AI
   - type: Issues
     url: https://github.com/Aider-AI/aider/issues
-  - type: Discussions
+  - type: Forums
     url: https://github.com/Aider-AI/aider/discussions
   - type: PyPI
     url: https://pypi.org/project/aider-chat/
