@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/aider-cli-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: LLMProviderKey
+  type: apiKey
+  in: header
+  parameter: X-Provider-API-Key
+  description: Placeholder for documentation purposes. Aider does not authenticate with an "aider
+    API"; it reads the relevant upstream provider key (ANTHROPIC_API_KEY, OPENAI_API_KEY, etc.)
+    from the local environment and passes it to the chosen LLM provider directly.
+  sources:
+  - openapi/aider-cli-openapi.yml
