@@ -145,6 +145,8 @@ apis:
       - type: Scripting
         url: https://aider.chat/docs/scripting.html
 common:
+  - type: AgenticAccess
+    url: agentic-access/aider-agentic-access.yml
   - type: DomainSecurity
     url: security/aider-domain-security.yml
   - type: Authentication
