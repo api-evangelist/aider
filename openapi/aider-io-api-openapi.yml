@@ -1,0 +1,236 @@
+openapi: 3.0.3
+info:
+  title: Aider CLI Chat IO API
+  version: 0.86.1
+  description: Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is "use the user's local shell credentials and the LLM provider API key in the environment."
+  contact:
+    name: Aider Maintainers
+    url: https://github.com/Aider-AI/aider/issues
+  license:
+    name: Apache 2.0
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+  x-source-urls:
+  - https://aider.chat/docs/usage/commands.html
+  - https://aider.chat/docs/usage/modes.html
+  - https://aider.chat/docs/config/options.html
+  - https://aider.chat/docs/llms.html
+servers:
+- url: cli://aider
+  description: Local CLI invocation (not a network endpoint). Modeled as URI scheme `cli://aider` for catalog tooling.
+- url: file:///usr/local/bin/aider
+  description: Typical install path for the `aider` entrypoint.
+security:
+- LLMProviderKey: []
+tags:
+- name: IO
+  description: Aider Commands That Move Data In and Out of the Session.
+paths:
+  /commands/run:
+    post:
+      operationId: runShellCommand
+      summary: Aider Run Shell Command
+      description: Run a shell command and optionally add output to chat. Maps to `/run`.
+      tags:
+      - IO
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShellRequest'
+      responses:
+        '200':
+          description: Shell command executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShellResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/voice:
+    post:
+      operationId: recordVoiceInput
+      summary: Aider Record Voice Input
+      description: Record and transcribe voice input. Maps to `/voice`. Requires optional PortAudio on Mac/Linux.
+      tags:
+      - IO
+      responses:
+        '200':
+          description: Voice transcript returned and queued as next prompt.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceTranscript'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/web:
+    post:
+      operationId: scrapeWebPage
+      summary: Aider Scrape Web Page
+      description: Scrape a webpage, convert to markdown and send in a message. Maps to `/web`.
+      tags:
+      - IO
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebFetchRequest'
+      responses:
+        '200':
+          description: Web content fetched and added to chat.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebFetchResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/paste:
+    post:
+      operationId: pasteFromClipboard
+      summary: Aider Paste Clipboard Content
+      description: Paste image/text from clipboard into the chat. Maps to `/paste`.
+      tags:
+      - IO
+      responses:
+        '200':
+          description: Clipboard content added to chat.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/copy:
+    post:
+      operationId: copyLastMessage
+      summary: Aider Copy Last Assistant Message
+      description: Copy the last assistant message to the clipboard. Maps to `/copy`.
+      tags:
+      - IO
+      responses:
+        '200':
+          description: Message copied to clipboard.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/copy-context:
+    post:
+      operationId: copyChatContext
+      summary: Aider Copy Chat Context as Markdown
+      description: Copy current chat context as markdown for pasting into web UIs. Maps to `/copy-context`.
+      tags:
+      - IO
+      responses:
+        '200':
+          description: Chat context copied as markdown.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/editor:
+    post:
+      operationId: openEditorPrompt
+      summary: Aider Open Editor for Prompt
+      description: Open an editor to write a prompt. Maps to `/editor` (alias `/edit`).
+      tags:
+      - IO
+      responses:
+        '200':
+          description: Prompt drafted in external editor and submitted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ShellResult:
+      type: object
+      properties:
+        exit_code:
+          type: integer
+          description: Process exit code.
+          example: 0
+        stdout:
+          type: string
+          example: 12 passed in 1.42s
+        stderr:
+          type: string
+          example: ''
+    WebFetchRequest:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+          description: HTTP(S) URL to fetch and convert to markdown.
+          example: https://example.com/docs/getting-started
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
+    WebFetchResult:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          example: https://example.com/docs/getting-started
+        markdown:
+          type: string
+          description: Markdown rendering of the page added to chat context.
+          example: '# Getting Started ...'
+    ShellRequest:
+      type: object
+      required:
+      - command
+      properties:
+        command:
+          type: string
+          description: Shell command line to execute in the repo root.
+          example: pytest -x tests/
+        add_output_to_chat:
+          type: boolean
+          description: Whether the command's stdout/stderr is appended to chat context.
+          default: true
+          example: true
+    VoiceTranscript:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Transcribed text queued as the next prompt.
+          example: refactor the cache layer to use lru eviction
+        duration_ms:
+          type: integer
+          description: Length of the recorded clip.
+          example: 4200
+  securitySchemes:
+    LLMProviderKey:
+      type: apiKey
+      in: header
+      name: X-Provider-API-Key
+      description: Placeholder for documentation purposes. Aider does not authenticate with an "aider API"; it reads the relevant upstream provider key (ANTHROPIC_API_KEY, OPENAI_API_KEY, etc.) from the local environment and passes it to the chosen LLM provider directly.

@@ -1,0 +1,182 @@
+openapi: 3.0.3
+info:
+  title: Aider CLI Chat Models API
+  version: 0.86.1
+  description: Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is "use the user's local shell credentials and the LLM provider API key in the environment."
+  contact:
+    name: Aider Maintainers
+    url: https://github.com/Aider-AI/aider/issues
+  license:
+    name: Apache 2.0
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+  x-source-urls:
+  - https://aider.chat/docs/usage/commands.html
+  - https://aider.chat/docs/usage/modes.html
+  - https://aider.chat/docs/config/options.html
+  - https://aider.chat/docs/llms.html
+servers:
+- url: cli://aider
+  description: Local CLI invocation (not a network endpoint). Modeled as URI scheme `cli://aider` for catalog tooling.
+- url: file:///usr/local/bin/aider
+  description: Typical install path for the `aider` entrypoint.
+security:
+- LLMProviderKey: []
+tags:
+- name: Models
+  description: Aider Commands That Switch or Query LLM Models.
+paths:
+  /commands/model:
+    post:
+      operationId: switchMainModel
+      summary: Aider Switch Main Model
+      description: Switch the Main Model to a new LLM. Maps to `/model`.
+      tags:
+      - Models
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelSelection'
+      responses:
+        '200':
+          description: Main model switched.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/weak-model:
+    post:
+      operationId: switchWeakModel
+      summary: Aider Switch Weak Model
+      description: Switch the Weak Model used for commit messages and summarization. Maps to `/weak-model`.
+      tags:
+      - Models
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelSelection'
+      responses:
+        '200':
+          description: Weak model switched.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/editor-model:
+    post:
+      operationId: switchEditorModel
+      summary: Aider Switch Editor Model
+      description: Switch the Editor Model used by architect mode to apply file edits. Maps to `/editor-model`.
+      tags:
+      - Models
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelSelection'
+      responses:
+        '200':
+          description: Editor model switched.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/models:
+    get:
+      operationId: listAvailableModels
+      summary: Aider List Available Models
+      description: Search the list of available models. Maps to `/models`.
+      tags:
+      - Models
+      parameters:
+      - name: query
+        in: query
+        required: false
+        description: Substring filter applied to model identifiers.
+        schema:
+          type: string
+        example: claude
+      responses:
+        '200':
+          description: Matching models returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelCatalog'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
+    ModelCatalog:
+      type: object
+      properties:
+        models:
+          type: array
+          description: Model identifiers matching the search query.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                example: anthropic/claude-opus-4
+              provider:
+                type: string
+                example: anthropic
+              context_window:
+                type: integer
+                example: 200000
+              supports_edit_format:
+                type: array
+                items:
+                  type: string
+                  example: diff
+                example:
+                - diff
+                - udiff
+          example:
+          - id: anthropic/claude-opus-4
+            provider: anthropic
+            context_window: 200000
+            supports_edit_format:
+            - diff
+            - udiff
+    ModelSelection:
+      type: object
+      required:
+      - model
+      properties:
+        model:
+          type: string
+          description: LiteLLM-style model identifier or one of aider's built-in aliases.
+          example: anthropic/claude-opus-4
+  securitySchemes:
+    LLMProviderKey:
+      type: apiKey
+      in: header
+      name: X-Provider-API-Key
+      description: Placeholder for documentation purposes. Aider does not authenticate with an "aider API"; it reads the relevant upstream provider key (ANTHROPIC_API_KEY, OPENAI_API_KEY, etc.) from the local environment and passes it to the chosen LLM provider directly.

@@ -1,0 +1,209 @@
+openapi: 3.0.3
+info:
+  title: Aider CLI Chat Git API
+  version: 0.86.1
+  description: Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is "use the user's local shell credentials and the LLM provider API key in the environment."
+  contact:
+    name: Aider Maintainers
+    url: https://github.com/Aider-AI/aider/issues
+  license:
+    name: Apache 2.0
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+  x-source-urls:
+  - https://aider.chat/docs/usage/commands.html
+  - https://aider.chat/docs/usage/modes.html
+  - https://aider.chat/docs/config/options.html
+  - https://aider.chat/docs/llms.html
+servers:
+- url: cli://aider
+  description: Local CLI invocation (not a network endpoint). Modeled as URI scheme `cli://aider` for catalog tooling.
+- url: file:///usr/local/bin/aider
+  description: Typical install path for the `aider` entrypoint.
+security:
+- LLMProviderKey: []
+tags:
+- name: Git
+  description: Aider Commands That Wrap Git Operations.
+paths:
+  /commands/diff:
+    get:
+      operationId: showDiff
+      summary: Aider Show Diff Since Last Message
+      description: Display the diff of changes since the last message. Maps to `/diff`.
+      tags:
+      - Git
+      responses:
+        '200':
+          description: Unified diff returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiffResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/undo:
+    post:
+      operationId: undoLastCommit
+      summary: Aider Undo Last Aider Commit
+      description: Undo the last git commit if it was done by aider. Maps to `/undo`.
+      tags:
+      - Git
+      responses:
+        '200':
+          description: Commit reverted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+        '409':
+          description: Last commit was not made by aider
+          refusing to undo.: null
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/commit:
+    post:
+      operationId: commitChanges
+      summary: Aider Commit Changes Outside Chat
+      description: Commit edits to the repo made outside the chat. Maps to `/commit`.
+      tags:
+      - Git
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommitRequest'
+      responses:
+        '200':
+          description: Commit created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommitResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/git:
+    post:
+      operationId: runGitCommand
+      summary: Aider Run Git Command
+      description: Run a git command (output excluded from chat). Maps to `/git`.
+      tags:
+      - Git
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShellRequest'
+      responses:
+        '200':
+          description: Git command executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShellResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CommitRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Optional commit message override. Omit to let the weak model generate one.
+          example: 'chore: format imports'
+    DiffResult:
+      type: object
+      properties:
+        unified_diff:
+          type: string
+          description: Unified diff of all files changed since the last user message.
+          example: '--- a/src/main.py
+
+            +++ b/src/main.py
+
+            @@ -1,3 +1,3 @@
+
+            -print(''hi'')
+
+            +print(''hello'')
+
+            '
+        files_changed:
+          type: array
+          items:
+            type: string
+            example: src/main.py
+          example:
+          - src/main.py
+    ShellResult:
+      type: object
+      properties:
+        exit_code:
+          type: integer
+          description: Process exit code.
+          example: 0
+        stdout:
+          type: string
+          example: 12 passed in 1.42s
+        stderr:
+          type: string
+          example: ''
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
+    ShellRequest:
+      type: object
+      required:
+      - command
+      properties:
+        command:
+          type: string
+          description: Shell command line to execute in the repo root.
+          example: pytest -x tests/
+        add_output_to_chat:
+          type: boolean
+          description: Whether the command's stdout/stderr is appended to chat context.
+          default: true
+          example: true
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: invalid_request
+        message:
+          type: string
+          example: One or more file paths could not be resolved.
+    CommitResult:
+      type: object
+      properties:
+        commit_sha:
+          type: string
+          example: f1e2d3c4b5a6
+        commit_message:
+          type: string
+          example: 'chore: format imports'
+  securitySchemes:
+    LLMProviderKey:
+      type: apiKey
+      in: header
+      name: X-Provider-API-Key
+      description: Placeholder for documentation purposes. Aider does not authenticate with an "aider API"; it reads the relevant upstream provider key (ANTHROPIC_API_KEY, OPENAI_API_KEY, etc.) from the local environment and passes it to the chosen LLM provider directly.

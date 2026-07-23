@@ -1,0 +1,80 @@
+openapi: 3.0.3
+info:
+  title: Aider CLI Chat API
+  version: 0.86.1
+  description: Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is "use the user's local shell credentials and the LLM provider API key in the environment."
+  contact:
+    name: Aider Maintainers
+    url: https://github.com/Aider-AI/aider/issues
+  license:
+    name: Apache 2.0
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+  x-source-urls:
+  - https://aider.chat/docs/usage/commands.html
+  - https://aider.chat/docs/usage/modes.html
+  - https://aider.chat/docs/config/options.html
+  - https://aider.chat/docs/llms.html
+servers:
+- url: cli://aider
+  description: Local CLI invocation (not a network endpoint). Modeled as URI scheme `cli://aider` for catalog tooling.
+- url: file:///usr/local/bin/aider
+  description: Typical install path for the `aider` entrypoint.
+security:
+- LLMProviderKey: []
+tags:
+- name: Chat
+  description: Aider Commands That Manage the Chat Session and History.
+paths:
+  /commands/clear:
+    post:
+      operationId: clearChatHistory
+      summary: Aider Clear Chat History
+      description: Clear the chat history. Maps to `/clear`.
+      tags:
+      - Chat
+      responses:
+        '200':
+          description: Chat history cleared.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/reset:
+    post:
+      operationId: resetSession
+      summary: Aider Reset Session
+      description: Drop all files and clear the chat history. Maps to `/reset`.
+      tags:
+      - Chat
+      responses:
+        '200':
+          description: Session reset.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
+  securitySchemes:
+    LLMProviderKey:
+      type: apiKey
+      in: header
+      name: X-Provider-API-Key
+      description: Placeholder for documentation purposes. Aider does not authenticate with an "aider API"; it reads the relevant upstream provider key (ANTHROPIC_API_KEY, OPENAI_API_KEY, etc.) from the local environment and passes it to the chosen LLM provider directly.

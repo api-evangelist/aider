@@ -1,0 +1,198 @@
+openapi: 3.0.3
+info:
+  title: Aider CLI Chat Files API
+  version: 0.86.1
+  description: Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is "use the user's local shell credentials and the LLM provider API key in the environment."
+  contact:
+    name: Aider Maintainers
+    url: https://github.com/Aider-AI/aider/issues
+  license:
+    name: Apache 2.0
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+  x-source-urls:
+  - https://aider.chat/docs/usage/commands.html
+  - https://aider.chat/docs/usage/modes.html
+  - https://aider.chat/docs/config/options.html
+  - https://aider.chat/docs/llms.html
+servers:
+- url: cli://aider
+  description: Local CLI invocation (not a network endpoint). Modeled as URI scheme `cli://aider` for catalog tooling.
+- url: file:///usr/local/bin/aider
+  description: Typical install path for the `aider` entrypoint.
+security:
+- LLMProviderKey: []
+tags:
+- name: Files
+  description: Aider Commands That Manage Files in the Chat Session.
+paths:
+  /commands/add:
+    post:
+      operationId: addFiles
+      summary: Aider Add Files to Chat
+      description: Add files to the chat so aider can edit them or review them in detail. Maps to the `/add` in-chat command.
+      tags:
+      - Files
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFilesRequest'
+      responses:
+        '200':
+          description: Files added to chat context.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+        '400':
+          description: Invalid file paths or unsupported file type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/drop:
+    post:
+      operationId: dropFiles
+      summary: Aider Drop Files From Chat
+      description: Remove files from the chat session to free up context space. Maps to the `/drop` in-chat command.
+      tags:
+      - Files
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DropFilesRequest'
+      responses:
+        '200':
+          description: Files dropped.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/read-only:
+    post:
+      operationId: addReadOnlyFiles
+      summary: Aider Add Read-Only Files
+      description: Add files for reference only or convert added files to read-only. Maps to the `/read-only` in-chat command.
+      tags:
+      - Files
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFilesRequest'
+      responses:
+        '200':
+          description: Read-only files added.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/ls:
+    get:
+      operationId: listFiles
+      summary: Aider List Files in Session
+      description: List all known files and indicate which are in the chat session. Maps to the `/ls` in-chat command.
+      tags:
+      - Files
+      responses:
+        '200':
+          description: File listing returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileListing'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    AddFilesRequest:
+      type: object
+      required:
+      - files
+      properties:
+        files:
+          type: array
+          description: List of file paths relative to the Git working tree root.
+          items:
+            type: string
+            example: src/main.py
+          example:
+          - src/main.py
+          - tests/test_main.py
+        read_only:
+          type: boolean
+          description: When true, files are added as read-only references and excluded from edit targets.
+          default: false
+          example: false
+    DropFilesRequest:
+      type: object
+      properties:
+        files:
+          type: array
+          description: List of file paths to remove from chat context. Omit to drop all files.
+          items:
+            type: string
+            example: src/legacy.py
+          example:
+          - src/legacy.py
+    FileListing:
+      type: object
+      properties:
+        in_chat:
+          type: array
+          description: Files currently included in the chat session.
+          items:
+            type: string
+            example: src/main.py
+          example:
+          - src/main.py
+          - tests/test_main.py
+        known:
+          type: array
+          description: All files visible to the repository map.
+          items:
+            type: string
+            example: src/util.py
+          example:
+          - src/util.py
+          - src/io.py
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: invalid_request
+        message:
+          type: string
+          example: One or more file paths could not be resolved.
+  securitySchemes:
+    LLMProviderKey:
+      type: apiKey
+      in: header
+      name: X-Provider-API-Key
+      description: Placeholder for documentation purposes. Aider does not authenticate with an "aider API"; it reads the relevant upstream provider key (ANTHROPIC_API_KEY, OPENAI_API_KEY, etc.) from the local environment and passes it to the chosen LLM provider directly.

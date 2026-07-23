@@ -1,0 +1,144 @@
+openapi: 3.0.3
+info:
+  title: Aider CLI Chat Quality API
+  version: 0.86.1
+  description: Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is "use the user's local shell credentials and the LLM provider API key in the environment."
+  contact:
+    name: Aider Maintainers
+    url: https://github.com/Aider-AI/aider/issues
+  license:
+    name: Apache 2.0
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+  x-source-urls:
+  - https://aider.chat/docs/usage/commands.html
+  - https://aider.chat/docs/usage/modes.html
+  - https://aider.chat/docs/config/options.html
+  - https://aider.chat/docs/llms.html
+servers:
+- url: cli://aider
+  description: Local CLI invocation (not a network endpoint). Modeled as URI scheme `cli://aider` for catalog tooling.
+- url: file:///usr/local/bin/aider
+  description: Typical install path for the `aider` entrypoint.
+security:
+- LLMProviderKey: []
+tags:
+- name: Quality
+  description: Aider Commands That Run Linters and Tests.
+paths:
+  /commands/run:
+    post:
+      operationId: runShellCommand
+      summary: Aider Run Shell Command
+      description: Run a shell command and optionally add output to chat. Maps to `/run`.
+      tags:
+      - Quality
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShellRequest'
+      responses:
+        '200':
+          description: Shell command executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShellResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/test:
+    post:
+      operationId: runTestCommand
+      summary: Aider Run Test Command
+      description: Run a shell command and add output to chat on non-zero exit code. Maps to `/test`.
+      tags:
+      - Quality
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShellRequest'
+      responses:
+        '200':
+          description: Tests executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShellResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /commands/lint:
+    post:
+      operationId: runLint
+      summary: Aider Run Lint and Fix
+      description: Lint and fix in-chat files or all dirty files if none specified. Maps to `/lint`.
+      tags:
+      - Quality
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LintRequest'
+      responses:
+        '200':
+          description: Lint completed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShellResult'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    LintRequest:
+      type: object
+      properties:
+        files:
+          type: array
+          description: Files to lint. Omit to lint all dirty files in the repo.
+          items:
+            type: string
+            example: src/main.py
+          example:
+          - src/main.py
+    ShellResult:
+      type: object
+      properties:
+        exit_code:
+          type: integer
+          description: Process exit code.
+          example: 0
+        stdout:
+          type: string
+          example: 12 passed in 1.42s
+        stderr:
+          type: string
+          example: ''
+    ShellRequest:
+      type: object
+      required:
+      - command
+      properties:
+        command:
+          type: string
+          description: Shell command line to execute in the repo root.
+          example: pytest -x tests/
+        add_output_to_chat:
+          type: boolean
+          description: Whether the command's stdout/stderr is appended to chat context.
+          default: true
+          example: true
+  securitySchemes:
+    LLMProviderKey:
+      type: apiKey
+      in: header
+      name: X-Provider-API-Key
+      description: Placeholder for documentation purposes. Aider does not authenticate with an "aider API"; it reads the relevant upstream provider key (ANTHROPIC_API_KEY, OPENAI_API_KEY, etc.) from the local environment and passes it to the chosen LLM provider directly.
