@@ -16,9 +16,21 @@ description: >-
   rate-limiting or billing — all model inference is delegated to the user's chosen provider, and any pricing, rate
   limits, and FinOps surface live with that provider.
 type: Index
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Provider
 access: Open Source
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/aider.png
 x-type: opensource
 tags:
   - AI
@@ -44,106 +56,843 @@ created: '2026-05-08'
 modified: '2026-05-30'
 specificationVersion: '0.20'
 apis:
-  - aid: aider:cli
-    name: Aider CLI
-    description: >-
-      Open-source terminal AI pair programmer distributed as the `aider-chat` PyPI package (entrypoint `aider`).
-      Federates to user-supplied LLM providers (Anthropic, OpenAI, DeepSeek, Google Gemini, OpenRouter, Mistral, xAI,
-      GROQ, Cohere, GitHub Copilot, Azure, Bedrock, Vertex, or any OpenAI-compatible endpoint including local models via
-      Ollama and LM Studio). Provides four chat modes (code, architect, ask, help), 40+ in-chat slash commands, a
-      repository-wide codebase map built with tree-sitter, multi-file diff-based edits in several edit formats (diff,
-      whole, udiff, editor-diff), Git auto-commit with conventional commit messages, lint/test/repair loop, image and
-      URL context, voice-to-code via the `/voice` command, and an IDE bridge via `--watch-files` that picks up `AI!` /
-      `AI?` comments written from any editor. Configuration via command-line flags, environment variables (`AIDER_*`),
-      `.env`, or `.aider.conf.yml`.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://aider.chat/
-    baseURL: https://aider.chat
-    version: 0.86.1
-    tags:
-      - CLI
-      - Open Source
-      - AI Pair Programming
-      - BYO LLM
-      - Python
-      - Tree Sitter
-      - Repository Map
-    properties:
-      - type: Documentation
-        url: https://aider.chat/docs/
-      - type: GitHub
-        url: https://github.com/Aider-AI/aider
-      - type: PyPI
-        url: https://pypi.org/project/aider-chat/
-      - type: Installation
-        url: https://aider.chat/docs/install.html
-      - type: UsageGuide
-        url: https://aider.chat/docs/usage.html
-      - type: Commands
-        url: https://aider.chat/docs/usage/commands.html
-      - type: ChatModes
-        url: https://aider.chat/docs/usage/modes.html
-      - type: Configuration
-        url: https://aider.chat/docs/config.html
-      - type: ConfigOptions
-        url: https://aider.chat/docs/config/options.html
-      - type: ConfigYAML
-        url: https://aider.chat/docs/config/aider_conf.html
-      - type: ConfigEnv
-        url: https://aider.chat/docs/config/dotenv.html
-      - type: APIKeys
-        url: https://aider.chat/docs/config/api-keys.html
-      - type: SupportedModels
-        url: https://aider.chat/docs/llms.html
-      - type: ModelWarnings
-        url: https://aider.chat/docs/llms/warnings.html
-      - type: EditFormats
-        url: https://aider.chat/docs/more/edit-formats.html
-      - type: Leaderboard
-        url: https://aider.chat/docs/leaderboards/
-      - type: ChangeLog
-        url: https://aider.chat/HISTORY.html
-      - type: License
-        url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
-      - type: SourceCode
-        url: https://github.com/Aider-AI/aider
-      - type: IssueTracker
-        url: https://github.com/Aider-AI/aider/issues
-      - type: Tutorials
-        url: https://aider.chat/docs/usage/tutorials.html
-      - type: WatchFilesGuide
-        url: https://aider.chat/docs/usage/watch.html
-      - type: VoiceGuide
-        url: https://aider.chat/docs/usage/voice.html
-      - type: ConventionsGuide
-        url: https://aider.chat/docs/usage/conventions.html
-      - type: OpenAPI
-        url: openapi/aider-cli-openapi.yml
-  - aid: aider:python-module
-    name: Aider Python Module
-    description: >-
-      Aider exposes a Python module entrypoint (`python -m aider`) and an importable package (`aider.main.main`) so
-      Aider can be embedded in Python scripts, CI workflows, and other agents. The same flags and configuration that
-      drive the CLI apply to module invocation. There is no documented stable Python SDK contract beyond `main()` — the
-      internal `Coder`, `Model`, `IO`, and `Commands` classes are public but versioned with the CLI and may change
-      between releases.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://github.com/Aider-AI/aider/blob/main/aider/main.py
-    baseURL: https://github.com/Aider-AI/aider
-    tags:
-      - Python
-      - Library
-      - Embedding
-      - Open Source
-    properties:
-      - type: SourceCode
-        url: https://github.com/Aider-AI/aider/blob/main/aider/main.py
-      - type: PyPI
-        url: https://pypi.org/project/aider-chat/
-      - type: Documentation
-        url: https://aider.chat/docs/scripting.html
-      - type: Scripting
-        url: https://aider.chat/docs/scripting.html
+- aid: aider:python-module
+  name: Aider Python Module
+  description: >-
+    Aider exposes a Python module entrypoint (`python -m aider`) and an importable package (`aider.main.main`)
+    so Aider can be embedded in Python scripts, CI workflows, and other agents. The same flags and configuration
+    that drive the CLI apply to module invocation. There is no documented stable Python SDK contract beyond
+    `main()` — the internal `Coder`, `Model`, `IO`, and `Commands` classes are public but versioned with
+    the CLI and may change between releases.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://github.com/Aider-AI/aider/blob/main/aider/main.py
+  baseURL: https://github.com/Aider-AI/aider
+  tags:
+  - Python
+  - Library
+  - Embedding
+  - Open Source
+  properties:
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider/blob/main/aider/main.py
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Documentation
+    url: https://aider.chat/docs/scripting.html
+  - type: Scripting
+    url: https://aider.chat/docs/scripting.html
+- aid: aider:aider-chat-api
+  name: Aider Chat API
+  description: Aider Commands That Manage the Chat Session and History.
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-chat-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-editing-api
+  name: Aider Editing API
+  description: Aider Commands That Drive Code Edits and Diffs.
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - Editing
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-editing-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-files-api
+  name: Aider Files API
+  description: Aider Commands That Manage Files in the Chat Session.
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-files-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-git-api
+  name: Aider Git API
+  description: Aider Commands That Wrap Git Operations.
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - Git
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-git-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-io-api
+  name: Aider IO API
+  description: Aider Commands That Move Data In and Out of the Session.
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - IO
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-io-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-launch-api
+  name: Aider Launch API
+  description: Aider Launch-Time Configuration via Flags, YAML, and Environment Variables.
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - Launch
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-launch-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-map-api
+  name: Aider Map API
+  description: Aider Repository-Map Inspection.
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - Map
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-map-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-models-api
+  name: Aider Models API
+  description: Aider Commands That Switch or Query LLM Models.
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-models-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-modes-api
+  name: Aider Modes API
+  description: Aider Chat Modes (Code, Architect, Ask, Help, Context).
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - Modes
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-modes-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-quality-api
+  name: Aider Quality API
+  description: Aider Commands That Run Linters and Tests.
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - Quality
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-quality-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-session-api
+  name: Aider Session API
+  description: Aider Session Lifecycle Commands.
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - Session
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-session-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-settings-api
+  name: Aider Settings API
+  description: Aider Settings, Tokens, and Reasoning Controls.
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-settings-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-voice-api
+  name: Aider Voice API
+  description: Aider Voice-to-Code Input.
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - Voice
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-voice-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-web-api
+  name: Aider Web API
+  description: Aider Commands That Pull in Web Content.
+  humanURL: https://aider.chat/
+  baseURL: https://aider.chat
+  tags:
+  - Web
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-web-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
 common:
   - type: AgenticAccess
     url: agentic-access/aider-agentic-access.yml
