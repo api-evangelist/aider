@@ -1,0 +1,40 @@
+{
+  "provider": "aider",
+  "sources": [
+    "aider-chat-api-openapi.yml",
+    "aider-editing-api-openapi.yml",
+    "aider-files-api-openapi.yml",
+    "aider-git-api-openapi.yml",
+    "aider-io-api-openapi.yml",
+    "aider-launch-api-openapi.yml",
+    "aider-map-api-openapi.yml",
+    "aider-models-api-openapi.yml",
+    "aider-modes-api-openapi.yml",
+    "aider-quality-api-openapi.yml",
+    "aider-session-api-openapi.yml",
+    "aider-settings-api-openapi.yml",
+    "aider-voice-api-openapi.yml",
+    "aider-web-api-openapi.yml"
+  ],
+  "outputs": [
+    "aider-chat-api-openapi.yml",
+    "aider-editing-api-openapi.yml",
+    "aider-files-api-openapi.yml",
+    "aider-git-api-openapi.yml",
+    "aider-io-api-openapi.yml",
+    "aider-launch-api-openapi.yml",
+    "aider-map-api-openapi.yml",
+    "aider-models-api-openapi.yml",
+    "aider-modes-api-openapi.yml",
+    "aider-quality-api-openapi.yml",
+    "aider-session-api-openapi.yml",
+    "aider-settings-api-openapi.yml",
+    "aider-voice-api-openapi.yml",
+    "aider-web-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

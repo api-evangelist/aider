@@ -1,0 +1,1003 @@
+openapi: 3.0.3
+info:
+  title: Aider CLI
+  version: '0.86.1'
+  description: >-
+    Documentation surface for the Aider command-line interface. Aider has no
+    hosted REST API and does not bind to a network port — it runs entirely in
+    a developer's terminal against the local Git working tree. This OpenAPI
+    document models the Aider command surface as if it were a REST API so it
+    can be consumed by API-centric tooling (catalogs, registries, governance
+    rule engines, capability runtimes). Each slash command (`/add`, `/diff`,
+    `/commit`, etc.) is modeled as a path; each launch-flag family is modeled
+    as a configuration path. Servers and security blocks are placeholders —
+    aider's actual security model is "use the user's local shell credentials
+    and the LLM provider API key in the environment."
+  contact:
+    name: Aider Maintainers
+    url: https://github.com/Aider-AI/aider/issues
+  license:
+    name: Apache 2.0
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+  x-source-urls:
+    - https://aider.chat/docs/usage/commands.html
+    - https://aider.chat/docs/usage/modes.html
+    - https://aider.chat/docs/config/options.html
+    - https://aider.chat/docs/llms.html
+servers:
+  - url: cli://aider
+    description: Local CLI invocation (not a network endpoint). Modeled as URI scheme `cli://aider` for catalog tooling.
+  - url: file:///usr/local/bin/aider
+    description: Typical install path for the `aider` entrypoint.
+tags:
+  - name: Files
+    description: Aider Commands That Manage Files in the Chat Session.
+  - name: Editing
+    description: Aider Commands That Drive Code Edits and Diffs.
+  - name: Git
+    description: Aider Commands That Wrap Git Operations.
+  - name: Models
+    description: Aider Commands That Switch or Query LLM Models.
+  - name: Chat
+    description: Aider Commands That Manage the Chat Session and History.
+  - name: Modes
+    description: Aider Chat Modes (Code, Architect, Ask, Help, Context).
+  - name: Quality
+    description: Aider Commands That Run Linters and Tests.
+  - name: IO
+    description: Aider Commands That Move Data In and Out of the Session.
+  - name: Voice
+    description: Aider Voice-to-Code Input.
+  - name: Web
+    description: Aider Commands That Pull in Web Content.
+  - name: Map
+    description: Aider Repository-Map Inspection.
+  - name: Settings
+    description: Aider Settings, Tokens, and Reasoning Controls.
+  - name: Session
+    description: Aider Session Lifecycle Commands.
+  - name: Launch
+    description: Aider Launch-Time Configuration via Flags, YAML, and Environment Variables.
+paths:
+  /commands/add:
+    post:
+      operationId: addFiles
+      summary: Aider Add Files to Chat
+      description: Add files to the chat so aider can edit them or review them in detail. Maps to the `/add` in-chat command.
+      tags: [Files]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFilesRequest'
+      responses:
+        '200': { description: Files added to chat context., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+        '400': { description: Invalid file paths or unsupported file type., content: { application/json: { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/drop:
+    post:
+      operationId: dropFiles
+      summary: Aider Drop Files From Chat
+      description: Remove files from the chat session to free up context space. Maps to the `/drop` in-chat command.
+      tags: [Files]
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DropFilesRequest'
+      responses:
+        '200': { description: Files dropped., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/read-only:
+    post:
+      operationId: addReadOnlyFiles
+      summary: Aider Add Read-Only Files
+      description: Add files for reference only or convert added files to read-only. Maps to the `/read-only` in-chat command.
+      tags: [Files]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFilesRequest'
+      responses:
+        '200': { description: Read-only files added., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/ls:
+    get:
+      operationId: listFiles
+      summary: Aider List Files in Session
+      description: List all known files and indicate which are in the chat session. Maps to the `/ls` in-chat command.
+      tags: [Files]
+      responses:
+        '200': { description: File listing returned., content: { application/json: { schema: { $ref: '#/components/schemas/FileListing' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/code:
+    post:
+      operationId: requestCodeEdit
+      summary: Aider Request Code Edit
+      description: Ask for changes to your code. Maps to the `/code` in-chat command (also the default mode behavior).
+      tags: [Editing]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditRequest'
+      responses:
+        '200': { description: Edits applied and committed., content: { application/json: { schema: { $ref: '#/components/schemas/EditResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/architect:
+    post:
+      operationId: architectMode
+      summary: Aider Enter Architect Mode
+      description: Enter architect/editor mode using 2 different models — a reasoning model proposes, an editor model executes file edits. Maps to `/architect`.
+      tags: [Editing, Modes]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditRequest'
+      responses:
+        '200': { description: Architect plan executed by editor model., content: { application/json: { schema: { $ref: '#/components/schemas/EditResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/ask:
+    post:
+      operationId: askQuestion
+      summary: Aider Ask Question About Code
+      description: Ask questions about the code base without editing any files. Maps to the `/ask` in-chat command.
+      tags: [Modes]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AskRequest'
+      responses:
+        '200': { description: Answer returned without code changes., content: { application/json: { schema: { $ref: '#/components/schemas/AskResponse' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/chat-mode:
+    post:
+      operationId: switchChatMode
+      summary: Aider Switch Chat Mode
+      description: Switch to a new chat mode (code, architect, ask, help, context). Maps to `/chat-mode`.
+      tags: [Modes]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatModeRequest'
+      responses:
+        '200': { description: Chat mode changed., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/diff:
+    get:
+      operationId: showDiff
+      summary: Aider Show Diff Since Last Message
+      description: Display the diff of changes since the last message. Maps to `/diff`.
+      tags: [Editing, Git]
+      responses:
+        '200': { description: Unified diff returned., content: { application/json: { schema: { $ref: '#/components/schemas/DiffResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/undo:
+    post:
+      operationId: undoLastCommit
+      summary: Aider Undo Last Aider Commit
+      description: Undo the last git commit if it was done by aider. Maps to `/undo`.
+      tags: [Git]
+      responses:
+        '200': { description: Commit reverted., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+        '409': { description: Last commit was not made by aider, refusing to undo., content: { application/json: { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/commit:
+    post:
+      operationId: commitChanges
+      summary: Aider Commit Changes Outside Chat
+      description: Commit edits to the repo made outside the chat. Maps to `/commit`.
+      tags: [Git]
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommitRequest'
+      responses:
+        '200': { description: Commit created., content: { application/json: { schema: { $ref: '#/components/schemas/CommitResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/git:
+    post:
+      operationId: runGitCommand
+      summary: Aider Run Git Command
+      description: Run a git command (output excluded from chat). Maps to `/git`.
+      tags: [Git]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShellRequest'
+      responses:
+        '200': { description: Git command executed., content: { application/json: { schema: { $ref: '#/components/schemas/ShellResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/model:
+    post:
+      operationId: switchMainModel
+      summary: Aider Switch Main Model
+      description: Switch the Main Model to a new LLM. Maps to `/model`.
+      tags: [Models]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelSelection'
+      responses:
+        '200': { description: Main model switched., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/weak-model:
+    post:
+      operationId: switchWeakModel
+      summary: Aider Switch Weak Model
+      description: Switch the Weak Model used for commit messages and summarization. Maps to `/weak-model`.
+      tags: [Models]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelSelection'
+      responses:
+        '200': { description: Weak model switched., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/editor-model:
+    post:
+      operationId: switchEditorModel
+      summary: Aider Switch Editor Model
+      description: Switch the Editor Model used by architect mode to apply file edits. Maps to `/editor-model`.
+      tags: [Models]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelSelection'
+      responses:
+        '200': { description: Editor model switched., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/models:
+    get:
+      operationId: listAvailableModels
+      summary: Aider List Available Models
+      description: Search the list of available models. Maps to `/models`.
+      tags: [Models]
+      parameters:
+        - name: query
+          in: query
+          required: false
+          description: Substring filter applied to model identifiers.
+          schema: { type: string }
+          example: claude
+      responses:
+        '200': { description: Matching models returned., content: { application/json: { schema: { $ref: '#/components/schemas/ModelCatalog' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/clear:
+    post:
+      operationId: clearChatHistory
+      summary: Aider Clear Chat History
+      description: Clear the chat history. Maps to `/clear`.
+      tags: [Chat, Session]
+      responses:
+        '200': { description: Chat history cleared., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/reset:
+    post:
+      operationId: resetSession
+      summary: Aider Reset Session
+      description: Drop all files and clear the chat history. Maps to `/reset`.
+      tags: [Chat, Session]
+      responses:
+        '200': { description: Session reset., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/tokens:
+    get:
+      operationId: reportTokenUsage
+      summary: Aider Report Token Usage
+      description: Report the number of tokens used by the current chat context. Maps to `/tokens`.
+      tags: [Settings]
+      responses:
+        '200': { description: Token usage returned., content: { application/json: { schema: { $ref: '#/components/schemas/TokenUsage' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/reasoning-effort:
+    post:
+      operationId: setReasoningEffort
+      summary: Aider Set Reasoning Effort
+      description: Set the reasoning effort level (low/medium/high or numeric). Maps to `/reasoning-effort`.
+      tags: [Settings]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReasoningEffortRequest'
+      responses:
+        '200': { description: Reasoning effort set., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/think-tokens:
+    post:
+      operationId: setThinkingTokens
+      summary: Aider Set Thinking Token Budget
+      description: Set the thinking token budget (e.g., 8096, 8k, 10.5k, 0.5M). Maps to `/think-tokens`.
+      tags: [Settings]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThinkingTokensRequest'
+      responses:
+        '200': { description: Thinking token budget set., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/settings:
+    get:
+      operationId: showSettings
+      summary: Aider Show Current Settings
+      description: Print out the current settings. Maps to `/settings`.
+      tags: [Settings]
+      responses:
+        '200': { description: Settings snapshot returned., content: { application/json: { schema: { $ref: '#/components/schemas/SettingsSnapshot' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/map:
+    get:
+      operationId: showRepositoryMap
+      summary: Aider Show Repository Map
+      description: Print out the current repository map. Maps to `/map`.
+      tags: [Map]
+      responses:
+        '200': { description: Repository map returned., content: { application/json: { schema: { $ref: '#/components/schemas/RepositoryMap' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/map-refresh:
+    post:
+      operationId: refreshRepositoryMap
+      summary: Aider Refresh Repository Map
+      description: Force a refresh of the repository map. Maps to `/map-refresh`.
+      tags: [Map]
+      responses:
+        '200': { description: Map rebuilt., content: { application/json: { schema: { $ref: '#/components/schemas/RepositoryMap' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/run:
+    post:
+      operationId: runShellCommand
+      summary: Aider Run Shell Command
+      description: Run a shell command and optionally add output to chat. Maps to `/run`.
+      tags: [IO, Quality]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShellRequest'
+      responses:
+        '200': { description: Shell command executed., content: { application/json: { schema: { $ref: '#/components/schemas/ShellResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/test:
+    post:
+      operationId: runTestCommand
+      summary: Aider Run Test Command
+      description: Run a shell command and add output to chat on non-zero exit code. Maps to `/test`.
+      tags: [Quality]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShellRequest'
+      responses:
+        '200': { description: Tests executed., content: { application/json: { schema: { $ref: '#/components/schemas/ShellResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/lint:
+    post:
+      operationId: runLint
+      summary: Aider Run Lint and Fix
+      description: Lint and fix in-chat files or all dirty files if none specified. Maps to `/lint`.
+      tags: [Quality]
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LintRequest'
+      responses:
+        '200': { description: Lint completed., content: { application/json: { schema: { $ref: '#/components/schemas/ShellResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/voice:
+    post:
+      operationId: recordVoiceInput
+      summary: Aider Record Voice Input
+      description: Record and transcribe voice input. Maps to `/voice`. Requires optional PortAudio on Mac/Linux.
+      tags: [Voice, IO]
+      responses:
+        '200': { description: Voice transcript returned and queued as next prompt., content: { application/json: { schema: { $ref: '#/components/schemas/VoiceTranscript' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/web:
+    post:
+      operationId: scrapeWebPage
+      summary: Aider Scrape Web Page
+      description: Scrape a webpage, convert to markdown and send in a message. Maps to `/web`.
+      tags: [Web, IO]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebFetchRequest'
+      responses:
+        '200': { description: Web content fetched and added to chat., content: { application/json: { schema: { $ref: '#/components/schemas/WebFetchResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/paste:
+    post:
+      operationId: pasteFromClipboard
+      summary: Aider Paste Clipboard Content
+      description: Paste image/text from clipboard into the chat. Maps to `/paste`.
+      tags: [IO]
+      responses:
+        '200': { description: Clipboard content added to chat., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/copy:
+    post:
+      operationId: copyLastMessage
+      summary: Aider Copy Last Assistant Message
+      description: Copy the last assistant message to the clipboard. Maps to `/copy`.
+      tags: [IO]
+      responses:
+        '200': { description: Message copied to clipboard., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/copy-context:
+    post:
+      operationId: copyChatContext
+      summary: Aider Copy Chat Context as Markdown
+      description: Copy current chat context as markdown for pasting into web UIs. Maps to `/copy-context`.
+      tags: [IO]
+      responses:
+        '200': { description: Chat context copied as markdown., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/editor:
+    post:
+      operationId: openEditorPrompt
+      summary: Aider Open Editor for Prompt
+      description: Open an editor to write a prompt. Maps to `/editor` (alias `/edit`).
+      tags: [IO]
+      responses:
+        '200': { description: Prompt drafted in external editor and submitted., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/load:
+    post:
+      operationId: loadCommandScript
+      summary: Aider Load Command Script
+      description: Load and execute commands from a file. Maps to `/load`.
+      tags: [Session]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilePathRequest'
+      responses:
+        '200': { description: Commands executed., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/save:
+    post:
+      operationId: saveCommandScript
+      summary: Aider Save Command Script
+      description: Save commands to a file that can reconstruct the chat session. Maps to `/save`.
+      tags: [Session]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilePathRequest'
+      responses:
+        '200': { description: Command script saved., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/help:
+    get:
+      operationId: getHelp
+      summary: Aider Ask Help Question
+      description: Ask questions about aider. Maps to `/help` and the `help` chat mode.
+      tags: [Modes]
+      parameters:
+        - name: query
+          in: query
+          required: false
+          description: The help question to ask.
+          schema: { type: string }
+          example: how do I switch models?
+      responses:
+        '200': { description: Help response returned., content: { application/json: { schema: { $ref: '#/components/schemas/AskResponse' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/report:
+    post:
+      operationId: openGitHubIssue
+      summary: Aider Report a Problem
+      description: Report a problem by opening a GitHub Issue. Maps to `/report`.
+      tags: [Session]
+      responses:
+        '200': { description: Browser opened to the issue tracker., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /commands/exit:
+    post:
+      operationId: exitSession
+      summary: Aider Exit Session
+      description: Exit the application. Maps to `/exit` and `/quit`.
+      tags: [Session]
+      responses:
+        '200': { description: Session exited., content: { application/json: { schema: { $ref: '#/components/schemas/CommandResult' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+  /launch/config:
+    get:
+      operationId: getLaunchConfig
+      summary: Aider Get Launch Configuration
+      description: Inspect the active launch configuration assembled from `.aider.conf.yml`, environment variables, and command-line flags. Modeled here as a configuration resource; no real HTTP endpoint exists.
+      tags: [Launch]
+      responses:
+        '200': { description: Launch configuration returned., content: { application/json: { schema: { $ref: '#/components/schemas/LaunchConfig' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+    put:
+      operationId: updateLaunchConfig
+      summary: Aider Update Launch Configuration
+      description: Update the launch configuration by writing `.aider.conf.yml` or `.env`. Modeled as an idempotent PUT.
+      tags: [Launch]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LaunchConfig'
+      responses:
+        '200': { description: Configuration updated., content: { application/json: { schema: { $ref: '#/components/schemas/LaunchConfig' } } } }
+      x-microcks-operation: { delay: 0, dispatcher: FALLBACK }
+components:
+  schemas:
+    AddFilesRequest:
+      type: object
+      required: [files]
+      properties:
+        files:
+          type: array
+          description: List of file paths relative to the Git working tree root.
+          items: { type: string, example: src/main.py }
+          example: [src/main.py, tests/test_main.py]
+        read_only:
+          type: boolean
+          description: When true, files are added as read-only references and excluded from edit targets.
+          default: false
+          example: false
+    DropFilesRequest:
+      type: object
+      properties:
+        files:
+          type: array
+          description: List of file paths to remove from chat context. Omit to drop all files.
+          items: { type: string, example: src/legacy.py }
+          example: [src/legacy.py]
+    FileListing:
+      type: object
+      properties:
+        in_chat:
+          type: array
+          description: Files currently included in the chat session.
+          items: { type: string, example: src/main.py }
+          example: [src/main.py, tests/test_main.py]
+        known:
+          type: array
+          description: All files visible to the repository map.
+          items: { type: string, example: src/util.py }
+          example: [src/util.py, src/io.py]
+    EditRequest:
+      type: object
+      required: [prompt]
+      properties:
+        prompt:
+          type: string
+          description: Natural-language instruction to apply to the in-chat files.
+          example: Refactor the cache layer to use an LRU eviction policy and add unit tests.
+        edit_format:
+          type: string
+          description: Edit format the LLM should produce.
+          enum: [diff, whole, udiff, editor-diff]
+          example: diff
+        auto_commit:
+          type: boolean
+          description: Whether to auto-commit edits via Git. Defaults to the launch-time setting.
+          default: true
+          example: true
+    EditResult:
+      type: object
+      properties:
+        files_changed:
+          type: array
+          description: File paths modified by this edit.
+          items: { type: string, example: src/main.py }
+          example: [src/main.py]
+        commit_sha:
+          type: string
+          description: Git commit SHA produced by auto-commit.
+          example: a1b2c3d4e5f6
+        commit_message:
+          type: string
+          description: Auto-generated conventional commit message.
+          example: 'feat(cache): switch to LRU eviction policy'
+        tokens_in:
+          type: integer
+          description: Prompt tokens sent to the LLM.
+          example: 4231
+        tokens_out:
+          type: integer
+          description: Completion tokens received from the LLM.
+          example: 1284
+    AskRequest:
+      type: object
+      required: [prompt]
+      properties:
+        prompt:
+          type: string
+          description: Question to ask about the codebase.
+          example: How does the retry policy in the http client interact with the rate limiter?
+    AskResponse:
+      type: object
+      properties:
+        answer:
+          type: string
+          description: Markdown answer from the LLM. No files are modified.
+          example: The retry policy in `src/http/retry.py` wraps the rate limiter from `src/http/limiter.py` ...
+        files_referenced:
+          type: array
+          description: Files the LLM cited in its answer.
+          items: { type: string, example: src/http/retry.py }
+          example: [src/http/retry.py, src/http/limiter.py]
+    ChatModeRequest:
+      type: object
+      required: [mode]
+      properties:
+        mode:
+          type: string
+          description: Chat mode to switch to.
+          enum: [code, architect, ask, help, context]
+          example: architect
+    DiffResult:
+      type: object
+      properties:
+        unified_diff:
+          type: string
+          description: Unified diff of all files changed since the last user message.
+          example: |
+            --- a/src/main.py
+            +++ b/src/main.py
+            @@ -1,3 +1,3 @@
+            -print('hi')
+            +print('hello')
+        files_changed:
+          type: array
+          items: { type: string, example: src/main.py }
+          example: [src/main.py]
+    CommitRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Optional commit message override. Omit to let the weak model generate one.
+          example: 'chore: format imports'
+    CommitResult:
+      type: object
+      properties:
+        commit_sha:
+          type: string
+          example: f1e2d3c4b5a6
+        commit_message:
+          type: string
+          example: 'chore: format imports'
+    ShellRequest:
+      type: object
+      required: [command]
+      properties:
+        command:
+          type: string
+          description: Shell command line to execute in the repo root.
+          example: pytest -x tests/
+        add_output_to_chat:
+          type: boolean
+          description: Whether the command's stdout/stderr is appended to chat context.
+          default: true
+          example: true
+    ShellResult:
+      type: object
+      properties:
+        exit_code:
+          type: integer
+          description: Process exit code.
+          example: 0
+        stdout:
+          type: string
+          example: '12 passed in 1.42s'
+        stderr:
+          type: string
+          example: ''
+    LintRequest:
+      type: object
+      properties:
+        files:
+          type: array
+          description: Files to lint. Omit to lint all dirty files in the repo.
+          items: { type: string, example: src/main.py }
+          example: [src/main.py]
+    ModelSelection:
+      type: object
+      required: [model]
+      properties:
+        model:
+          type: string
+          description: LiteLLM-style model identifier or one of aider's built-in aliases.
+          example: anthropic/claude-opus-4
+    ModelCatalog:
+      type: object
+      properties:
+        models:
+          type: array
+          description: Model identifiers matching the search query.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                example: anthropic/claude-opus-4
+              provider:
+                type: string
+                example: anthropic
+              context_window:
+                type: integer
+                example: 200000
+              supports_edit_format:
+                type: array
+                items: { type: string, example: diff }
+                example: [diff, udiff]
+          example:
+            - id: anthropic/claude-opus-4
+              provider: anthropic
+              context_window: 200000
+              supports_edit_format: [diff, udiff]
+    TokenUsage:
+      type: object
+      properties:
+        chat_history_tokens:
+          type: integer
+          example: 18412
+        repo_map_tokens:
+          type: integer
+          example: 4096
+        in_chat_files_tokens:
+          type: integer
+          example: 6234
+        budget_remaining_tokens:
+          type: integer
+          example: 171258
+    ReasoningEffortRequest:
+      type: object
+      required: [effort]
+      properties:
+        effort:
+          type: string
+          description: 'Reasoning effort level. Accepts low|medium|high or a numeric/string budget.'
+          example: high
+    ThinkingTokensRequest:
+      type: object
+      required: [tokens]
+      properties:
+        tokens:
+          type: string
+          description: 'Thinking token budget. Accepts integer (e.g. 8096), shorthand (8k, 10.5k, 0.5M).'
+          example: 32k
+    SettingsSnapshot:
+      type: object
+      properties:
+        main_model:
+          type: string
+          example: anthropic/claude-opus-4
+        weak_model:
+          type: string
+          example: anthropic/claude-haiku-4
+        editor_model:
+          type: string
+          example: anthropic/claude-sonnet-4
+        edit_format:
+          type: string
+          example: diff
+        auto_commits:
+          type: boolean
+          example: true
+        auto_lint:
+          type: boolean
+          example: true
+        auto_test:
+          type: boolean
+          example: false
+        chat_mode:
+          type: string
+          example: code
+        watch_files:
+          type: boolean
+          example: false
+        stream:
+          type: boolean
+          example: true
+    RepositoryMap:
+      type: object
+      properties:
+        token_budget:
+          type: integer
+          example: 4096
+        symbols:
+          type: array
+          description: Tree-sitter-extracted symbol summaries per file.
+          items:
+            type: object
+            properties:
+              file:
+                type: string
+                example: src/main.py
+              symbols:
+                type: array
+                items: { type: string, example: 'class Cache' }
+                example: ['class Cache', 'def get(self, key)']
+    VoiceTranscript:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Transcribed text queued as the next prompt.
+          example: refactor the cache layer to use lru eviction
+        duration_ms:
+          type: integer
+          description: Length of the recorded clip.
+          example: 4200
+    WebFetchRequest:
+      type: object
+      required: [url]
+      properties:
+        url:
+          type: string
+          format: uri
+          description: HTTP(S) URL to fetch and convert to markdown.
+          example: https://example.com/docs/getting-started
+    WebFetchResult:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          example: https://example.com/docs/getting-started
+        markdown:
+          type: string
+          description: Markdown rendering of the page added to chat context.
+          example: '# Getting Started ...'
+    FilePathRequest:
+      type: object
+      required: [path]
+      properties:
+        path:
+          type: string
+          description: Filesystem path.
+          example: .aider/session-2026-05-30.txt
+    LaunchConfig:
+      type: object
+      description: Composite view of `.aider.conf.yml`, `.env`, and the active CLI flag set. Aider does not expose this over HTTP; it is reconstructed from the local environment.
+      properties:
+        model:
+          type: string
+          example: anthropic/claude-opus-4
+        weak_model:
+          type: string
+          example: anthropic/claude-haiku-4
+        editor_model:
+          type: string
+          example: anthropic/claude-sonnet-4
+        edit_format:
+          type: string
+          enum: [diff, whole, udiff, editor-diff]
+          example: diff
+        chat_mode:
+          type: string
+          enum: [code, architect, ask, help, context]
+          example: code
+        reasoning_effort:
+          type: string
+          example: medium
+        thinking_tokens:
+          type: string
+          example: 16k
+        auto_commits:
+          type: boolean
+          example: true
+        dirty_commits:
+          type: boolean
+          example: false
+        auto_lint:
+          type: boolean
+          example: true
+        auto_test:
+          type: boolean
+          example: false
+        test_cmd:
+          type: string
+          example: pytest -x
+        lint_cmd:
+          type: string
+          example: 'ruff check --fix'
+        watch_files:
+          type: boolean
+          example: false
+        stream:
+          type: boolean
+          example: true
+        dark_mode:
+          type: boolean
+          example: true
+        code_theme:
+          type: string
+          example: monokai
+        gitignore:
+          type: boolean
+          example: true
+        chat_history_file:
+          type: string
+          example: .aider.chat.history.md
+        api_keys:
+          type: object
+          description: Provider-keyed API key map. Keys come from the environment, not from this document.
+          additionalProperties: { type: string }
+          example:
+            ANTHROPIC_API_KEY: '<redacted>'
+            OPENAI_API_KEY: '<redacted>'
+        env_var_prefix:
+          type: string
+          description: All flags can be set via `AIDER_<UPPERCASE_FLAG>` environment variables.
+          example: AIDER_
+        config_file_path:
+          type: string
+          description: Resolution order for the YAML config file.
+          example: ./.aider.conf.yml | ~/.aider.conf.yml
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: invalid_request
+        message:
+          type: string
+          example: One or more file paths could not be resolved.
+  securitySchemes:
+    LLMProviderKey:
+      type: apiKey
+      in: header
+      name: X-Provider-API-Key
+      description: >-
+        Placeholder for documentation purposes. Aider does not authenticate
+        with an "aider API"; it reads the relevant upstream provider key
+        (ANTHROPIC_API_KEY, OPENAI_API_KEY, etc.) from the local environment
+        and passes it to the chosen LLM provider directly.
+security:
+  - LLMProviderKey: []
