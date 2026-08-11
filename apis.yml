@@ -894,6 +894,10 @@ apis:
   - type: ConventionsGuide
     url: https://aider.chat/docs/usage/conventions.html
 common:
+  - type: Releases
+    url: https://github.com/Aider-AI/aider/releases
+  - type: ContributionGuide
+    url: https://github.com/Aider-AI/aider/blob/main/CONTRIBUTING.md
   - type: AgenticAccess
     url: agentic-access/aider-agentic-access.yml
   - type: DomainSecurity
