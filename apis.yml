@@ -54,7 +54,7 @@ tags:
 url: https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/apis.yml
 created: '2026-05-08'
 modified: '2026-05-30'
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 apis:
 - aid: aider:python-module
   name: Aider Python Module
