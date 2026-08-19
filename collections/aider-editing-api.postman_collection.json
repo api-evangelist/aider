@@ -1,0 +1,331 @@
+{
+  "item": [
+    {
+      "id": "bb196d94-ffc4-4874-a069-1df1ac58c592",
+      "name": "Editing",
+      "description": {
+        "content": "Aider Commands That Drive Code Edits and Diffs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d77416f0-949d-41d0-ac77-76e31e4b045b",
+          "name": "Aider Request Code Edit",
+          "request": {
+            "name": "Aider Request Code Edit",
+            "description": {
+              "content": "Ask for changes to your code. Maps to the `/code` in-chat command (also the default mode behavior).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"edit_format\": \"<string>\",\n  \"auto_commit\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b82080c0-265f-4fe8-96ab-2e7d89263089",
+              "name": "Edits applied and committed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"Refactor the cache layer to use an LRU eviction policy and add unit tests.\",\n  \"edit_format\": \"diff\",\n  \"auto_commit\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"files_changed\": [\n    \"src/main.py\"\n  ],\n  \"commit_sha\": \"a1b2c3d4e5f6\",\n  \"commit_message\": \"feat(cache): switch to LRU eviction policy\",\n  \"tokens_in\": 4231,\n  \"tokens_out\": 1284\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ab67754-224d-4008-8f17-79ec05a14ebb",
+          "name": "Aider Enter Architect Mode",
+          "request": {
+            "name": "Aider Enter Architect Mode",
+            "description": {
+              "content": "Enter architect/editor mode using 2 different models — a reasoning model proposes, an editor model executes file edits. Maps to `/architect`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "architect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"edit_format\": \"<string>\",\n  \"auto_commit\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e15d9c88-506d-48b6-8dab-de4cf18e4f67",
+              "name": "Architect plan executed by editor model.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "architect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"Refactor the cache layer to use an LRU eviction policy and add unit tests.\",\n  \"edit_format\": \"diff\",\n  \"auto_commit\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"files_changed\": [\n    \"src/main.py\"\n  ],\n  \"commit_sha\": \"a1b2c3d4e5f6\",\n  \"commit_message\": \"feat(cache): switch to LRU eviction policy\",\n  \"tokens_in\": 4231,\n  \"tokens_out\": 1284\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d4fb17b-7b5d-4b53-8b08-f01bea145f38",
+          "name": "Aider Show Diff Since Last Message",
+          "request": {
+            "name": "Aider Show Diff Since Last Message",
+            "description": {
+              "content": "Display the diff of changes since the last message. Maps to `/diff`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "diff"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c56a1ad1-bc78-4c25-83b5-53b0cbbf0e0f",
+              "name": "Unified diff returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "diff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"unified_diff\": \"--- a/src/main.py\\n+++ b/src/main.py\\n@@ -1,3 +1,3 @@\\n-print('hi')\\n+print('hello')\\n\",\n  \"files_changed\": [\n    \"src/main.py\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "cli://aider",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Provider-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9c3b43a4-daca-468b-b559-16d8ba44793a",
+    "name": "Aider CLI Chat Editing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is \"use the user's local shell credentials and the LLM provider API key in the environment.\"\n\nContact Support:\n Name: Aider Maintainers",
+      "type": "text/plain"
+    }
+  }
+}

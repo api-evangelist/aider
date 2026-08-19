@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI Chat Web API",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Web",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Scrape Web Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/web",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Scrape a webpage, convert to markdown and send in a message. Maps to `/web`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

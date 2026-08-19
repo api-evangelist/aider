@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI Chat Settings API",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Report Token Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/tokens"
+          },
+          "docs": "Report the number of tokens used by the current chat context. Maps to `/tokens`."
+        },
+        {
+          "info": {
+            "name": "Aider Set Reasoning Effort",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/reasoning-effort",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the reasoning effort level (low/medium/high or numeric). Maps to `/reasoning-effort`."
+        },
+        {
+          "info": {
+            "name": "Aider Set Thinking Token Budget",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/think-tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the thinking token budget (e.g., 8096, 8k, 10.5k, 0.5M). Maps to `/think-tokens`."
+        },
+        {
+          "info": {
+            "name": "Aider Show Current Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/settings"
+          },
+          "docs": "Print out the current settings. Maps to `/settings`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

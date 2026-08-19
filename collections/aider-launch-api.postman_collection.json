@@ -1,0 +1,230 @@
+{
+  "item": [
+    {
+      "id": "ed5e59d3-e152-4807-9307-84e044c8b1a6",
+      "name": "Launch",
+      "description": {
+        "content": "Aider Launch-Time Configuration via Flags, YAML, and Environment Variables.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6e449718-8eab-4544-bf1e-ee864cfe03de",
+          "name": "Aider Get Launch Configuration",
+          "request": {
+            "name": "Aider Get Launch Configuration",
+            "description": {
+              "content": "Inspect the active launch configuration assembled from `.aider.conf.yml`, environment variables, and command-line flags. Modeled here as a configuration resource; no real HTTP endpoint exists.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "launch",
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "50189b7a-1c12-49aa-b762-e345003d9562",
+              "name": "Launch configuration returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "launch",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"model\": \"anthropic/claude-opus-4\",\n  \"weak_model\": \"anthropic/claude-haiku-4\",\n  \"editor_model\": \"anthropic/claude-sonnet-4\",\n  \"edit_format\": \"diff\",\n  \"chat_mode\": \"code\",\n  \"reasoning_effort\": \"medium\",\n  \"thinking_tokens\": \"16k\",\n  \"auto_commits\": true,\n  \"dirty_commits\": false,\n  \"auto_lint\": true,\n  \"auto_test\": false,\n  \"test_cmd\": \"pytest -x\",\n  \"lint_cmd\": \"ruff check --fix\",\n  \"watch_files\": false,\n  \"stream\": true,\n  \"dark_mode\": true,\n  \"code_theme\": \"monokai\",\n  \"gitignore\": true,\n  \"chat_history_file\": \".aider.chat.history.md\",\n  \"api_keys\": {\n    \"ANTHROPIC_API_KEY\": \"<redacted>\",\n    \"OPENAI_API_KEY\": \"<redacted>\"\n  },\n  \"env_var_prefix\": \"AIDER_\",\n  \"config_file_path\": \"./.aider.conf.yml | ~/.aider.conf.yml\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf1a972c-4c61-44c5-8cbc-d6ade428ae6d",
+          "name": "Aider Update Launch Configuration",
+          "request": {
+            "name": "Aider Update Launch Configuration",
+            "description": {
+              "content": "Update the launch configuration by writing `.aider.conf.yml` or `.env`. Modeled as an idempotent PUT.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "launch",
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"weak_model\": \"<string>\",\n  \"editor_model\": \"<string>\",\n  \"edit_format\": \"<string>\",\n  \"chat_mode\": \"<string>\",\n  \"reasoning_effort\": \"<string>\",\n  \"thinking_tokens\": \"<string>\",\n  \"auto_commits\": \"<boolean>\",\n  \"dirty_commits\": \"<boolean>\",\n  \"auto_lint\": \"<boolean>\",\n  \"auto_test\": \"<boolean>\",\n  \"test_cmd\": \"<string>\",\n  \"lint_cmd\": \"<string>\",\n  \"watch_files\": \"<boolean>\",\n  \"stream\": \"<boolean>\",\n  \"dark_mode\": \"<boolean>\",\n  \"code_theme\": \"<string>\",\n  \"gitignore\": \"<boolean>\",\n  \"chat_history_file\": \"<string>\",\n  \"api_keys\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"env_var_prefix\": \"<string>\",\n  \"config_file_path\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cb501cce-9800-4e15-ae65-9152ce71ea9c",
+              "name": "Configuration updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "launch",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"anthropic/claude-opus-4\",\n  \"weak_model\": \"anthropic/claude-haiku-4\",\n  \"editor_model\": \"anthropic/claude-sonnet-4\",\n  \"edit_format\": \"diff\",\n  \"chat_mode\": \"code\",\n  \"reasoning_effort\": \"medium\",\n  \"thinking_tokens\": \"16k\",\n  \"auto_commits\": true,\n  \"dirty_commits\": false,\n  \"auto_lint\": true,\n  \"auto_test\": false,\n  \"test_cmd\": \"pytest -x\",\n  \"lint_cmd\": \"ruff check --fix\",\n  \"watch_files\": false,\n  \"stream\": true,\n  \"dark_mode\": true,\n  \"code_theme\": \"monokai\",\n  \"gitignore\": true,\n  \"chat_history_file\": \".aider.chat.history.md\",\n  \"api_keys\": {\n    \"ANTHROPIC_API_KEY\": \"<redacted>\",\n    \"OPENAI_API_KEY\": \"<redacted>\"\n  },\n  \"env_var_prefix\": \"AIDER_\",\n  \"config_file_path\": \"./.aider.conf.yml | ~/.aider.conf.yml\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"model\": \"anthropic/claude-opus-4\",\n  \"weak_model\": \"anthropic/claude-haiku-4\",\n  \"editor_model\": \"anthropic/claude-sonnet-4\",\n  \"edit_format\": \"diff\",\n  \"chat_mode\": \"code\",\n  \"reasoning_effort\": \"medium\",\n  \"thinking_tokens\": \"16k\",\n  \"auto_commits\": true,\n  \"dirty_commits\": false,\n  \"auto_lint\": true,\n  \"auto_test\": false,\n  \"test_cmd\": \"pytest -x\",\n  \"lint_cmd\": \"ruff check --fix\",\n  \"watch_files\": false,\n  \"stream\": true,\n  \"dark_mode\": true,\n  \"code_theme\": \"monokai\",\n  \"gitignore\": true,\n  \"chat_history_file\": \".aider.chat.history.md\",\n  \"api_keys\": {\n    \"ANTHROPIC_API_KEY\": \"<redacted>\",\n    \"OPENAI_API_KEY\": \"<redacted>\"\n  },\n  \"env_var_prefix\": \"AIDER_\",\n  \"config_file_path\": \"./.aider.conf.yml | ~/.aider.conf.yml\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "cli://aider",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Provider-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7578ef49-5aa0-491f-bf27-aabb25afb688",
+    "name": "Aider CLI Chat Launch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is \"use the user's local shell credentials and the LLM provider API key in the environment.\"\n\nContact Support:\n Name: Aider Maintainers",
+      "type": "text/plain"
+    }
+  }
+}

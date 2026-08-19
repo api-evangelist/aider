@@ -1,0 +1,651 @@
+{
+  "item": [
+    {
+      "id": "66bb5831-9aac-4647-ab78-3cc60086f25b",
+      "name": "IO",
+      "description": {
+        "content": "Aider Commands That Move Data In and Out of the Session.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3549cda8-93ff-4884-acef-73d8cc22551e",
+          "name": "Aider Run Shell Command",
+          "request": {
+            "name": "Aider Run Shell Command",
+            "description": {
+              "content": "Run a shell command and optionally add output to chat. Maps to `/run`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"command\": \"<string>\",\n  \"add_output_to_chat\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e43f0b9d-c31d-4643-a691-9ba2cd43cd0a",
+              "name": "Shell command executed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"command\": \"pytest -x tests/\",\n  \"add_output_to_chat\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exit_code\": 0,\n  \"stdout\": \"12 passed in 1.42s\",\n  \"stderr\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5eaa14d-f361-4321-b48a-08afbd400510",
+          "name": "Aider Record Voice Input",
+          "request": {
+            "name": "Aider Record Voice Input",
+            "description": {
+              "content": "Record and transcribe voice input. Maps to `/voice`. Requires optional PortAudio on Mac/Linux.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "voice"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0860b94a-1869-4ff7-aadc-ffa7f29bbcc1",
+              "name": "Voice transcript returned and queued as next prompt.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "voice"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"refactor the cache layer to use lru eviction\",\n  \"duration_ms\": 4200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c46f3208-2eac-4b65-84f6-8d632b6aedf1",
+          "name": "Aider Scrape Web Page",
+          "request": {
+            "name": "Aider Scrape Web Page",
+            "description": {
+              "content": "Scrape a webpage, convert to markdown and send in a message. Maps to `/web`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "web"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "95ff5ffb-812e-4e6f-a71b-ea5769bab347",
+              "name": "Web content fetched and added to chat.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "web"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"https://example.com/docs/getting-started\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"https://example.com/docs/getting-started\",\n  \"markdown\": \"# Getting Started ...\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4e47938-b7d1-42d3-9ef1-f33faeb85a09",
+          "name": "Aider Paste Clipboard Content",
+          "request": {
+            "name": "Aider Paste Clipboard Content",
+            "description": {
+              "content": "Paste image/text from clipboard into the chat. Maps to `/paste`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "paste"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b87892af-787b-4e54-9596-87e70296c201",
+              "name": "Clipboard content added to chat.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "paste"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"message\": \"Files added to chat.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6957dde8-0ca3-4953-899a-e13fae1f763f",
+          "name": "Aider Copy Last Assistant Message",
+          "request": {
+            "name": "Aider Copy Last Assistant Message",
+            "description": {
+              "content": "Copy the last assistant message to the clipboard. Maps to `/copy`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "copy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "855daa97-3566-49d6-92e8-f2c5def2fb59",
+              "name": "Message copied to clipboard.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "copy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"message\": \"Files added to chat.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f8297e5-87d6-4b0e-ab08-4ab7725744ef",
+          "name": "Aider Copy Chat Context as Markdown",
+          "request": {
+            "name": "Aider Copy Chat Context as Markdown",
+            "description": {
+              "content": "Copy current chat context as markdown for pasting into web UIs. Maps to `/copy-context`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "copy-context"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86a7539a-9bae-4889-afc9-0323320c952a",
+              "name": "Chat context copied as markdown.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "copy-context"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"message\": \"Files added to chat.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0f80037-d58b-48ab-b65f-c57d271adffc",
+          "name": "Aider Open Editor for Prompt",
+          "request": {
+            "name": "Aider Open Editor for Prompt",
+            "description": {
+              "content": "Open an editor to write a prompt. Maps to `/editor` (alias `/edit`).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "editor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0aa3ca07-63c4-402d-bec4-78aa1b05baae",
+              "name": "Prompt drafted in external editor and submitted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "editor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"message\": \"Files added to chat.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "cli://aider",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Provider-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ea34845f-8435-4d26-97dc-c33bc0d1b23b",
+    "name": "Aider CLI Chat IO API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is \"use the user's local shell credentials and the LLM provider API key in the environment.\"\n\nContact Support:\n Name: Aider Maintainers",
+      "type": "text/plain"
+    }
+  }
+}

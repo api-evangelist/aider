@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI Chat Map API",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Map",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Show Repository Map",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/map"
+          },
+          "docs": "Print out the current repository map. Maps to `/map`."
+        },
+        {
+          "info": {
+            "name": "Aider Refresh Repository Map",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/map-refresh"
+          },
+          "docs": "Force a refresh of the repository map. Maps to `/map-refresh`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI Chat API",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Clear Chat History",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/clear"
+          },
+          "docs": "Clear the chat history. Maps to `/clear`."
+        },
+        {
+          "info": {
+            "name": "Aider Reset Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/reset"
+          },
+          "docs": "Drop all files and clear the chat history. Maps to `/reset`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

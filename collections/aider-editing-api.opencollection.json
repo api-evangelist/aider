@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI Chat Editing API",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Editing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Request Code Edit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/code",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Ask for changes to your code. Maps to the `/code` in-chat command (also the default mode behavior)."
+        },
+        {
+          "info": {
+            "name": "Aider Enter Architect Mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/architect",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enter architect/editor mode using 2 different models — a reasoning model proposes, an editor model executes file edits. Maps to `/architect`."
+        },
+        {
+          "info": {
+            "name": "Aider Show Diff Since Last Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/diff"
+          },
+          "docs": "Display the diff of changes since the last message. Maps to `/diff`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

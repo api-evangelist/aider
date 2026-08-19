@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI Chat Launch API",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Launch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Get Launch Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/launch/config"
+          },
+          "docs": "Inspect the active launch configuration assembled from `.aider.conf.yml`, environment variables, and command-line flags. Modeled here as a configuration resource; no real HTTP endpoint exists."
+        },
+        {
+          "info": {
+            "name": "Aider Update Launch Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "cli://aider/launch/config",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the launch configuration by writing `.aider.conf.yml` or `.env`. Modeled as an idempotent PUT."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,150 @@
+{
+  "item": [
+    {
+      "id": "c0f54f82-ead4-4635-b4ca-d20508902052",
+      "name": "Web",
+      "description": {
+        "content": "Aider Commands That Pull in Web Content.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b19c7cd6-1ef5-4522-aaa4-645de3085263",
+          "name": "Aider Scrape Web Page",
+          "request": {
+            "name": "Aider Scrape Web Page",
+            "description": {
+              "content": "Scrape a webpage, convert to markdown and send in a message. Maps to `/web`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "web"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dc552f39-6d92-44ac-be24-1351dc7bbfb0",
+              "name": "Web content fetched and added to chat.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "web"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"https://example.com/docs/getting-started\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"https://example.com/docs/getting-started\",\n  \"markdown\": \"# Getting Started ...\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "cli://aider",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Provider-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "597f4439-f1f5-4346-b99e-44cf5ce1cddd",
+    "name": "Aider CLI Chat Web API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is \"use the user's local shell credentials and the LLM provider API key in the environment.\"\n\nContact Support:\n Name: Aider Maintainers",
+      "type": "text/plain"
+    }
+  }
+}

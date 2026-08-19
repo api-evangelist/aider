@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI Chat IO API",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IO",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Run Shell Command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/run",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run a shell command and optionally add output to chat. Maps to `/run`."
+        },
+        {
+          "info": {
+            "name": "Aider Record Voice Input",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/voice"
+          },
+          "docs": "Record and transcribe voice input. Maps to `/voice`. Requires optional PortAudio on Mac/Linux."
+        },
+        {
+          "info": {
+            "name": "Aider Scrape Web Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/web",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Scrape a webpage, convert to markdown and send in a message. Maps to `/web`."
+        },
+        {
+          "info": {
+            "name": "Aider Paste Clipboard Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/paste"
+          },
+          "docs": "Paste image/text from clipboard into the chat. Maps to `/paste`."
+        },
+        {
+          "info": {
+            "name": "Aider Copy Last Assistant Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/copy"
+          },
+          "docs": "Copy the last assistant message to the clipboard. Maps to `/copy`."
+        },
+        {
+          "info": {
+            "name": "Aider Copy Chat Context as Markdown",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/copy-context"
+          },
+          "docs": "Copy current chat context as markdown for pasting into web UIs. Maps to `/copy-context`."
+        },
+        {
+          "info": {
+            "name": "Aider Open Editor for Prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/editor"
+          },
+          "docs": "Open an editor to write a prompt. Maps to `/editor` (alias `/edit`)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

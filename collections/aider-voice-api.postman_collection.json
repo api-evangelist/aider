@@ -1,0 +1,129 @@
+{
+  "item": [
+    {
+      "id": "09615093-c5dd-4f02-aef3-1d52e5ae73b5",
+      "name": "Voice",
+      "description": {
+        "content": "Aider Voice-to-Code Input.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "537d4c8c-74bc-4949-8301-82d9caff1f81",
+          "name": "Aider Record Voice Input",
+          "request": {
+            "name": "Aider Record Voice Input",
+            "description": {
+              "content": "Record and transcribe voice input. Maps to `/voice`. Requires optional PortAudio on Mac/Linux.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "voice"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "06608c26-0ce8-49ea-a690-cd56d9ea0087",
+              "name": "Voice transcript returned and queued as next prompt.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "voice"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"refactor the cache layer to use lru eviction\",\n  \"duration_ms\": 4200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "cli://aider",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Provider-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "20868dd4-eb57-4bc3-9dd7-375869b7e3d3",
+    "name": "Aider CLI Chat Voice API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is \"use the user's local shell credentials and the LLM provider API key in the environment.\"\n\nContact Support:\n Name: Aider Maintainers",
+      "type": "text/plain"
+    }
+  }
+}

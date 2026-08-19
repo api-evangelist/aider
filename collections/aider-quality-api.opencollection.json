@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI Chat Quality API",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Quality",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Run Shell Command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/run",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run a shell command and optionally add output to chat. Maps to `/run`."
+        },
+        {
+          "info": {
+            "name": "Aider Run Test Command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/test",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run a shell command and add output to chat on non-zero exit code. Maps to `/test`."
+        },
+        {
+          "info": {
+            "name": "Aider Run Lint and Fix",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/lint",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Lint and fix in-chat files or all dirty files if none specified. Maps to `/lint`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

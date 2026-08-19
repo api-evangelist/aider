@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI Chat Session API",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Session",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Clear Chat History",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/clear"
+          },
+          "docs": "Clear the chat history. Maps to `/clear`."
+        },
+        {
+          "info": {
+            "name": "Aider Reset Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/reset"
+          },
+          "docs": "Drop all files and clear the chat history. Maps to `/reset`."
+        },
+        {
+          "info": {
+            "name": "Aider Load Command Script",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/load",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Load and execute commands from a file. Maps to `/load`."
+        },
+        {
+          "info": {
+            "name": "Aider Save Command Script",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/save",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Save commands to a file that can reconstruct the chat session. Maps to `/save`."
+        },
+        {
+          "info": {
+            "name": "Aider Report a Problem",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/report"
+          },
+          "docs": "Report a problem by opening a GitHub Issue. Maps to `/report`."
+        },
+        {
+          "info": {
+            "name": "Aider Exit Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/exit"
+          },
+          "docs": "Exit the application. Maps to `/exit` and `/quit`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,209 @@
+{
+  "item": [
+    {
+      "id": "ccf872f1-6fe7-4d0e-a8e7-b9f85796a515",
+      "name": "Map",
+      "description": {
+        "content": "Aider Repository-Map Inspection.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bd12972e-961d-41c8-845c-8babf0960a53",
+          "name": "Aider Show Repository Map",
+          "request": {
+            "name": "Aider Show Repository Map",
+            "description": {
+              "content": "Print out the current repository map. Maps to `/map`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "map"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b69e9d24-62f2-43ce-b51c-f5e8664d6867",
+              "name": "Repository map returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "map"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token_budget\": 4096,\n  \"symbols\": [\n    {\n      \"file\": \"src/main.py\",\n      \"symbols\": [\n        \"class Cache\",\n        \"def get(self, key)\"\n      ]\n    },\n    {\n      \"file\": \"src/main.py\",\n      \"symbols\": [\n        \"class Cache\",\n        \"def get(self, key)\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aa10add1-fa2a-4913-b8e9-b79a4c15148c",
+          "name": "Aider Refresh Repository Map",
+          "request": {
+            "name": "Aider Refresh Repository Map",
+            "description": {
+              "content": "Force a refresh of the repository map. Maps to `/map-refresh`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commands",
+                "map-refresh"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "590473c6-8439-4692-b411-b9df4386b8f1",
+              "name": "Map rebuilt.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commands",
+                    "map-refresh"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Provider-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token_budget\": 4096,\n  \"symbols\": [\n    {\n      \"file\": \"src/main.py\",\n      \"symbols\": [\n        \"class Cache\",\n        \"def get(self, key)\"\n      ]\n    },\n    {\n      \"file\": \"src/main.py\",\n      \"symbols\": [\n        \"class Cache\",\n        \"def get(self, key)\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "cli://aider",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Provider-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1da97a09-f087-4457-bed9-fa2ed8eff763",
+    "name": "Aider CLI Chat Map API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is \"use the user's local shell credentials and the LLM provider API key in the environment.\"\n\nContact Support:\n Name: Aider Maintainers",
+      "type": "text/plain"
+    }
+  }
+}

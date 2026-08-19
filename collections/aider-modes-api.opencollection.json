@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI Chat Modes API",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Modes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Enter Architect Mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/architect",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enter architect/editor mode using 2 different models — a reasoning model proposes, an editor model executes file edits. Maps to `/architect`."
+        },
+        {
+          "info": {
+            "name": "Aider Ask Question About Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/ask",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Ask questions about the code base without editing any files. Maps to the `/ask` in-chat command."
+        },
+        {
+          "info": {
+            "name": "Aider Switch Chat Mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/chat-mode",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Switch to a new chat mode (code, architect, ask, help, context). Maps to `/chat-mode`."
+        },
+        {
+          "info": {
+            "name": "Aider Ask Help Question",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/help",
+            "params": [
+              {
+                "name": "query",
+                "value": "how do I switch models?",
+                "type": "query",
+                "description": "The help question to ask."
+              }
+            ]
+          },
+          "docs": "Ask questions about aider. Maps to `/help` and the `help` chat mode."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

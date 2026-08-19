@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI Chat Files API",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Add Files to Chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/add",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add files to the chat so aider can edit them or review them in detail. Maps to the `/add` in-chat command."
+        },
+        {
+          "info": {
+            "name": "Aider Drop Files From Chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/drop",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove files from the chat session to free up context space. Maps to the `/drop` in-chat command."
+        },
+        {
+          "info": {
+            "name": "Aider Add Read-Only Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/read-only",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add files for reference only or convert added files to read-only. Maps to the `/read-only` in-chat command."
+        },
+        {
+          "info": {
+            "name": "Aider List Files in Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/ls"
+          },
+          "docs": "List all known files and indicate which are in the chat session. Maps to the `/ls` in-chat command."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

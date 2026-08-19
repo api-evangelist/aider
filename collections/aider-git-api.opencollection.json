@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI Chat Git API",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Git",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Show Diff Since Last Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/diff"
+          },
+          "docs": "Display the diff of changes since the last message. Maps to `/diff`."
+        },
+        {
+          "info": {
+            "name": "Aider Undo Last Aider Commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/undo"
+          },
+          "docs": "Undo the last git commit if it was done by aider. Maps to `/undo`."
+        },
+        {
+          "info": {
+            "name": "Aider Commit Changes Outside Chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/commit",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Commit edits to the repo made outside the chat. Maps to `/commit`."
+        },
+        {
+          "info": {
+            "name": "Aider Run Git Command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/git",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run a git command (output excluded from chat). Maps to `/git`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

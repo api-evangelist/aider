@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aider CLI Chat Models API",
+    "version": "0.86.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Provider-API-Key",
+      "value": "{{X-Provider-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aider Switch Main Model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/model",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Switch the Main Model to a new LLM. Maps to `/model`."
+        },
+        {
+          "info": {
+            "name": "Aider Switch Weak Model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/weak-model",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Switch the Weak Model used for commit messages and summarization. Maps to `/weak-model`."
+        },
+        {
+          "info": {
+            "name": "Aider Switch Editor Model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "cli://aider/commands/editor-model",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Switch the Editor Model used by architect mode to apply file edits. Maps to `/editor-model`."
+        },
+        {
+          "info": {
+            "name": "Aider List Available Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "cli://aider/commands/models",
+            "params": [
+              {
+                "name": "query",
+                "value": "claude",
+                "type": "query",
+                "description": "Substring filter applied to model identifiers."
+              }
+            ]
+          },
+          "docs": "Search the list of available models. Maps to `/models`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
