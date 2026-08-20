@@ -33,6 +33,25 @@ access: Open Source
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/aider.png
 x-type: opensource
 tags:
+  - Artificial Intelligence
+  - AI Pair Programming
+  - Developer Tools
+  - CLI
+  - Command Line
+  - Coding Assistant
+  - Code Generation
+  - Open-Source
+  - Python
+  - Apache 2.0
+  - LLM
+  - Git
+  - BYO LLM
+  - Terminal
+  - Polyglot
+  - Tree-sitter
+  - Repository Map
+  - Pair Programming
+tags_raw:
   - AI
   - AI Pair Programming
   - Developer Tools
@@ -68,6 +87,11 @@ apis:
   humanURL: https://github.com/Aider-AI/aider/blob/main/aider/main.py
   baseURL: https://github.com/Aider-AI/aider
   tags:
+  - Python
+  - Library
+  - Embedding
+  - Open-Source
+  tags_raw:
   - Python
   - Library
   - Embedding
@@ -203,6 +227,8 @@ apis:
   humanURL: https://aider.chat/
   baseURL: https://aider.chat
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
