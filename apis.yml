@@ -16,6 +16,18 @@ description: >-
   rate-limiting or billing — all model inference is delegated to the user's chosen provider, and any pricing, rate
   limits, and FinOps surface live with that provider.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: false
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
