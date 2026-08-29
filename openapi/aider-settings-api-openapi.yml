@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Aider CLI Chat Settings API
   version: 0.86.1
@@ -109,6 +109,21 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    TokenUsage:
+      type: object
+      properties:
+        chat_history_tokens:
+          type: integer
+          example: 18412
+        repo_map_tokens:
+          type: integer
+          example: 4096
+        in_chat_files_tokens:
+          type: integer
+          example: 6234
+        budget_remaining_tokens:
+          type: integer
+          example: 171258
     SettingsSnapshot:
       type: object
       properties:
@@ -142,15 +157,6 @@ components:
         stream:
           type: boolean
           example: true
-    ReasoningEffortRequest:
-      type: object
-      required:
-      - effort
-      properties:
-        effort:
-          type: string
-          description: Reasoning effort level. Accepts low|medium|high or a numeric/string budget.
-          example: high
     CommandResult:
       type: object
       properties:
@@ -160,6 +166,15 @@ components:
         message:
           type: string
           example: Files added to chat.
+    ReasoningEffortRequest:
+      type: object
+      required:
+      - effort
+      properties:
+        effort:
+          type: string
+          description: Reasoning effort level. Accepts low|medium|high or a numeric/string budget.
+          example: high
     ThinkingTokensRequest:
       type: object
       required:
@@ -169,21 +184,6 @@ components:
           type: string
           description: Thinking token budget. Accepts integer (e.g. 8096), shorthand (8k, 10.5k, 0.5M).
           example: 32k
-    TokenUsage:
-      type: object
-      properties:
-        chat_history_tokens:
-          type: integer
-          example: 18412
-        repo_map_tokens:
-          type: integer
-          example: 4096
-        in_chat_files_tokens:
-          type: integer
-          example: 6234
-        budget_remaining_tokens:
-          type: integer
-          example: 171258
   securitySchemes:
     LLMProviderKey:
       type: apiKey

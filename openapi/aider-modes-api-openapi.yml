@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Aider CLI Chat Modes API
   version: 0.86.1
@@ -123,15 +123,21 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    CommandResult:
+    ChatModeRequest:
       type: object
+      required:
+      - mode
       properties:
-        ok:
-          type: boolean
-          example: true
-        message:
+        mode:
           type: string
-          example: Files added to chat.
+          description: Chat mode to switch to.
+          enum:
+          - code
+          - architect
+          - ask
+          - help
+          - context
+          example: architect
     EditResult:
       type: object
       properties:
@@ -175,21 +181,24 @@ components:
           example:
           - src/http/retry.py
           - src/http/limiter.py
-    ChatModeRequest:
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
+    AskRequest:
       type: object
       required:
-      - mode
+      - prompt
       properties:
-        mode:
+        prompt:
           type: string
-          description: Chat mode to switch to.
-          enum:
-          - code
-          - architect
-          - ask
-          - help
-          - context
-          example: architect
+          description: Question to ask about the codebase.
+          example: How does the retry policy in the http client interact with the rate limiter?
     EditRequest:
       type: object
       required:
@@ -213,15 +222,6 @@ components:
           description: Whether to auto-commit edits via Git. Defaults to the launch-time setting.
           default: true
           example: true
-    AskRequest:
-      type: object
-      required:
-      - prompt
-      properties:
-        prompt:
-          type: string
-          description: Question to ask about the codebase.
-          example: How does the retry policy in the http client interact with the rate limiter?
   securitySchemes:
     LLMProviderKey:
       type: apiKey

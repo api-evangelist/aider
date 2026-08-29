@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Aider CLI Chat Editing API
   version: 0.86.1
@@ -92,29 +92,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    EditRequest:
-      type: object
-      required:
-      - prompt
-      properties:
-        prompt:
-          type: string
-          description: Natural-language instruction to apply to the in-chat files.
-          example: Refactor the cache layer to use an LRU eviction policy and add unit tests.
-        edit_format:
-          type: string
-          description: Edit format the LLM should produce.
-          enum:
-          - diff
-          - whole
-          - udiff
-          - editor-diff
-          example: diff
-        auto_commit:
-          type: boolean
-          description: Whether to auto-commit edits via Git. Defaults to the launch-time setting.
-          default: true
-          example: true
     EditResult:
       type: object
       properties:
@@ -142,6 +119,29 @@ components:
           type: integer
           description: Completion tokens received from the LLM.
           example: 1284
+    EditRequest:
+      type: object
+      required:
+      - prompt
+      properties:
+        prompt:
+          type: string
+          description: Natural-language instruction to apply to the in-chat files.
+          example: Refactor the cache layer to use an LRU eviction policy and add unit tests.
+        edit_format:
+          type: string
+          description: Edit format the LLM should produce.
+          enum:
+          - diff
+          - whole
+          - udiff
+          - editor-diff
+          example: diff
+        auto_commit:
+          type: boolean
+          description: Whether to auto-commit edits via Git. Defaults to the launch-time setting.
+          default: true
+          example: true
     DiffResult:
       type: object
       properties:

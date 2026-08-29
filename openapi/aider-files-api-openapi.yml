@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Aider CLI Chat Files API
   version: 0.86.1
@@ -121,6 +121,35 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    DropFilesRequest:
+      type: object
+      properties:
+        files:
+          type: array
+          description: List of file paths to remove from chat context. Omit to drop all files.
+          items:
+            type: string
+            example: src/legacy.py
+          example:
+          - src/legacy.py
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: invalid_request
+        message:
+          type: string
+          example: One or more file paths could not be resolved.
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
     AddFilesRequest:
       type: object
       required:
@@ -140,17 +169,6 @@ components:
           description: When true, files are added as read-only references and excluded from edit targets.
           default: false
           example: false
-    DropFilesRequest:
-      type: object
-      properties:
-        files:
-          type: array
-          description: List of file paths to remove from chat context. Omit to drop all files.
-          items:
-            type: string
-            example: src/legacy.py
-          example:
-          - src/legacy.py
     FileListing:
       type: object
       properties:
@@ -172,24 +190,6 @@ components:
           example:
           - src/util.py
           - src/io.py
-    CommandResult:
-      type: object
-      properties:
-        ok:
-          type: boolean
-          example: true
-        message:
-          type: string
-          example: Files added to chat.
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          example: invalid_request
-        message:
-          type: string
-          example: One or more file paths could not be resolved.
   securitySchemes:
     LLMProviderKey:
       type: apiKey

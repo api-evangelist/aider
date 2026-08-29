@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Aider CLI Chat Git API
   version: 0.86.1
@@ -116,6 +116,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: invalid_request
+        message:
+          type: string
+          example: One or more file paths could not be resolved.
     CommitRequest:
       type: object
       properties:
@@ -123,6 +132,51 @@ components:
           type: string
           description: Optional commit message override. Omit to let the weak model generate one.
           example: 'chore: format imports'
+    CommitResult:
+      type: object
+      properties:
+        commit_sha:
+          type: string
+          example: f1e2d3c4b5a6
+        commit_message:
+          type: string
+          example: 'chore: format imports'
+    ShellRequest:
+      type: object
+      required:
+      - command
+      properties:
+        command:
+          type: string
+          description: Shell command line to execute in the repo root.
+          example: pytest -x tests/
+        add_output_to_chat:
+          type: boolean
+          description: Whether the command's stdout/stderr is appended to chat context.
+          default: true
+          example: true
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
+    ShellResult:
+      type: object
+      properties:
+        exit_code:
+          type: integer
+          description: Process exit code.
+          example: 0
+        stdout:
+          type: string
+          example: 12 passed in 1.42s
+        stderr:
+          type: string
+          example: ''
     DiffResult:
       type: object
       properties:
@@ -147,60 +201,6 @@ components:
             example: src/main.py
           example:
           - src/main.py
-    ShellResult:
-      type: object
-      properties:
-        exit_code:
-          type: integer
-          description: Process exit code.
-          example: 0
-        stdout:
-          type: string
-          example: 12 passed in 1.42s
-        stderr:
-          type: string
-          example: ''
-    CommandResult:
-      type: object
-      properties:
-        ok:
-          type: boolean
-          example: true
-        message:
-          type: string
-          example: Files added to chat.
-    ShellRequest:
-      type: object
-      required:
-      - command
-      properties:
-        command:
-          type: string
-          description: Shell command line to execute in the repo root.
-          example: pytest -x tests/
-        add_output_to_chat:
-          type: boolean
-          description: Whether the command's stdout/stderr is appended to chat context.
-          default: true
-          example: true
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          example: invalid_request
-        message:
-          type: string
-          example: One or more file paths could not be resolved.
-    CommitResult:
-      type: object
-      properties:
-        commit_sha:
-          type: string
-          example: f1e2d3c4b5a6
-        commit_message:
-          type: string
-          example: 'chore: format imports'
   securitySchemes:
     LLMProviderKey:
       type: apiKey

@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Aider CLI Chat Session API
   version: 0.86.1
@@ -143,15 +143,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    FilePathRequest:
-      type: object
-      required:
-      - path
-      properties:
-        path:
-          type: string
-          description: Filesystem path.
-          example: .aider/session-2026-05-30.txt
     CommandResult:
       type: object
       properties:
@@ -161,6 +152,15 @@ components:
         message:
           type: string
           example: Files added to chat.
+    FilePathRequest:
+      type: object
+      required:
+      - path
+      properties:
+        path:
+          type: string
+          description: Filesystem path.
+          example: .aider/session-2026-05-30.txt
   securitySchemes:
     LLMProviderKey:
       type: apiKey

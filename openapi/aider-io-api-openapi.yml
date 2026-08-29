@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Aider CLI Chat IO API
   version: 0.86.1
@@ -160,19 +160,17 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ShellResult:
+    VoiceTranscript:
       type: object
       properties:
-        exit_code:
+        text:
+          type: string
+          description: Transcribed text queued as the next prompt.
+          example: refactor the cache layer to use lru eviction
+        duration_ms:
           type: integer
-          description: Process exit code.
-          example: 0
-        stdout:
-          type: string
-          example: 12 passed in 1.42s
-        stderr:
-          type: string
-          example: ''
+          description: Length of the recorded clip.
+          example: 4200
     WebFetchRequest:
       type: object
       required:
@@ -183,26 +181,6 @@ components:
           format: uri
           description: HTTP(S) URL to fetch and convert to markdown.
           example: https://example.com/docs/getting-started
-    CommandResult:
-      type: object
-      properties:
-        ok:
-          type: boolean
-          example: true
-        message:
-          type: string
-          example: Files added to chat.
-    WebFetchResult:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          example: https://example.com/docs/getting-started
-        markdown:
-          type: string
-          description: Markdown rendering of the page added to chat context.
-          example: '# Getting Started ...'
     ShellRequest:
       type: object
       required:
@@ -217,17 +195,39 @@ components:
           description: Whether the command's stdout/stderr is appended to chat context.
           default: true
           example: true
-    VoiceTranscript:
+    CommandResult:
       type: object
       properties:
-        text:
+        ok:
+          type: boolean
+          example: true
+        message:
           type: string
-          description: Transcribed text queued as the next prompt.
-          example: refactor the cache layer to use lru eviction
-        duration_ms:
+          example: Files added to chat.
+    ShellResult:
+      type: object
+      properties:
+        exit_code:
           type: integer
-          description: Length of the recorded clip.
-          example: 4200
+          description: Process exit code.
+          example: 0
+        stdout:
+          type: string
+          example: 12 passed in 1.42s
+        stderr:
+          type: string
+          example: ''
+    WebFetchResult:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          example: https://example.com/docs/getting-started
+        markdown:
+          type: string
+          description: Markdown rendering of the page added to chat context.
+          example: '# Getting Started ...'
   securitySchemes:
     LLMProviderKey:
       type: apiKey
