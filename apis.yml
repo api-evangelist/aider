@@ -352,64 +352,6 @@ apis:
     url: https://aider.chat/docs/usage/voice.html
   - type: ConventionsGuide
     url: https://aider.chat/docs/usage/conventions.html
-- aid: aider:aider-io-api
-  name: Aider IO API
-  description: Aider Commands That Move Data In and Out of the Session.
-  humanURL: https://aider.chat/
-  baseURL: https://aider.chat
-  tags:
-  - IO
-  properties:
-  - type: OpenAPI
-    url: openapi/aider-io-api-openapi.yml
-  - type: Documentation
-    url: https://aider.chat/docs/
-  - type: GitHub
-    url: https://github.com/Aider-AI/aider
-  - type: PyPI
-    url: https://pypi.org/project/aider-chat/
-  - type: Installation
-    url: https://aider.chat/docs/install.html
-  - type: UsageGuide
-    url: https://aider.chat/docs/usage.html
-  - type: Commands
-    url: https://aider.chat/docs/usage/commands.html
-  - type: ChatModes
-    url: https://aider.chat/docs/usage/modes.html
-  - type: Configuration
-    url: https://aider.chat/docs/config.html
-  - type: ConfigOptions
-    url: https://aider.chat/docs/config/options.html
-  - type: ConfigYAML
-    url: https://aider.chat/docs/config/aider_conf.html
-  - type: ConfigEnv
-    url: https://aider.chat/docs/config/dotenv.html
-  - type: APIKeys
-    url: https://aider.chat/docs/config/api-keys.html
-  - type: SupportedModels
-    url: https://aider.chat/docs/llms.html
-  - type: ModelWarnings
-    url: https://aider.chat/docs/llms/warnings.html
-  - type: EditFormats
-    url: https://aider.chat/docs/more/edit-formats.html
-  - type: Leaderboard
-    url: https://aider.chat/docs/leaderboards/
-  - type: ChangeLog
-    url: https://aider.chat/HISTORY.html
-  - type: License
-    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
-  - type: SourceCode
-    url: https://github.com/Aider-AI/aider
-  - type: IssueTracker
-    url: https://github.com/Aider-AI/aider/issues
-  - type: Tutorials
-    url: https://aider.chat/docs/usage/tutorials.html
-  - type: WatchFilesGuide
-    url: https://aider.chat/docs/usage/watch.html
-  - type: VoiceGuide
-    url: https://aider.chat/docs/usage/voice.html
-  - type: ConventionsGuide
-    url: https://aider.chat/docs/usage/conventions.html
 - aid: aider:aider-launch-api
   name: Aider Launch API
   description: Aider Launch-Time Configuration via Flags, YAML, and Environment Variables.
@@ -884,6 +826,64 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/aider-web-api-openapi.yml
+  - type: Documentation
+    url: https://aider.chat/docs/
+  - type: GitHub
+    url: https://github.com/Aider-AI/aider
+  - type: PyPI
+    url: https://pypi.org/project/aider-chat/
+  - type: Installation
+    url: https://aider.chat/docs/install.html
+  - type: UsageGuide
+    url: https://aider.chat/docs/usage.html
+  - type: Commands
+    url: https://aider.chat/docs/usage/commands.html
+  - type: ChatModes
+    url: https://aider.chat/docs/usage/modes.html
+  - type: Configuration
+    url: https://aider.chat/docs/config.html
+  - type: ConfigOptions
+    url: https://aider.chat/docs/config/options.html
+  - type: ConfigYAML
+    url: https://aider.chat/docs/config/aider_conf.html
+  - type: ConfigEnv
+    url: https://aider.chat/docs/config/dotenv.html
+  - type: APIKeys
+    url: https://aider.chat/docs/config/api-keys.html
+  - type: SupportedModels
+    url: https://aider.chat/docs/llms.html
+  - type: ModelWarnings
+    url: https://aider.chat/docs/llms/warnings.html
+  - type: EditFormats
+    url: https://aider.chat/docs/more/edit-formats.html
+  - type: Leaderboard
+    url: https://aider.chat/docs/leaderboards/
+  - type: ChangeLog
+    url: https://aider.chat/HISTORY.html
+  - type: License
+    url: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  - type: SourceCode
+    url: https://github.com/Aider-AI/aider
+  - type: IssueTracker
+    url: https://github.com/Aider-AI/aider/issues
+  - type: Tutorials
+    url: https://aider.chat/docs/usage/tutorials.html
+  - type: WatchFilesGuide
+    url: https://aider.chat/docs/usage/watch.html
+  - type: VoiceGuide
+    url: https://aider.chat/docs/usage/voice.html
+  - type: ConventionsGuide
+    url: https://aider.chat/docs/usage/conventions.html
+- aid: aider:aider-i-o-api
+  name: Aider I/O API
+  description: Aider Commands That Move Data In and Out of the Session.
+  humanURL: https://github.com/Aider-AI/aider/blob/main/aider/main.py
+  baseURL: https://github.com/Aider-AI/aider
+  tags:
+  - I/O
+  properties:
+  - type: OpenAPI
+    url: openapi/aider-i-o-api-openapi.yml
   - type: Documentation
     url: https://aider.chat/docs/
   - type: GitHub
