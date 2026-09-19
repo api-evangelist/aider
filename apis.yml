@@ -102,7 +102,7 @@ apis:
   tags:
   - Python
   - Library
-  - Embedding
+  - Embeddings
   - Open-Source
   tags_raw:
   - Python
@@ -358,6 +358,8 @@ apis:
   humanURL: https://aider.chat/
   baseURL: https://aider.chat
   tags:
+  - Launches
+  tags_raw:
   - Launch
   properties:
   - type: OpenAPI
@@ -648,6 +650,8 @@ apis:
   humanURL: https://aider.chat/
   baseURL: https://aider.chat
   tags:
+  - Sessions
+  tags_raw:
   - Session
   properties:
   - type: OpenAPI
@@ -880,6 +884,8 @@ apis:
   humanURL: https://github.com/Aider-AI/aider/blob/main/aider/main.py
   baseURL: https://github.com/Aider-AI/aider
   tags:
+  - IO
+  tags_raw:
   - I/O
   properties:
   - type: OpenAPI
