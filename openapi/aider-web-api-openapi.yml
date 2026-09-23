@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Aider CLI Chat Web API
+  title: Aider CLI Web API
   version: 0.86.1
-  description: Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is "use the user's local shell credentials and the LLM provider API key in the environment."
+  description: Documentation surface for the Aider command-line interface.
   contact:
     name: Aider Maintainers
     url: https://github.com/Aider-AI/aider/issues

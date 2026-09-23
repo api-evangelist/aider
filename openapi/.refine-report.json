@@ -1,20 +1,7 @@
 {
   "provider": "aider",
   "sources": [
-    "aider-chat-api-openapi.yml",
-    "aider-editing-api-openapi.yml",
-    "aider-files-api-openapi.yml",
-    "aider-git-api-openapi.yml",
-    "aider-io-api-openapi.yml",
-    "aider-launch-api-openapi.yml",
-    "aider-map-api-openapi.yml",
-    "aider-models-api-openapi.yml",
-    "aider-modes-api-openapi.yml",
-    "aider-quality-api-openapi.yml",
-    "aider-session-api-openapi.yml",
-    "aider-settings-api-openapi.yml",
-    "aider-voice-api-openapi.yml",
-    "aider-web-api-openapi.yml"
+    "_ae-authored/aider-cli-openapi.yml"
   ],
   "outputs": [
     "aider-chat-api-openapi.yml",
@@ -32,11 +19,31 @@
     "aider-voice-api-openapi.yml",
     "aider-web-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
-    "apis.yml register: already-registered"
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "aider-cli-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "superseded outputs removed: aider-i-o-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 15 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "aider-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aider-editing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aider-files-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aider-git-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aider-i-o-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aider-launch-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aider-map-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aider-models-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aider-modes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aider-quality-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aider-session-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aider-settings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aider-voice-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aider-web-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

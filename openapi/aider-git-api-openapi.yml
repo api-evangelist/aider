@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Aider CLI Chat Git API
+  title: Aider CLI Git API
   version: 0.86.1
-  description: Documentation surface for the Aider command-line interface. Aider has no hosted REST API and does not bind to a network port — it runs entirely in a developer's terminal against the local Git working tree. This OpenAPI document models the Aider command surface as if it were a REST API so it can be consumed by API-centric tooling (catalogs, registries, governance rule engines, capability runtimes). Each slash command (`/add`, `/diff`, `/commit`, etc.) is modeled as a path; each launch-flag family is modeled as a configuration path. Servers and security blocks are placeholders — aider's actual security model is "use the user's local shell credentials and the LLM provider API key in the environment."
+  description: Documentation surface for the Aider command-line interface.
   contact:
     name: Aider Maintainers
     url: https://github.com/Aider-AI/aider/issues
@@ -116,30 +116,25 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
+    ShellResult:
       type: object
       properties:
-        code:
+        exit_code:
+          type: integer
+          description: Process exit code.
+          example: 0
+        stdout:
           type: string
-          example: invalid_request
-        message:
+          example: 12 passed in 1.42s
+        stderr:
           type: string
-          example: One or more file paths could not be resolved.
+          example: ''
     CommitRequest:
       type: object
       properties:
         message:
           type: string
           description: Optional commit message override. Omit to let the weak model generate one.
-          example: 'chore: format imports'
-    CommitResult:
-      type: object
-      properties:
-        commit_sha:
-          type: string
-          example: f1e2d3c4b5a6
-        commit_message:
-          type: string
           example: 'chore: format imports'
     ShellRequest:
       type: object
@@ -155,28 +150,15 @@ components:
           description: Whether the command's stdout/stderr is appended to chat context.
           default: true
           example: true
-    CommandResult:
+    ErrorResponse:
       type: object
       properties:
-        ok:
-          type: boolean
-          example: true
+        code:
+          type: string
+          example: invalid_request
         message:
           type: string
-          example: Files added to chat.
-    ShellResult:
-      type: object
-      properties:
-        exit_code:
-          type: integer
-          description: Process exit code.
-          example: 0
-        stdout:
-          type: string
-          example: 12 passed in 1.42s
-        stderr:
-          type: string
-          example: ''
+          example: One or more file paths could not be resolved.
     DiffResult:
       type: object
       properties:
@@ -201,6 +183,24 @@ components:
             example: src/main.py
           example:
           - src/main.py
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
+    CommitResult:
+      type: object
+      properties:
+        commit_sha:
+          type: string
+          example: f1e2d3c4b5a6
+        commit_message:
+          type: string
+          example: 'chore: format imports'
   securitySchemes:
     LLMProviderKey:
       type: apiKey
