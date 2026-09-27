@@ -17,16 +17,21 @@ description: >-
   limits, and FinOps surface live with that provider.
 type: Index
 deliveryModel:
-  model: unknown
-  open_source: unknown
+  model: self-hosted
+  license: Apache-2.0
+  license_evidence:
+    repo: aider-ai/aider
+    spdx: Apache-2.0
+    stars: 49180
+  open_source: true
   commercial: false
   callable_host: false
-  label: Delivery model not determined — needs a product licence on record
-  confidence: low
+  label: Self-hosted open source · you run it yourself
+  confidence: medium
   source:
   - openapi
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-license
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: unknown
@@ -53,7 +58,7 @@ tags:
   - Command Line
   - Coding Assistant
   - Code Generation
-  - Open-Source
+  - Open Source
   - Python
   - Apache 2.0
   - LLM
@@ -83,6 +88,7 @@ tags_raw:
   - Tree Sitter
   - Repository Map
   - Pair Programming
+  - Open-Source
 url: https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/apis.yml
 created: '2026-05-08'
 modified: '2026-05-30'
@@ -103,12 +109,13 @@ apis:
   - Python
   - Library
   - Embeddings
-  - Open-Source
+  - Open Source
   tags_raw:
   - Python
   - Library
   - Embedding
   - Open Source
+  - Open-Source
   properties:
   - type: SourceCode
     url: https://github.com/Aider-AI/aider/blob/main/aider/main.py
@@ -122,7 +129,6 @@ apis:
   name: Aider Chat API
   description: Aider Commands That Manage the Chat Session and History.
   humanURL: https://aider.chat/
-  baseURL: https://aider.chat
   tags:
   - Chat
   properties:
@@ -180,7 +186,6 @@ apis:
   name: Aider Editing API
   description: Aider Commands That Drive Code Edits and Diffs.
   humanURL: https://aider.chat/
-  baseURL: https://aider.chat
   tags:
   - Editing
   properties:
@@ -238,7 +243,6 @@ apis:
   name: Aider Files API
   description: Aider Commands That Manage Files in the Chat Session.
   humanURL: https://aider.chat/
-  baseURL: https://aider.chat
   tags:
   - File
   tags_raw:
@@ -298,7 +302,6 @@ apis:
   name: Aider Git API
   description: Aider Commands That Wrap Git Operations.
   humanURL: https://aider.chat/
-  baseURL: https://aider.chat
   tags:
   - Git
   properties:
@@ -356,7 +359,6 @@ apis:
   name: Aider Launch API
   description: Aider Launch-Time Configuration via Flags, YAML, and Environment Variables.
   humanURL: https://aider.chat/
-  baseURL: https://aider.chat
   tags:
   - Launches
   tags_raw:
@@ -416,8 +418,9 @@ apis:
   name: Aider Map API
   description: Aider Repository-Map Inspection.
   humanURL: https://aider.chat/
-  baseURL: https://aider.chat
   tags:
+  - Maps
+  tags_raw:
   - Map
   properties:
   - type: OpenAPI
@@ -474,7 +477,6 @@ apis:
   name: Aider Models API
   description: Aider Commands That Switch or Query LLM Models.
   humanURL: https://aider.chat/
-  baseURL: https://aider.chat
   tags:
   - Models
   properties:
@@ -532,7 +534,6 @@ apis:
   name: Aider Modes API
   description: Aider Chat Modes (Code, Architect, Ask, Help, Context).
   humanURL: https://aider.chat/
-  baseURL: https://aider.chat
   tags:
   - Modes
   properties:
@@ -590,7 +591,6 @@ apis:
   name: Aider Quality API
   description: Aider Commands That Run Linters and Tests.
   humanURL: https://aider.chat/
-  baseURL: https://aider.chat
   tags:
   - Quality
   properties:
@@ -648,7 +648,6 @@ apis:
   name: Aider Session API
   description: Aider Session Lifecycle Commands.
   humanURL: https://aider.chat/
-  baseURL: https://aider.chat
   tags:
   - Sessions
   tags_raw:
@@ -708,7 +707,6 @@ apis:
   name: Aider Settings API
   description: Aider Settings, Tokens, and Reasoning Controls.
   humanURL: https://aider.chat/
-  baseURL: https://aider.chat
   tags:
   - Settings
   properties:
@@ -766,7 +764,6 @@ apis:
   name: Aider Voice API
   description: Aider Voice-to-Code Input.
   humanURL: https://aider.chat/
-  baseURL: https://aider.chat
   tags:
   - Voice
   properties:
@@ -824,7 +821,6 @@ apis:
   name: Aider Web API
   description: Aider Commands That Pull in Web Content.
   humanURL: https://aider.chat/
-  baseURL: https://aider.chat
   tags:
   - Web
   properties:
@@ -884,8 +880,6 @@ apis:
   humanURL: https://github.com/Aider-AI/aider/blob/main/aider/main.py
   baseURL: https://github.com/Aider-AI/aider
   tags:
-  - IO
-  tags_raw:
   - I/O
   properties:
   - type: OpenAPI

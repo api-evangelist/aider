@@ -116,6 +116,24 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    CommitResult:
+      type: object
+      properties:
+        commit_sha:
+          type: string
+          example: f1e2d3c4b5a6
+        commit_message:
+          type: string
+          example: 'chore: format imports'
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
     ShellResult:
       type: object
       properties:
@@ -129,36 +147,6 @@ components:
         stderr:
           type: string
           example: ''
-    CommitRequest:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Optional commit message override. Omit to let the weak model generate one.
-          example: 'chore: format imports'
-    ShellRequest:
-      type: object
-      required:
-      - command
-      properties:
-        command:
-          type: string
-          description: Shell command line to execute in the repo root.
-          example: pytest -x tests/
-        add_output_to_chat:
-          type: boolean
-          description: Whether the command's stdout/stderr is appended to chat context.
-          default: true
-          example: true
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          example: invalid_request
-        message:
-          type: string
-          example: One or more file paths could not be resolved.
     DiffResult:
       type: object
       properties:
@@ -183,23 +171,35 @@ components:
             example: src/main.py
           example:
           - src/main.py
-    CommandResult:
+    ErrorResponse:
       type: object
       properties:
-        ok:
-          type: boolean
-          example: true
+        code:
+          type: string
+          example: invalid_request
         message:
           type: string
-          example: Files added to chat.
-    CommitResult:
+          example: One or more file paths could not be resolved.
+    ShellRequest:
+      type: object
+      required:
+      - command
+      properties:
+        command:
+          type: string
+          description: Shell command line to execute in the repo root.
+          example: pytest -x tests/
+        add_output_to_chat:
+          type: boolean
+          description: Whether the command's stdout/stderr is appended to chat context.
+          default: true
+          example: true
+    CommitRequest:
       type: object
       properties:
-        commit_sha:
+        message:
           type: string
-          example: f1e2d3c4b5a6
-        commit_message:
-          type: string
+          description: Optional commit message override. Omit to let the weak model generate one.
           example: 'chore: format imports'
   securitySchemes:
     LLMProviderKey:

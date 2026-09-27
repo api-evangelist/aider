@@ -109,6 +109,39 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    TokenUsage:
+      type: object
+      properties:
+        chat_history_tokens:
+          type: integer
+          example: 18412
+        repo_map_tokens:
+          type: integer
+          example: 4096
+        in_chat_files_tokens:
+          type: integer
+          example: 6234
+        budget_remaining_tokens:
+          type: integer
+          example: 171258
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
+    ReasoningEffortRequest:
+      type: object
+      required:
+      - effort
+      properties:
+        effort:
+          type: string
+          description: Reasoning effort level. Accepts low|medium|high or a numeric/string budget.
+          example: high
     ThinkingTokensRequest:
       type: object
       required:
@@ -151,39 +184,6 @@ components:
         stream:
           type: boolean
           example: true
-    CommandResult:
-      type: object
-      properties:
-        ok:
-          type: boolean
-          example: true
-        message:
-          type: string
-          example: Files added to chat.
-    ReasoningEffortRequest:
-      type: object
-      required:
-      - effort
-      properties:
-        effort:
-          type: string
-          description: Reasoning effort level. Accepts low|medium|high or a numeric/string budget.
-          example: high
-    TokenUsage:
-      type: object
-      properties:
-        chat_history_tokens:
-          type: integer
-          example: 18412
-        repo_map_tokens:
-          type: integer
-          example: 4096
-        in_chat_files_tokens:
-          type: integer
-          example: 6234
-        budget_remaining_tokens:
-          type: integer
-          example: 171258
   securitySchemes:
     LLMProviderKey:
       type: apiKey

@@ -92,6 +92,33 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    EditResult:
+      type: object
+      properties:
+        files_changed:
+          type: array
+          description: File paths modified by this edit.
+          items:
+            type: string
+            example: src/main.py
+          example:
+          - src/main.py
+        commit_sha:
+          type: string
+          description: Git commit SHA produced by auto-commit.
+          example: a1b2c3d4e5f6
+        commit_message:
+          type: string
+          description: Auto-generated conventional commit message.
+          example: 'feat(cache): switch to LRU eviction policy'
+        tokens_in:
+          type: integer
+          description: Prompt tokens sent to the LLM.
+          example: 4231
+        tokens_out:
+          type: integer
+          description: Completion tokens received from the LLM.
+          example: 1284
     EditRequest:
       type: object
       required:
@@ -139,33 +166,6 @@ components:
             example: src/main.py
           example:
           - src/main.py
-    EditResult:
-      type: object
-      properties:
-        files_changed:
-          type: array
-          description: File paths modified by this edit.
-          items:
-            type: string
-            example: src/main.py
-          example:
-          - src/main.py
-        commit_sha:
-          type: string
-          description: Git commit SHA produced by auto-commit.
-          example: a1b2c3d4e5f6
-        commit_message:
-          type: string
-          description: Auto-generated conventional commit message.
-          example: 'feat(cache): switch to LRU eviction policy'
-        tokens_in:
-          type: integer
-          description: Prompt tokens sent to the LLM.
-          example: 4231
-        tokens_out:
-          type: integer
-          description: Completion tokens received from the LLM.
-          example: 1284
   securitySchemes:
     LLMProviderKey:
       type: apiKey

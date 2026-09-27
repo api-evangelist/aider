@@ -132,24 +132,6 @@ components:
             example: src/legacy.py
           example:
           - src/legacy.py
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          example: invalid_request
-        message:
-          type: string
-          example: One or more file paths could not be resolved.
-    CommandResult:
-      type: object
-      properties:
-        ok:
-          type: boolean
-          example: true
-        message:
-          type: string
-          example: Files added to chat.
     FileListing:
       type: object
       properties:
@@ -171,6 +153,15 @@ components:
           example:
           - src/util.py
           - src/io.py
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
     AddFilesRequest:
       type: object
       required:
@@ -190,6 +181,15 @@ components:
           description: When true, files are added as read-only references and excluded from edit targets.
           default: false
           example: false
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: invalid_request
+        message:
+          type: string
+          example: One or more file paths could not be resolved.
   securitySchemes:
     LLMProviderKey:
       type: apiKey
