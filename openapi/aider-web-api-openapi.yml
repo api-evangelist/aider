@@ -52,16 +52,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    WebFetchRequest:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          format: uri
-          description: HTTP(S) URL to fetch and convert to markdown.
-          example: https://example.com/docs/getting-started
     WebFetchResult:
       type: object
       properties:
@@ -73,6 +63,16 @@ components:
           type: string
           description: Markdown rendering of the page added to chat context.
           example: '# Getting Started ...'
+    WebFetchRequest:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+          description: HTTP(S) URL to fetch and convert to markdown.
+          example: https://example.com/docs/getting-started
   securitySchemes:
     LLMProviderKey:
       type: apiKey

@@ -109,21 +109,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    TokenUsage:
+    ThinkingTokensRequest:
       type: object
+      required:
+      - tokens
       properties:
-        chat_history_tokens:
-          type: integer
-          example: 18412
-        repo_map_tokens:
-          type: integer
-          example: 4096
-        in_chat_files_tokens:
-          type: integer
-          example: 6234
-        budget_remaining_tokens:
-          type: integer
-          example: 171258
+        tokens:
+          type: string
+          description: Thinking token budget. Accepts integer (e.g. 8096), shorthand (8k, 10.5k, 0.5M).
+          example: 32k
     CommandResult:
       type: object
       properties:
@@ -142,15 +136,21 @@ components:
           type: string
           description: Reasoning effort level. Accepts low|medium|high or a numeric/string budget.
           example: high
-    ThinkingTokensRequest:
+    TokenUsage:
       type: object
-      required:
-      - tokens
       properties:
-        tokens:
-          type: string
-          description: Thinking token budget. Accepts integer (e.g. 8096), shorthand (8k, 10.5k, 0.5M).
-          example: 32k
+        chat_history_tokens:
+          type: integer
+          example: 18412
+        repo_map_tokens:
+          type: integer
+          example: 4096
+        in_chat_files_tokens:
+          type: integer
+          example: 6234
+        budget_remaining_tokens:
+          type: integer
+          example: 171258
     SettingsSnapshot:
       type: object
       properties:

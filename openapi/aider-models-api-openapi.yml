@@ -123,6 +123,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
     ModelCatalog:
       type: object
       properties:
@@ -165,15 +174,6 @@ components:
           type: string
           description: LiteLLM-style model identifier or one of aider's built-in aliases.
           example: anthropic/claude-opus-4
-    CommandResult:
-      type: object
-      properties:
-        ok:
-          type: boolean
-          example: true
-        message:
-          type: string
-          example: Files added to chat.
   securitySchemes:
     LLMProviderKey:
       type: apiKey

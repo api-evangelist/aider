@@ -121,17 +121,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    DropFilesRequest:
+    CommandResult:
       type: object
       properties:
-        files:
-          type: array
-          description: List of file paths to remove from chat context. Omit to drop all files.
-          items:
-            type: string
-            example: src/legacy.py
-          example:
-          - src/legacy.py
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
     FileListing:
       type: object
       properties:
@@ -153,15 +151,15 @@ components:
           example:
           - src/util.py
           - src/io.py
-    CommandResult:
+    ErrorResponse:
       type: object
       properties:
-        ok:
-          type: boolean
-          example: true
+        code:
+          type: string
+          example: invalid_request
         message:
           type: string
-          example: Files added to chat.
+          example: One or more file paths could not be resolved.
     AddFilesRequest:
       type: object
       required:
@@ -181,15 +179,17 @@ components:
           description: When true, files are added as read-only references and excluded from edit targets.
           default: false
           example: false
-    ErrorResponse:
+    DropFilesRequest:
       type: object
       properties:
-        code:
-          type: string
-          example: invalid_request
-        message:
-          type: string
-          example: One or more file paths could not be resolved.
+        files:
+          type: array
+          description: List of file paths to remove from chat context. Omit to drop all files.
+          items:
+            type: string
+            example: src/legacy.py
+          example:
+          - src/legacy.py
   securitySchemes:
     LLMProviderKey:
       type: apiKey
