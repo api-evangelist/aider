@@ -880,6 +880,8 @@ apis:
   humanURL: https://github.com/Aider-AI/aider/blob/main/aider/main.py
   baseURL: https://github.com/Aider-AI/aider
   tags:
+  - IO
+  tags_raw:
   - I/O
   properties:
   - type: OpenAPI
