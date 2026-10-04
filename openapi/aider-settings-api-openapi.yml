@@ -109,33 +109,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ThinkingTokensRequest:
-      type: object
-      required:
-      - tokens
-      properties:
-        tokens:
-          type: string
-          description: Thinking token budget. Accepts integer (e.g. 8096), shorthand (8k, 10.5k, 0.5M).
-          example: 32k
-    CommandResult:
-      type: object
-      properties:
-        ok:
-          type: boolean
-          example: true
-        message:
-          type: string
-          example: Files added to chat.
-    ReasoningEffortRequest:
-      type: object
-      required:
-      - effort
-      properties:
-        effort:
-          type: string
-          description: Reasoning effort level. Accepts low|medium|high or a numeric/string budget.
-          example: high
     TokenUsage:
       type: object
       properties:
@@ -151,6 +124,15 @@ components:
         budget_remaining_tokens:
           type: integer
           example: 171258
+    ThinkingTokensRequest:
+      type: object
+      required:
+      - tokens
+      properties:
+        tokens:
+          type: string
+          description: Thinking token budget. Accepts integer (e.g. 8096), shorthand (8k, 10.5k, 0.5M).
+          example: 32k
     SettingsSnapshot:
       type: object
       properties:
@@ -184,6 +166,24 @@ components:
         stream:
           type: boolean
           example: true
+    ReasoningEffortRequest:
+      type: object
+      required:
+      - effort
+      properties:
+        effort:
+          type: string
+          description: Reasoning effort level. Accepts low|medium|high or a numeric/string budget.
+          example: high
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
   securitySchemes:
     LLMProviderKey:
       type: apiKey

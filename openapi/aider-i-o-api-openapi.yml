@@ -160,60 +160,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    VoiceTranscript:
-      type: object
-      properties:
-        text:
-          type: string
-          description: Transcribed text queued as the next prompt.
-          example: refactor the cache layer to use lru eviction
-        duration_ms:
-          type: integer
-          description: Length of the recorded clip.
-          example: 4200
-    CommandResult:
-      type: object
-      properties:
-        ok:
-          type: boolean
-          example: true
-        message:
-          type: string
-          example: Files added to chat.
-    ShellResult:
-      type: object
-      properties:
-        exit_code:
-          type: integer
-          description: Process exit code.
-          example: 0
-        stdout:
-          type: string
-          example: 12 passed in 1.42s
-        stderr:
-          type: string
-          example: ''
-    WebFetchResult:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          example: https://example.com/docs/getting-started
-        markdown:
-          type: string
-          description: Markdown rendering of the page added to chat context.
-          example: '# Getting Started ...'
-    WebFetchRequest:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          format: uri
-          description: HTTP(S) URL to fetch and convert to markdown.
-          example: https://example.com/docs/getting-started
     ShellRequest:
       type: object
       required:
@@ -228,6 +174,60 @@ components:
           description: Whether the command's stdout/stderr is appended to chat context.
           default: true
           example: true
+    ShellResult:
+      type: object
+      properties:
+        exit_code:
+          type: integer
+          description: Process exit code.
+          example: 0
+        stdout:
+          type: string
+          example: 12 passed in 1.42s
+        stderr:
+          type: string
+          example: ''
+    VoiceTranscript:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Transcribed text queued as the next prompt.
+          example: refactor the cache layer to use lru eviction
+        duration_ms:
+          type: integer
+          description: Length of the recorded clip.
+          example: 4200
+    WebFetchRequest:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+          description: HTTP(S) URL to fetch and convert to markdown.
+          example: https://example.com/docs/getting-started
+    CommandResult:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Files added to chat.
+    WebFetchResult:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          example: https://example.com/docs/getting-started
+        markdown:
+          type: string
+          description: Markdown rendering of the page added to chat context.
+          example: '# Getting Started ...'
   securitySchemes:
     LLMProviderKey:
       type: apiKey

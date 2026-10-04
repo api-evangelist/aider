@@ -112,17 +112,6 @@ components:
           description: Whether the command's stdout/stderr is appended to chat context.
           default: true
           example: true
-    LintRequest:
-      type: object
-      properties:
-        files:
-          type: array
-          description: Files to lint. Omit to lint all dirty files in the repo.
-          items:
-            type: string
-            example: src/main.py
-          example:
-          - src/main.py
     ShellResult:
       type: object
       properties:
@@ -136,6 +125,17 @@ components:
         stderr:
           type: string
           example: ''
+    LintRequest:
+      type: object
+      properties:
+        files:
+          type: array
+          description: Files to lint. Omit to lint all dirty files in the repo.
+          items:
+            type: string
+            example: src/main.py
+          example:
+          - src/main.py
   securitySchemes:
     LLMProviderKey:
       type: apiKey

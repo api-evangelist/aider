@@ -92,6 +92,30 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    DiffResult:
+      type: object
+      properties:
+        unified_diff:
+          type: string
+          description: Unified diff of all files changed since the last user message.
+          example: '--- a/src/main.py
+
+            +++ b/src/main.py
+
+            @@ -1,3 +1,3 @@
+
+            -print(''hi'')
+
+            +print(''hello'')
+
+            '
+        files_changed:
+          type: array
+          items:
+            type: string
+            example: src/main.py
+          example:
+          - src/main.py
     EditRequest:
       type: object
       required:
@@ -142,30 +166,6 @@ components:
           type: integer
           description: Completion tokens received from the LLM.
           example: 1284
-    DiffResult:
-      type: object
-      properties:
-        unified_diff:
-          type: string
-          description: Unified diff of all files changed since the last user message.
-          example: '--- a/src/main.py
-
-            +++ b/src/main.py
-
-            @@ -1,3 +1,3 @@
-
-            -print(''hi'')
-
-            +print(''hello'')
-
-            '
-        files_changed:
-          type: array
-          items:
-            type: string
-            example: src/main.py
-          example:
-          - src/main.py
   securitySchemes:
     LLMProviderKey:
       type: apiKey

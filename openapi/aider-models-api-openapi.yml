@@ -123,6 +123,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ModelSelection:
+      type: object
+      required:
+      - model
+      properties:
+        model:
+          type: string
+          description: LiteLLM-style model identifier or one of aider's built-in aliases.
+          example: anthropic/claude-opus-4
     CommandResult:
       type: object
       properties:
@@ -165,15 +174,6 @@ components:
             supports_edit_format:
             - diff
             - udiff
-    ModelSelection:
-      type: object
-      required:
-      - model
-      properties:
-        model:
-          type: string
-          description: LiteLLM-style model identifier or one of aider's built-in aliases.
-          example: anthropic/claude-opus-4
   securitySchemes:
     LLMProviderKey:
       type: apiKey
