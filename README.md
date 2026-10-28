@@ -1,4 +1,4 @@
-# Aider (aider)
+# Aider
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,148 +66,255 @@
 
 Aider is an open-source, terminal-based AI pair programmer that edits code directly inside a developer's local Git repository. Written in Python and distributed via PyPI under the Apache 2.0 license, Aider is a BYO-LLM tool: the user supplies API keys for hosted models (Anthropic Claude, OpenAI, DeepSeek, Google Gemini, OpenRouter, Mistral, xAI, GROQ, Cohere, GitHub Copilot, Azure OpenAI, Amazon Bedrock, Vertex AI) or points it at local models running through Ollama, LM Studio, or any OpenAI-compatible endpoint. Distinguishing capabilities include a repository-wide codebase map that lets the model reason about files it has not been shown, multi-file architectural edits with diff-based patching, automatic Git commits with conventional commit messages, a lint/test/repair loop, image and URL context, voice-to-code, and an IDE bridge via `--watch-files` that picks up `AI!` / `AI?` comments written from any editor. Aider supports 100+ programming languages via tree-sitter, publishes a public LLM coding leaderboard (the polyglot benchmark across C++, Go, Java, JavaScript, Python, Rust), and has accumulated 45K+ GitHub stars with 4.5K+ forks. The product surface is a rich CLI (40+ in-chat slash commands across four chat modes: code, architect, ask, help) plus a Python module entrypoint (`python -m aider`); there is no hosted SaaS, no Aider-operated REST API, and no app-level rate-limiting or billing — all model inference is delegated to the user's chosen provider, and any pricing, rate limits, and FinOps surface live with that provider.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/aider/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · AI Pair Programming · Developer Tools · CLI · Command Line · Coding Assistant · Code Generation · Open Source · Python · Apache 2.0 · LLM · Git
 
-## Scope
+## Aider on APIs.io
 
-- **Type:** Index
-- **Position:** Provider
-- **Access:** Open Source
+Everything profiled for Aider is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/aider/](https://apis.io/providers/aider/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (15)
 
-- AI
-- AI Pair Programming
-- Developer Tools
-- CLI
-- Command Line
-- Coding Assistant
-- Code Generation
-- Open Source
-- Python
-- Apache 2.0
-- LLM
-- Git
-- BYO LLM
-- Terminal
-- Polyglot
-- Tree Sitter
-- Repository Map
-- Pair Programming
+- [Aider Python Module](https://apis.io/apis/aider/python-module/) — Aider exposes a Python module entrypoint (`python -m aider`) and an importable package (`aider.main.main`) so Aider can be embedded in Python scripts, CI…
+- [Aider Chat API](https://apis.io/apis/aider/aider-chat-api/) — Aider Commands That Manage the Chat Session and History.
+- [Aider Editing API](https://apis.io/apis/aider/aider-editing-api/) — Aider Commands That Drive Code Edits and Diffs.
+- [Aider Files API](https://apis.io/apis/aider/aider-files-api/) — Aider Commands That Manage Files in the Chat Session.
+- [Aider Git API](https://apis.io/apis/aider/aider-git-api/) — Aider Commands That Wrap Git Operations.
+- [Aider Launch API](https://apis.io/apis/aider/aider-launch-api/) — Aider Launch-Time Configuration via Flags, YAML, and Environment Variables.
+- [Aider Map API](https://apis.io/apis/aider/aider-map-api/) — Aider Repository-Map Inspection.
+- [Aider Models API](https://apis.io/apis/aider/aider-models-api/) — Aider Commands That Switch or Query LLM Models.
+- [Aider Modes API](https://apis.io/apis/aider/aider-modes-api/) — Aider Chat Modes (Code, Architect, Ask, Help, Context).
+- [Aider Quality API](https://apis.io/apis/aider/aider-quality-api/) — Aider Commands That Run Linters and Tests.
+- [Aider Session API](https://apis.io/apis/aider/aider-session-api/) — Aider Session Lifecycle Commands.
+- [Aider Settings API](https://apis.io/apis/aider/aider-settings-api/) — Aider Settings, Tokens, and Reasoning Controls.
+- [Aider Voice API](https://apis.io/apis/aider/aider-voice-api/) — Aider Voice-to-Code Input.
+- [Aider Web API](https://apis.io/apis/aider/aider-web-api/) — Aider Commands That Pull in Web Content.
+- [Aider I/O API](https://apis.io/apis/aider/aider-i-o-api/) — Aider Commands That Move Data In and Out of the Session.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-08
-- **Modified:** 2026-05-30
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Aider CLI
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Open-source terminal AI pair programmer distributed as the `aider-chat` PyPI package (entrypoint `aider`). Federates to user-supplied LLM providers (Anthropic, OpenAI, DeepSeek, Google Gemini, OpenRouter, Mistral, xAI, GROQ, Cohere, GitHub Copilot, Azure, Bedrock, Vertex, or any OpenAI-compatible endpoint including local models via Ollama and LM Studio). Provides four chat modes (code, architect, ask, help), 40+ in-chat slash commands, a repository-wide codebase map built with tree-sitter, multi-file diff-based edits in several edit formats (diff, whole, udiff, editor-diff), Git auto-commit with conventional commit messages, lint/test/repair loop, image and URL context, voice-to-code via the `/voice` command, and an IDE bridge via `--watch-files` that picks up `AI!` / `AI?` comments written from any editor. Configuration via command-line flags, environment variables (`AIDER_*`), `.env`, or `.aider.conf.yml`.
+- [Aider Agentic Access](https://apis.io/agentic-access/aider/aider-agentic-access/)
 
-- **Human URL:** [https://aider.chat/](https://aider.chat/)
-- **Base URL:** `https://aider.chat`
+#### JSON Schema (26)
 
-#### Tags
+The data models the API reads and writes.
 
-- CLI
-- Open Source
-- AI Pair Programming
-- BYO LLM
-- Python
-- Tree Sitter
-- Repository Map
+- [AddFilesRequest](https://apis.io/schemas/aider/aider-cli-add-files-request/)
+- [AskRequest](https://apis.io/schemas/aider/aider-cli-ask-request/)
+- [AskResponse](https://apis.io/schemas/aider/aider-cli-ask-response/)
+- [ChatModeRequest](https://apis.io/schemas/aider/aider-cli-chat-mode-request/)
+- [CommitRequest](https://apis.io/schemas/aider/aider-cli-commit-request/)
+- [CommitResult](https://apis.io/schemas/aider/aider-cli-commit-result/)
+- [DiffResult](https://apis.io/schemas/aider/aider-cli-diff-result/)
+- [DropFilesRequest](https://apis.io/schemas/aider/aider-cli-drop-files-request/)
+- [EditRequest](https://apis.io/schemas/aider/aider-cli-edit-request/)
+- [EditResult](https://apis.io/schemas/aider/aider-cli-edit-result/)
+- [FileListing](https://apis.io/schemas/aider/aider-cli-file-listing/)
+- [FilePathRequest](https://apis.io/schemas/aider/aider-cli-file-path-request/)
+- [LaunchConfig](https://apis.io/schemas/aider/aider-cli-launch-config/)
+- [LintRequest](https://apis.io/schemas/aider/aider-cli-lint-request/)
+- [ModelCatalog](https://apis.io/schemas/aider/aider-cli-model-catalog/)
+- [ModelSelection](https://apis.io/schemas/aider/aider-cli-model-selection/)
+- [ReasoningEffortRequest](https://apis.io/schemas/aider/aider-cli-reasoning-effort-request/)
+- [RepositoryMap](https://apis.io/schemas/aider/aider-cli-repository-map/)
+- [SettingsSnapshot](https://apis.io/schemas/aider/aider-cli-settings-snapshot/)
+- [ShellRequest](https://apis.io/schemas/aider/aider-cli-shell-request/)
+- [ShellResult](https://apis.io/schemas/aider/aider-cli-shell-result/)
+- [ThinkingTokensRequest](https://apis.io/schemas/aider/aider-cli-thinking-tokens-request/)
+- [TokenUsage](https://apis.io/schemas/aider/aider-cli-token-usage/)
+- [VoiceTranscript](https://apis.io/schemas/aider/aider-cli-voice-transcript/)
+- [WebFetchRequest](https://apis.io/schemas/aider/aider-cli-web-fetch-request/)
+- …and 1 more published on APIs.io
 
-#### Properties
+#### JSON Structure (26)
 
-- [Documentation](https://aider.chat/docs/)
-- [Git Hub](https://github.com/Aider-AI/aider)
-- [Py P I](https://pypi.org/project/aider-chat/)
-- [Installation](https://aider.chat/docs/install.html)
-- [Usage Guide](https://aider.chat/docs/usage.html)
-- [Commands](https://aider.chat/docs/usage/commands.html)
-- [Chat Modes](https://aider.chat/docs/usage/modes.html)
-- [Configuration](https://aider.chat/docs/config.html)
-- [Config Options](https://aider.chat/docs/config/options.html)
-- [Config Y A M L](https://aider.chat/docs/config/aider_conf.html)
-- [Config Env](https://aider.chat/docs/config/dotenv.html)
-- [A P I Keys](https://aider.chat/docs/config/api-keys.html)
-- [Supported Models](https://aider.chat/docs/llms.html)
-- [Model Warnings](https://aider.chat/docs/llms/warnings.html)
-- [Edit Formats](https://aider.chat/docs/more/edit-formats.html)
-- [Leaderboard](https://aider.chat/docs/leaderboards/)
-- [Changelog](https://aider.chat/HISTORY.html)
-- [License](https://github.com/Aider-AI/aider/blob/main/LICENSE.txt)
-- [Source Code](https://github.com/Aider-AI/aider)
-- [Issue Tracker](https://github.com/Aider-AI/aider/issues)
-- [Tutorials](https://aider.chat/docs/usage/tutorials.html)
-- [Watch Files Guide](https://aider.chat/docs/usage/watch.html)
-- [Voice Guide](https://aider.chat/docs/usage/voice.html)
-- [Conventions Guide](https://aider.chat/docs/usage/conventions.html)
-- [OpenAPI](openapi/aider-cli-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/aider-cli.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/aider-cli.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Data models expressed in JSON Structure.
 
-### Aider Python Module
+- [Aider Cli Add Files Request Structure](https://apis.io/json-structure/aider/aider-cli-add-files-request-structure/)
+- [Aider Cli Ask Request Structure](https://apis.io/json-structure/aider/aider-cli-ask-request-structure/)
+- [Aider Cli Ask Response Structure](https://apis.io/json-structure/aider/aider-cli-ask-response-structure/)
+- [Aider Cli Chat Mode Request Structure](https://apis.io/json-structure/aider/aider-cli-chat-mode-request-structure/)
+- [Aider Cli Commit Request Structure](https://apis.io/json-structure/aider/aider-cli-commit-request-structure/)
+- [Aider Cli Commit Result Structure](https://apis.io/json-structure/aider/aider-cli-commit-result-structure/)
+- [Aider Cli Diff Result Structure](https://apis.io/json-structure/aider/aider-cli-diff-result-structure/)
+- [Aider Cli Drop Files Request Structure](https://apis.io/json-structure/aider/aider-cli-drop-files-request-structure/)
+- [Aider Cli Edit Request Structure](https://apis.io/json-structure/aider/aider-cli-edit-request-structure/)
+- [Aider Cli Edit Result Structure](https://apis.io/json-structure/aider/aider-cli-edit-result-structure/)
+- [Aider Cli File Listing Structure](https://apis.io/json-structure/aider/aider-cli-file-listing-structure/)
+- [Aider Cli File Path Request Structure](https://apis.io/json-structure/aider/aider-cli-file-path-request-structure/)
+- [Aider Cli Launch Config Structure](https://apis.io/json-structure/aider/aider-cli-launch-config-structure/)
+- [Aider Cli Lint Request Structure](https://apis.io/json-structure/aider/aider-cli-lint-request-structure/)
+- [Aider Cli Model Catalog Structure](https://apis.io/json-structure/aider/aider-cli-model-catalog-structure/)
+- [Aider Cli Model Selection Structure](https://apis.io/json-structure/aider/aider-cli-model-selection-structure/)
+- [Aider Cli Reasoning Effort Request Structure](https://apis.io/json-structure/aider/aider-cli-reasoning-effort-request-structure/)
+- [Aider Cli Repository Map Structure](https://apis.io/json-structure/aider/aider-cli-repository-map-structure/)
+- [Aider Cli Settings Snapshot Structure](https://apis.io/json-structure/aider/aider-cli-settings-snapshot-structure/)
+- [Aider Cli Shell Request Structure](https://apis.io/json-structure/aider/aider-cli-shell-request-structure/)
+- [Aider Cli Shell Result Structure](https://apis.io/json-structure/aider/aider-cli-shell-result-structure/)
+- [Aider Cli Thinking Tokens Request Structure](https://apis.io/json-structure/aider/aider-cli-thinking-tokens-request-structure/)
+- [Aider Cli Token Usage Structure](https://apis.io/json-structure/aider/aider-cli-token-usage-structure/)
+- [Aider Cli Voice Transcript Structure](https://apis.io/json-structure/aider/aider-cli-voice-transcript-structure/)
+- [Aider Cli Web Fetch Request Structure](https://apis.io/json-structure/aider/aider-cli-web-fetch-request-structure/)
+- …and 1 more published on APIs.io
 
-Aider exposes a Python module entrypoint (`python -m aider`) and an importable package (`aider.main.main`) so Aider can be embedded in Python scripts, CI workflows, and other agents. The same flags and configuration that drive the CLI apply to module invocation. There is no documented stable Python SDK contract beyond `main()` — the internal `Coder`, `Model`, `IO`, and `Commands` classes are public but versioned with the CLI and may change between releases.
+#### JSON-LD (1)
 
-- **Human URL:** [https://github.com/Aider-AI/aider/blob/main/aider/main.py](https://github.com/Aider-AI/aider/blob/main/aider/main.py)
-- **Base URL:** `https://github.com/Aider-AI/aider`
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags
+- [Aider Cli Context](https://apis.io/jsonld/aider/aider-cli-context/)
 
-- Python
-- Library
-- Embedding
-- Open Source
+#### Vocabulary (1)
 
-#### Properties
+The provider's domain terms, defined.
 
-- [Source Code](https://github.com/Aider-AI/aider/blob/main/aider/main.py)
-- [Py P I](https://pypi.org/project/aider-chat/)
-- [Documentation](https://aider.chat/docs/scripting.html)
-- [Scripting](https://aider.chat/docs/scripting.html)
-- [Postman Collection](collections/aider-cli.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/aider-cli.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Aider Vocabulary](https://apis.io/vocabularies/aider/aider-vocabulary/)
 
-## Common Properties
+#### Examples (26)
+
+Example requests and responses.
+
+- [Aider Cli Add Files Request Example](https://apis.io/examples/aider/aider-cli-add-files-request-example/)
+- [Aider Cli Ask Request Example](https://apis.io/examples/aider/aider-cli-ask-request-example/)
+- [Aider Cli Ask Response Example](https://apis.io/examples/aider/aider-cli-ask-response-example/)
+- [Aider Cli Chat Mode Request Example](https://apis.io/examples/aider/aider-cli-chat-mode-request-example/)
+- [Aider Cli Commit Request Example](https://apis.io/examples/aider/aider-cli-commit-request-example/)
+- [Aider Cli Commit Result Example](https://apis.io/examples/aider/aider-cli-commit-result-example/)
+- [Aider Cli Diff Result Example](https://apis.io/examples/aider/aider-cli-diff-result-example/)
+- [Aider Cli Drop Files Request Example](https://apis.io/examples/aider/aider-cli-drop-files-request-example/)
+- [Aider Cli Edit Request Example](https://apis.io/examples/aider/aider-cli-edit-request-example/)
+- [Aider Cli Edit Result Example](https://apis.io/examples/aider/aider-cli-edit-result-example/)
+- [Aider Cli File Listing Example](https://apis.io/examples/aider/aider-cli-file-listing-example/)
+- [Aider Cli File Path Request Example](https://apis.io/examples/aider/aider-cli-file-path-request-example/)
+- [Aider Cli Launch Config Example](https://apis.io/examples/aider/aider-cli-launch-config-example/)
+- [Aider Cli Lint Request Example](https://apis.io/examples/aider/aider-cli-lint-request-example/)
+- [Aider Cli Model Catalog Example](https://apis.io/examples/aider/aider-cli-model-catalog-example/)
+- [Aider Cli Model Selection Example](https://apis.io/examples/aider/aider-cli-model-selection-example/)
+- [Aider Cli Reasoning Effort Request Example](https://apis.io/examples/aider/aider-cli-reasoning-effort-request-example/)
+- [Aider Cli Repository Map Example](https://apis.io/examples/aider/aider-cli-repository-map-example/)
+- [Aider Cli Settings Snapshot Example](https://apis.io/examples/aider/aider-cli-settings-snapshot-example/)
+- [Aider Cli Shell Request Example](https://apis.io/examples/aider/aider-cli-shell-request-example/)
+- [Aider Cli Shell Result Example](https://apis.io/examples/aider/aider-cli-shell-result-example/)
+- [Aider Cli Thinking Tokens Request Example](https://apis.io/examples/aider/aider-cli-thinking-tokens-request-example/)
+- [Aider Cli Token Usage Example](https://apis.io/examples/aider/aider-cli-token-usage-example/)
+- [Aider Cli Voice Transcript Example](https://apis.io/examples/aider/aider-cli-voice-transcript-example/)
+- [Aider Cli Web Fetch Request Example](https://apis.io/examples/aider/aider-cli-web-fetch-request-example/)
+- …and 1 more published on APIs.io
+
+#### Collections (15)
+
+Postman and Open Collection request collections.
+
+- [Aider CLI Chat API](https://apis.io/collections/aider/open-aider-chat-api/)
+- [Aider CLI](https://apis.io/collections/aider/open-aider-cli/)
+- [Aider CLI Chat Editing API](https://apis.io/collections/aider/open-aider-editing-api/)
+- [Aider CLI Chat Files API](https://apis.io/collections/aider/open-aider-files-api/)
+- [Aider CLI Chat Git API](https://apis.io/collections/aider/open-aider-git-api/)
+- [Aider CLI Chat IO API](https://apis.io/collections/aider/open-aider-io-api/)
+- [Aider CLI Chat Launch API](https://apis.io/collections/aider/open-aider-launch-api/)
+- [Aider CLI Chat Map API](https://apis.io/collections/aider/open-aider-map-api/)
+- [Aider CLI Chat Models API](https://apis.io/collections/aider/open-aider-models-api/)
+- [Aider CLI Chat Modes API](https://apis.io/collections/aider/open-aider-modes-api/)
+- [Aider CLI Chat Quality API](https://apis.io/collections/aider/open-aider-quality-api/)
+- [Aider CLI Chat Session API](https://apis.io/collections/aider/open-aider-session-api/)
+- [Aider CLI Chat Settings API](https://apis.io/collections/aider/open-aider-settings-api/)
+- [Aider CLI Chat Voice API](https://apis.io/collections/aider/open-aider-voice-api/)
+- [Aider CLI Chat Web API](https://apis.io/collections/aider/open-aider-web-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Aider — jsonschema rules](https://apis.io/rules/aider/aider-jsonschema-spectral-rules/)
+- [Aider API Rules](https://apis.io/rules/aider/aider-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Aider Authentication](https://apis.io/security/aider/aider-authentication/)
+- [Aider Domain Security](https://apis.io/security/aider/aider-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Aider Plans Pricing](https://apis.io/plans/aider/aider-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Aider Rate Limits](https://apis.io/rate-limits/aider/aider-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Aider Finops](https://apis.io/finops/aider/aider-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://aider.chat/)
 - [Documentation](https://aider.chat/docs/)
-- [Git Hub](https://github.com/Aider-AI/aider)
-- [Git Hub Org](https://github.com/Aider-AI)
-- [Issues](https://github.com/Aider-AI/aider/issues)
-- [Discussions](https://github.com/Aider-AI/aider/discussions)
-- [Py P I](https://pypi.org/project/aider-chat/)
-- [Installation](https://aider.chat/docs/install.html)
-- [Usage Guide](https://aider.chat/docs/usage.html)
-- [Configuration](https://aider.chat/docs/config.html)
-- [Supported Models](https://aider.chat/docs/llms.html)
-- [Leaderboard](https://aider.chat/docs/leaderboards/)
-- [Blog](https://aider.chat/blog/)
 - [Changelog](https://aider.chat/HISTORY.html)
-- [License](https://github.com/Aider-AI/aider/blob/main/LICENSE.txt)
-- [Discord](https://discord.gg/Tv2uQnR88V)
-- [Twitter](https://twitter.com/paulgauthier)
-- [Conventions](https://github.com/Aider-AI/conventions)
-- [Benchmarks](https://github.com/Aider-AI/polyglot-benchmark)
-- [Tools](https://github.com/Aider-AI/aider-install)
-- [Tools](https://github.com/Aider-AI/grep-ast)
-- [Tools](https://github.com/Aider-AI/polyglot-benchmark)
-- [Tools](https://github.com/Aider-AI/refactor-benchmark)
-- [Tools](https://github.com/Aider-AI/aider-swe-bench)
-- [Tools](https://github.com/disler/aider-mcp-server)
-- [Tools](https://github.com/sengokudaikon/aider-mcp-server)
-- [Tools](https://github.com/lutzleonhardt/mcpm-aider)
-- [Integrations](https://github.com/joshuavial/aider.nvim)
-- [Rules](rules/aider-rules.yml)
-- [Vocabulary](vocabulary/aider-vocabulary.yml)
-- [Rate Limits](rate-limits/aider-rate-limits.yml)
-- [JSON-LD](json-ld/aider-cli-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Blog](https://aider.chat/blog/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 26.0** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 62.5 |
+| Contract quality | 20.4 |
+| Contract governance | 27.3 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 0.0 |
+
+**Agent readiness 22.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 15.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/aider/](https://apis.io/providers/aider/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Aider: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/aider/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
