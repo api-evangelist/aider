@@ -66,7 +66,7 @@
 
 Aider is an open-source, terminal-based AI pair programmer that edits code directly inside a developer's local Git repository. Written in Python and distributed via PyPI under the Apache 2.0 license, Aider is a BYO-LLM tool: the user supplies API keys for hosted models (Anthropic Claude, OpenAI, DeepSeek, Google Gemini, OpenRouter, Mistral, xAI, GROQ, Cohere, GitHub Copilot, Azure OpenAI, Amazon Bedrock, Vertex AI) or points it at local models running through Ollama, LM Studio, or any OpenAI-compatible endpoint. Distinguishing capabilities include a repository-wide codebase map that lets the model reason about files it has not been shown, multi-file architectural edits with diff-based patching, automatic Git commits with conventional commit messages, a lint/test/repair loop, image and URL context, voice-to-code, and an IDE bridge via `--watch-files` that picks up `AI!` / `AI?` comments written from any editor. Aider supports 100+ programming languages via tree-sitter, publishes a public LLM coding leaderboard (the polyglot benchmark across C++, Go, Java, JavaScript, Python, Rust), and has accumulated 45K+ GitHub stars with 4.5K+ forks. The product surface is a rich CLI (40+ in-chat slash commands across four chat modes: code, architect, ask, help) plus a Python module entrypoint (`python -m aider`); there is no hosted SaaS, no Aider-operated REST API, and no app-level rate-limiting or billing — all model inference is delegated to the user's chosen provider, and any pricing, rate limits, and FinOps surface live with that provider.
 
-**Areas:** Artificial Intelligence · AI Pair Programming · Developer Tools · CLI · Command Line · Coding Assistant · Code Generation · Open Source · Python · Apache 2.0 · LLM · Git
+**Areas:** Artificial Intelligence · AI Pair Programming · Developer Tools · CLI · Command Line · Coding Assistant · Code Generation · Open Source · Python · Apache 2.0 · LLM · Version Control
 
 ## Aider on APIs.io
 
@@ -243,7 +243,7 @@ Authentication, trust centre, and vulnerability disclosure.
 
 Published plans, tiers and prices.
 
-- [Aider Plans Pricing](https://apis.io/plans/aider/aider-plans-pricing/)
+- [Moved to /providers/aider/](https://apis.io/plans/aider/aider-plans-pricing/)
 
 #### Rate limits (1)
 
@@ -255,7 +255,7 @@ Published request limits.
 
 What the API costs to run, by operation.
 
-- [Aider Finops](https://apis.io/finops/aider/aider-finops/)
+- [Moved to /providers/aider/](https://apis.io/finops/aider/aider-finops/)
 
 ## Where to find this API
 
@@ -268,18 +268,18 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 ## API Evangelist rating
 
-**Kin Score 26.0** — emerging · rubric 0.24.0 · scored 2026-10-17
+**Kin Score 26.1** — emerging · rubric 0.28.1 · scored 2026-11-21
 
 | Facet | Score |
 |---|---|
 | Discoverability | 62.5 |
 | Contract quality | 20.4 |
 | Contract governance | 27.3 |
-| Operational transparency | 28.9 |
+| Operational transparency | 26.2 |
 | Developer ergonomics | 28.6 |
-| Access clarity | 0.0 |
+| Access clarity | 6.4 |
 
-**Agent readiness 22.1** — agent-aware
+**Agent readiness 23.3** — agent-aware
 
 | Agent-readiness dimension | Result |
 |---|---|
@@ -302,8 +302,14 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Protected Resource Metadata | — |
 | Dynamic Client Registration | — |
 | Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+| MCP Tool Quality | na |
+| Onboarding Descriptor | — |
+| Dns Aid Index | na |
+| Markdown Negotiation | na |
 
-**Regulatory alignment 15.5** — Horizontal (data, software, accessibility, platform)
+**Regulatory alignment 10.0** — Horizontal (data, software, accessibility, platform)
 
 The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/aider/](https://apis.io/providers/aider/).
 
